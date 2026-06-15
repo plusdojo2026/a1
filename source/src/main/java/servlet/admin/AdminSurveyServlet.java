@@ -1,4 +1,4 @@
-package servlet.login;
+package servlet.admin;
 
 import java.io.IOException;
 
@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class PasswordResetServlet
+ * Servlet implementation class AdminSurveyServlet
  */
-@WebServlet("/login/password-reset")
-public class PasswordResetServlet extends HttpServlet {
+@WebServlet("/admin/survey")
+public class AdminSurveyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
