@@ -10,13 +10,14 @@
 </head>
 <body>
 	<h1>スタンプ登録</h1>
-	<c:foreach var = "stamp" items = "${ サーブレットで設定した名前}">
-		<div name=stamp>
+	<c:forEach var = "stamp" items = "${stampList}">
+		<div>
+			<input type="hidden" name="number" value="${stamp.stampId}">
 			<div>
 				<img src="${stamp.stampPath}">
 			</div>
 		</div>
-	</c:foreach>
+	</c:forEach>
 	
 	<form action="<c:url value='/FileUploadSampleServlet' />" method="post" enctype="multipart/form-data">
 		画像:<input type="file" name="IMAGE" accept="image/*" onchange="previewImage(this);"><br>
