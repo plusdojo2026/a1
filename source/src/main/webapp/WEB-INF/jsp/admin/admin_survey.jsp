@@ -12,7 +12,7 @@
 </head>
 <body>
 <header>
-<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
+<%@ include file="/WEB-INF/jsp/common/admin_header.jsp" %>
 </header>
 <main>
 <c:forEach var="survey" items="${survey_list}">
