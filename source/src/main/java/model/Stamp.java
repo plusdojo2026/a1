@@ -3,19 +3,31 @@ package model;
 import java.io.Serializable;
 
 public class Stamp implements Serializable {
-	private String stamp;//スタンプ
-
-	public Stamp(String stamp) {
+	private String stampPath;//スタンプ
+	private int stampId;
+	
+	
+	public Stamp(String stampPath, int stampId) {
 		super();
-		this.stamp = stamp;
+		this.stampPath = stampPath;
+		this.stampId = stampId;
 	}
 
 	//ゲッタとセッタ
-	public String getStamp() {
-		return stamp;
+	public String getStampPath() {
+		return stampPath;
 	}
 
-	public void setStamp(String stamp) {
-		this.stamp = stamp;
+	public void setStampPath(String stampPath) {
+		this.stampPath = stampPath;
 	}
+
+	public int getStampId() {
+		return stampId;
+	}
+
+	public void setStampId(int stampId) {
+		this.stampId = stampId;
+	}
+
 }
