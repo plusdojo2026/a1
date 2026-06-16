@@ -1,20 +1,20 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Survey implements Serializable {
 	private int surveyId;
 	private String subject;
 	private String text;
-	private Date filledDate;
+	private LocalDate filledDate;
 	
 	// コンストラクタ
 	public Survey() {
 		
 	};
 	
-	public Survey(int surveyId, String subject, String text, Date filledDate) {
+	public Survey(int surveyId, String subject, String text, LocalDate filledDate) {
 		this.surveyId = surveyId;
 		this.subject = subject;
 		this.text = text;
@@ -46,11 +46,11 @@ public class Survey implements Serializable {
 		this.text = text;
 	}
 
-	public Date getFilledDate() {
+	public LocalDate getFilledDate() {
 		return filledDate;
 	}
 
-	public void setFilledDate(Date filledDate) {
+	public void setFilledDate(LocalDate filledDate) {
 		this.filledDate = filledDate;
 	}
 	
