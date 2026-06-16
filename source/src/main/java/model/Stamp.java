@@ -7,10 +7,10 @@ public class Stamp implements Serializable {
 	private int stampId;
 	
 	
-	public Stamp(String stampPath, int stampId) {
+	public Stamp(int stampId, String stampPath) {
 		super();
-		this.stampPath = stampPath;
 		this.stampId = stampId;
+		this.stampPath = stampPath;
 	}
 
 	//ゲッタとセッタ
