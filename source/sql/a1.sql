@@ -11,7 +11,7 @@ CREATE TABLE users(user_id INT AUTO_INCREMENT PRIMARY KEY,
 			 	   );
 			 	  
 CREATE TABLE diaries(diary_id INT AUTO_INCREMENT PRIMARY KEY,
-					 user_id INT  REFERENCES users(user_id),
+					 user_id INT REFERENCES users(user_id),
 					 date DATE,
 					 weather_code INT,
 			 	     temp_min FLOAT,
@@ -25,7 +25,7 @@ CREATE TABLE diaries(diary_id INT AUTO_INCREMENT PRIMARY KEY,
 			 	     );
 			 	   
 CREATE TABLE schedules(schedule_id INT AUTO_INCREMENT PRIMARY KEY, 
-			 	   	   user_id INT UNIQUE REFERENCES users(user_id),
+			 	   	   user_id INT REFERENCES users(user_id),
 			 	   	   date DATE NOT NULL,
 			 	  	   schedule VARCHAR (40) NOT NULL,
 			 	   	   color_id INT DEFAULT 1 REFERENCES colors(color_id)
@@ -34,7 +34,7 @@ CREATE TABLE schedules(schedule_id INT AUTO_INCREMENT PRIMARY KEY,
 CREATE TABLE surveys(survey_id INT AUTO_INCREMENT PRIMARY KEY, 
 			 	     subject VARCHAR (50) NOT NULL,
 			 	     text VARCHAR (400) NOT NULL,
-			 	     filled_date DATE DEFAULT (CURRENT_DATE)
+			 	     filled_date DATE DEFAULT CURRENT_DATE
 			 	     );
 			 	   
 CREATE TABLE advices(advice_id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -46,7 +46,7 @@ CREATE TABLE news(news_id INT AUTO_INCREMENT PRIMARY KEY,
 			 	  subject VARCHAR (30) NOT NULL,
 			 	  text VARCHAR (400) NOT NULL,
 			 	  is_display INT DEFAULT 0,
-			 	  submitted_at DATE DEFAULT (CURRENT_DATE)
+			 	  submitted_at DATE DEFAULT CURRENT_DATE
 			 	  );
 			 	   
 CREATE TABLE users_inf(user_info_id INT AUTO_INCREMENT PRIMARY KEY, 
