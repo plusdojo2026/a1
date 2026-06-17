@@ -83,8 +83,10 @@ public class AdminStampServlet extends HttpServlet {
         StampsDAO sDao = new StampsDAO();
 		if(sDao.insert(new Stamp(0, fileName))) {
 			 // 結果画面へ
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_stamp.jsp");
-	        dispatcher.forward(request, response);
+//	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_stamp.jsp");
+//	        dispatcher.forward(request, response);
+			response.sendRedirect("/a1/admin/stamp");
+			return;
 		}
 
 
