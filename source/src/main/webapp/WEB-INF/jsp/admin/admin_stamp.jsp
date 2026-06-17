@@ -19,7 +19,7 @@
 		</div>
 	</c:forEach>
 	
-	<form action="<c:url value='/FileUploadSampleServlet' />" method="post" enctype="multipart/form-data">
+	<form action="<c:url value='/admin/stamp' />" method="post" enctype="multipart/form-data">
 		画像:<input type="file" name="IMAGE" accept="image/*" onchange="previewImage(this);"><br>
 		<canvas id="preview" style="max-width:200px;"></canvas><br>
 		<input type="submit" value="送信">
@@ -50,5 +50,6 @@
 		fileReader.readAsDataURL(obj.files[0]);
 		console.log(fileReader.result) // ← (確認用)null
 	}
+	console.log('${stampList}');
 </script>
 </html>
