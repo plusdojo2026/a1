@@ -43,8 +43,8 @@ public class DiariesDAO {
 				// executeQueryでSQL文を実行して、検索結果をrsに格納する
 				ResultSet rs = pStmt.executeQuery();
 				
-				// スタンプID保存用の変数
-				int stampId;
+				// スタンプID保存用の変数、使わない０で初期化
+				int stampId = 0;
 				
 				// 検索結果からスタンプIDを受け取る
 				while (rs.next()) {
@@ -54,17 +54,22 @@ public class DiariesDAO {
 				//テーマのSQL文
 				sql = "SELECT theme_id FROM themes WHERE theme = ?";
 				/* PreparedStatement */ pStmt = conn.prepareStatement(sql);
+				
 				pStmt.setString(1,dry.getTheme());
 				
 				
 				//SQLへ
 				ResultSet rs2 = pStmt.executeQuery();
+				int themeId = 0;
 				
 				while (rs2.next()) {
-					Diary d = new なんとか(rs.getString("theme_id"));
-					dryList.add(d);
+					themeId = rs.getInt("theme_id");
 				}
 				
+				//↓例外処理
+				if(stampId == 0 || themeId == 0) {
+					throw new Exception();
+				}
 				
 				//最終形態のSQL文
 				sql = "INSERT INTO diaries"
@@ -85,14 +90,14 @@ public class DiariesDAO {
 						pStmt.setInt(4,dry.getWeatherCode());
 						pStmt.setFloat(5,dry.getTempMin());
 						pStmt.setFloat(6,dry.getTempMax());
-						pStmt.setString(7,dry.getTheme());
+						pStmt.setInt(7,themeId);
 						pStmt.setInt(8, stampId);
 						pStmt.setString(9,dry.getDiary());
 						pStmt.setInt(10,dry.getSatisfaction());
 						pStmt.setString(7,dry.getImage());
 						
 						//検索結果取得、db専用 sqlへ
-						ResultSet rs = pStmt.executeQuery();
+						rs = pStmt.executeQuery();
 												
 						// 検索結果をコレクションに格納する　Beans
 						while (rs.next()) {//rsに何かが入ってるのが分かったら次にいける　true or faulse
