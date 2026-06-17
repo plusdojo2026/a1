@@ -12,6 +12,11 @@ import model.Schedule;
 
 public class SchedulesDAO {
 	
+//	public java.sql.Date convertToSqlDate(LocalDate localDate){
+//		return java.sql.Date.valueOf(localDate);
+//	}
+
+	
 	//予定の一覧表示メソッド
 	public List<String> scList(Schedule sche){
 		Connection conn = null;
@@ -28,11 +33,11 @@ public class SchedulesDAO {
 					"root", "password");
 			
 			//SQL文作成 ユーザーIDと日付を基に予定を検索する
-			String sql = "SELECT schedule FROM schedules WHERE use_id = ? AND date = ? ORDER BY schedule_id";
+			String sql = "SELECT schedule FROM schedules WHERE user_id = ? AND date = ? ORDER BY schedule_id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
-			//java.util.Date→java.sql.Dateへの変換
-			java.sql.Date sqlDate = new java.sql.Date(sche.getDate().getTime());
+			//LocalDate→sqlDateの変換
+			java.sql.Date sqlDate = java.sql.Date.valueOf(sche.getDate());
 			
 			pStmt.setInt(1, sche.getUserId());
 			pStmt.setDate(2, sqlDate);
@@ -41,7 +46,7 @@ public class SchedulesDAO {
 			ResultSet rs = pStmt.executeQuery();
 			
 			//確認用
-			System.out.println("SQL文:" + pStmt);
+//			System.out.println("SQL文:" + pStmt);
 			
 			//検索結果を格納
 			while (rs.next()) {
@@ -50,7 +55,7 @@ public class SchedulesDAO {
 			}
 			
 			//確認用
-			System.out.println("検索結果:" + resultSche);
+//			System.out.println("検索結果:" + resultSche);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

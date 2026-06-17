@@ -15,8 +15,8 @@
     <div>
         <h3>[日付]の予定</h3>
         <button>追加</button><br>
-    <c:forEach var="" items="${}">
-        ${予定}
+    <c:forEach var="item" items="${scheList}">
+        <c:out value="${item}" />
         <button>編集</button>
         <button>削除</button><br>
     </c:forEach>
