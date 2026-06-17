@@ -26,18 +26,20 @@
 			<div>
 				テーマ
 				<select name="theme">
-				<c:foreach var="tm" items="${ <%-- サーブレットで付けた名前が入る --%>}">
-					<option value="${tm.themeId}">${tm.theme}</option><!-- 選ばれたvalueの中身が(番号付けて)情報として送られる -->
-				</c:foreach>
+					<c:forEach var="tm" items="${themeList}"><%-- サーブレットで付けた名前が入る --%>
+						<option value="${tm.theme_id}">${tm.theme}</option><!-- 選ばれたvalueの中身が(番号付けて)情報として送られる -->
+					</c:forEach>
 				</select>
 			</div>
 			<div>
 				スタンプ
-				<div name="stamp">
-					<input type="hidden" name="stamp_id" value="${diary.stampId}"><!-- 送る用のスタンプID -->
-					<div>
-						<img src="${stamp_map[diary.stampId]}" alt="">
-					</div>
+				<div class="stamp">
+					<c:forEach var="sl" items="${stampList}">
+						<input type="hidden" name="stamp_id" value="${sl.stamp_id}"><!-- 送る用のスタンプID -->
+						<div>
+							<img src="${sl.stamp_path}" alt="">
+						</div>
+					</c:forEach>
 				</div>
 				
 			</div>
