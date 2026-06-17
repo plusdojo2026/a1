@@ -1,21 +1,21 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Schedule implements Serializable {
 	private int scheduleId;
 	private int userId;
-	private Date date;
+	private LocalDate date;
 	private String schedule;
-	private String colorId;
+	private String colorName;
 	
-	public Schedule(int scheduleId, int userId, Date date, String schedule, String colorId) {
+	public Schedule(int scheduleId, int userId, LocalDate date, String schedule, String colorName) {
 		this.scheduleId = scheduleId;
 		this.userId = userId;
 		this.date = date;
 		this.schedule = schedule;
-		this.colorId = colorId;
+		this.colorName = colorName;
 	}
 
 	public int getScheduleId() {
@@ -31,10 +31,10 @@ public class Schedule implements Serializable {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	public String getSchedule() {
@@ -43,11 +43,11 @@ public class Schedule implements Serializable {
 	public void setSchedule(String schedule) {
 		this.schedule = schedule;
 	}
-	public String getColorId() {
-		return colorId;
+	public String getColorName() {
+		return colorName;
 	}
-	public void setColorId(String colorId) {
-		this.colorId = colorId;
+	public void setColorId(String colorName) {
+		this.colorName = colorName;
 	}
 	
 	
