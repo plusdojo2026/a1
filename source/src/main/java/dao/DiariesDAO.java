@@ -32,23 +32,24 @@ public class DiariesDAO {
 						+ "//localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
 						"root", "password");
 				
-				
-				
+				// 日記テーブルではスタンプIDを保存する必要があるため、
+				// スタンプのパスをスタンプIDに変換する
 				//スタンプのSQL文
 				String sql = "SELECT stamp_id FROM stamps WHERE stamp_path =?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
-				
 				pStmt.setString(1,dry.getStamp());
 				
-				//SQLへ
+				// executeQueryでSQL文を実行して、検索結果をrsに格納する
 				ResultSet rs = pStmt.executeQuery();
 				
-				while (rs.next()) {
-					Diary d = new なんとか(rs.getString("stamp_id"));
-					dryList.add(d);
-				}
+				// スタンプID保存用の変数
+				int stampId;
 				
+				// 検索結果からスタンプIDを受け取る
+				while (rs.next()) {
+					stampId = rs.getInt("stamp_id");
+				}
 				
 				//テーマのSQL文
 				sql = "SELECT theme_id FROM themes WHERE theme = ?";
@@ -75,7 +76,7 @@ public class DiariesDAO {
 				java.sql.Date sqlDate = new java.sql.Date(dry.getDate().getTime());
 				
 						//↓どこに繋ぐか
-						 pStmt = conn.prepareStatement(sql);
+						pStmt = conn.prepareStatement(sql);
 						
 						//↓全部入ってる　？を設定するための文、何を検索するのか
 						pStmt.setInt(1,dry.getDiaryId());//？の左から１つめ
@@ -85,7 +86,7 @@ public class DiariesDAO {
 						pStmt.setFloat(5,dry.getTempMin());
 						pStmt.setFloat(6,dry.getTempMax());
 						pStmt.setString(7,dry.getTheme());
-						pStmt.setString(8,dry.getStamp());
+						pStmt.setInt(8, stampId);
 						pStmt.setString(9,dry.getDiary());
 						pStmt.setInt(10,dry.getSatisfaction());
 						pStmt.setString(7,dry.getImage());
