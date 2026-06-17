@@ -5,12 +5,16 @@
 let modal = document.querySelector('.modal-bg');
 
 //#modalOpenをクリックしたとき
-document.querySelector('#modalOpen').addEventListener('click',function(){
+let openBtn = document.querySelectorAll('.modalOpen');
+openBtn.forEach(function(btn){
 
+	//modalOpenクラスが付いた要素をクリックしたら
+	btn.onclick = function() {
+		
         //.modal-bgにactiveクラスを追加
         modal.classList.add("active");
     }
-);
+});
 
 
 //モーダルクローズ
