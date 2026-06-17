@@ -48,7 +48,7 @@ public class AdminStampServlet extends HttpServlet {
 		request.setAttribute("stampList", stampList);
 		//JSPのforeachのところと合わせる
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_stamp.jsp");
-		dispatcher.forward(request, response);
+        dispatcher.forward(request, response);
 
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -81,7 +81,7 @@ public class AdminStampServlet extends HttpServlet {
         
         //データベースに保存
         StampsDAO sDao = new StampsDAO();
-		if(sDao.insert(new Stamp(0,uploadDir + File.separator + fileName))) {
+		if(sDao.insert(new Stamp(0, fileName))) {
 			 // 結果画面へ
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_stamp.jsp");
 	        dispatcher.forward(request, response);
