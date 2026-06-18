@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>管理者｜スタンプ登録</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/admin_survey.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/admin_stamp.css">
 </head>
 <body>
 	<h1>スタンプ登録</h1>
