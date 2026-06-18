@@ -13,6 +13,7 @@ public class UsersDAO {
 	public User isLoginOK(User us) {
 			Connection conn = null;
 			User user = null;
+			
 			try {
 				// JDBCドライバを読み込む
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -52,5 +53,69 @@ public class UsersDAO {
 			
 			return user;
 			
+	}
+		
+	public boolean insert(User us) {
+		Connection conn = null;
+		boolean result = false;
+	
+		try {
+			
+			// JDBCドライバを読み込む
+			//船乗り運転手を持ってくる
+			Class.forName("com.mysql.cj.jdbc.Driver");//接続するための道具
+			
+			// データベースに接続する　
+			//地図を完成させ、通行所を同封させる
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
+					+ "useUnicode=true&characterEncoding=UTF-8"
+					+ "&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			//sql文を準備する
+			String sql = "INSERT INTO member VALUES (0, ?, ?, ?)";
+			//船を用意し、必要なものを持っていく。
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			
+		
+		if (us.getMail() != null) {
+			pStmt.setString(1, us.getMail());
+		} else {
+			pStmt.setString(1, "");
+		}
+		if (us.getName() != null) {
+			pStmt.setString(2, us.getName());
+		} else {
+			pStmt.setString(2, "");
+		}
+		if (us.getPass() != null) {
+			pStmt.setString(3, us.getPass());
+		} else {
+			pStmt.setString(3, "");
+		}
+		
+		
+		// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
 	}
 }
