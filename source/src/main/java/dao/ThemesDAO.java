@@ -92,14 +92,14 @@ public class ThemesDAO {
 			} else {
 				pStmt.setString(1, "");
 			}
-			
+			pStmt.setInt(2,theme.getThemeId ());
 			if (theme.getStampId() != 0) {
-				pStmt.setInt(2,theme.getStampId ());
+				pStmt.setInt(3,theme.getStampId ());
 			} else {
-				pStmt.setString(2, "");
+				pStmt.setString(3, "");
 			}
 			
-			pStmt.setInt(3,theme.getDiaryFlag ());
+			pStmt.setInt(4,theme.getDiaryFlag ());
 			
 		
 		
