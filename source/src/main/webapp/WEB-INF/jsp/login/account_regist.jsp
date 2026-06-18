@@ -52,7 +52,7 @@
 
 	formObj.addEventListener('submit', function(event) { 
 	if (formObj.mail.value === '') {
-	    errorMessageObj.textContent += '※メールアドレスを入力してください。';
+	    errorMessageObj.textContent += '※メールアドレスを入力してください。\n';
 	    event.preventDefault();
 	
 	}
