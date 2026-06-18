@@ -1,12 +1,12 @@
 <!-- 以下をコピーして使ってください。 -->
 <!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
-<button class="modalOpen">モーダルを開く</button>
+<button class="modalOpen" data-title="" data-content1="" data-content2="" data-content3="" data-img="">モーダルを開く</button>
 <!-- .modal-bgの中身がモーダル表示されます。 -->
 <div class="modal-bg">
     <div class="modal">
         <div class="modal-content">
         	<!-- modal-contentの中は自由に変更してください。 -->
-            <p>モーダルの内容</p>
+            <p id="modal-title">モーダルの内容</p>
             
             <!-- .closeのものがクリックされると、モーダルが閉じます。 -->
             <div class="close-btn close">
@@ -18,11 +18,11 @@
             <form action="" method="post" id="modal-form">
             <p>
                 <label for="subject">件名<span>*</span><span id="subject-alt"></span></label><br>
-                <input type="text" name="subject" id="subject" autofocus>
+                <input type="text" name="subject" id="modal-content1"  autofocus>
             </p>
             <p>
                 <label for="message">本文<span>*</span><span id="message-alt"></span></label><br>
-                <textarea name="message" id="message"></textarea>
+                <textarea name="message" id="modal-content2"></textarea>
             </p>
             <p>
                 <input type="submit" value="送信">

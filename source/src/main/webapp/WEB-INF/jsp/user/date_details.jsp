@@ -4,23 +4,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>日記・予定詳細ページ</title>
-    <link rel="stylesheet" href="/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日記・予定詳細ページ</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/user_survey.css">
 </head>
 <body>
+<header>
+<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
+</header>
+<main>
     <h1>日記・予定詳細ページ</h1>
+    <p>
+  	  <c:out value="${msg}"/>
+    </p>
     <!-- 予定タブ -->
     <h2>予定</h2>
     <div>
         <h3>[日付]の予定</h3>
-        <button>追加</button><br>
-    <c:forEach var="item" items="${scheList}">
-        <c:out value="${item}" />
-        <button>編集</button>
-        <button>削除</button><br>
-    </c:forEach>
+        <p><button class="modalOpen">予定の登録</button></p>
+    	<!-- 予定一覧 -->
+    	<form method="POST" action="date-details">
+    	<c:forEach var="item" items="${scheList}">
+    		<input type="hidden" name="scheduleId" value="${item.scheduleId}" />
+	        <c:out value="${item.schedule}" />
+        	<input type="submit" name="submit" value="編集">
+        	<input type="submit" name="submit" value="削除">
+    	</c:forEach>
+    	</form>
     </div>
+    <!--  <div>
+    <h2>予定登録</h2>
+
+    <form method="post" action="date-details">
+    	予定名<br>
+    	<input type="text" name="schedule">
+    	<input type="submit" name="submit" value="登録">
+    </form>
+    </div>-->
+    
+<!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
+<!-- .modal-bgの中身がモーダル表示されます。 -->
+<div class="modal-bg">
+    <div class="modal">
+        <div class="modal-content">
+        	<!-- modal-contentの中は自由に変更してください。 -->
+            <p>予定登録</p>
+            <!-- ×ボタン -->
+            <div class="close-btn close">
+                <div>
+                <span></span>
+                <span></span>
+                </div>
+            </div>
+		    <form method="post" action="date-details">
+		    	予定名<br>
+		    	<input type="text" name="registSchedule">
+		    	<input type="submit" name="submit" value="登録">
+		    </form>
+        	<!-- .closeのものがクリックされると、モーダルが閉じます。 -->
+        	<a class="modalClose close">モーダルを閉じる</a>
+        	<!-- modal-contentここまで -->
+        </div>
+    </div>
+</div>
     <!-- 日記閲覧タブ -->
     <h2>日記閲覧</h2>
     <div>
@@ -47,5 +95,17 @@
         <div>${diary.diary}</div>
         
     </div>
+</main>
+<footer>
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+</footer>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/modal.js"></script>
+<script>
+'use strict';
+// ここから個別処理
+
+
+</script>
 </body>
 </html>

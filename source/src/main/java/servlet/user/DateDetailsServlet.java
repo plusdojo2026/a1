@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.SchedulesDAO;
 import model.Schedule;
@@ -39,13 +38,13 @@ public class DateDetailsServlet extends HttpServlet {
 		//カレンダーページ作成前のため入れておく
 		LocalDate date = LocalDate.now();
 		
-		System.out.println("LocalDate.now :" + date);
+//		System.out.println("LocalDate.now :" + date);
 		
 		//検索処理 戻り値＝予定(String)のリスト
 		//ログインページ作成後、1=userIdに変更する
 		Schedule plan = new Schedule(0, 1, date, null, null);
 		SchedulesDAO sche = new SchedulesDAO();
-		List<String> resultSche = sche.scList(plan);
+		List<Schedule> resultSche = sche.scList(plan);
 		
 		//リクエストスコープに格納
 		request.setAttribute("scheList", resultSche);
@@ -59,12 +58,45 @@ public class DateDetailsServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		//未ログイン時、ログインサーブレットにリダイレクト
-		HttpSession session = request.getSession();
-		if (session.getAttribute("user_id") == null) {
-			response.sendRedirect("/a1/user/login");
-			
+//		HttpSession session = request.getSession();
+//		if (session.getAttribute("user_id") == null) {
+//			response.sendRedirect("/a1/user/login");
+		
+		//セッションスコープからユーザーIDを取得
+//		int userId = (int)session.getAttribute("user_id");
+		
+		//リクエストスコープから日付データを取得（カレンダーページ作成後）
+		//カレンダーページ作成前のため入れておく
+		LocalDate date = LocalDate.now();
+		
 		//リクエストパラメータを取得
+		request.setCharacterEncoding("UTF-8");
+		String schedule = request.getParameter("registSchedule");
+		
+		SchedulesDAO sche = new SchedulesDAO();
+		
+		//登録ボタン押下時
+		if (request.getParameter("submit").equals("登録")) {
+			if (sche.insert(new Schedule(0, 1, date, schedule, null))) {
+				request.setAttribute("msg", "予定を登録しました。");
+			} else {
+				request.setAttribute("msg", "予定の登録に失敗しました");
+			}
+		//編集ボタン押下時
+//		} else if (request.getParameter("submit").equals("編集")) {
+//		
+//		//削除ボタン押下時
+//		} else {
+//			
 		}
+		
+		//フォワード
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/date_details.jsp");
+//		dispatcher.forward(request, response);
+		
+		//リダイレクト
+		response.sendRedirect("/a1/user/date-details");
 	}
 
 }
+
