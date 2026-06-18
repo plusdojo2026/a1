@@ -31,8 +31,8 @@ public class UsersDAO {
 				ResultSet rs = pStmt.executeQuery();
 				
 				if (rs.next()) {
-					user = new User(rs.getInt("userId"), rs.getString("mail"),
-							rs.getString("name"),"",rs.getString("place"),rs.getInt("isAdmin"));
+					user = new User(rs.getInt("user_id"), rs.getString("mail"),
+							rs.getString("name"),"",rs.getString("place"),rs.getInt("is_admin"));
 				}
 				
 			} catch (SQLException e) {
