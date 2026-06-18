@@ -10,26 +10,23 @@
 <body>
 <h1>テーマ</h1>
 
-<button id="openModal">追加</button>
-//追加モーダル
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span id="closeModal" class="close">&times;</span>
+<div>追加</div>
 
+<div>編集</div>
+//登録モーダル
     <p><input type="hidden" value="theme_id">
-　　　　<input type="text">件名<br>
 　　　<textarea>本文</textarea><br>
+<input type="radio" name="choice" value="yes">日替わり指定<br>
+<input type="radio" name="choice" value="no">通常指定<br>
+
 　　　　　<input type="submit" value="登録"><br></p>
-  </div>
-</div>
+
 
 <c:forEach var="tm" items="${themeList}">
 <option>${tm.theme}</option>
 
 //編集モーダル
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span id="closeModal" class="close">&times;</span>
+
    
     <p>
     <input type="hidden" value="theme_id">
@@ -37,8 +34,6 @@
 　　　<textarea>本文</textarea><br>
 <input type="submit"value="編集"><br>
 　　　　　</p>
-</div>
-</div>
 </c:forEach>
 </body>
 </html>
