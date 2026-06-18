@@ -5,11 +5,12 @@ import java.io.Serializable;
 public class Theme implements Serializable {
 private int themeId;
 private String theme;
-private String stampId;
+private int stampId;
 private int diaryFlag;
 
+public Theme() {};
 
-public Theme(int themeId, String theme, String stampId, int diaryFlag) {
+public Theme(int themeId, String theme, int stampId, int diaryFlag) {
 	super();
 	this.themeId = themeId;
 	this.theme = theme;
@@ -53,7 +54,7 @@ public void setTheme(String theme) {
 /**
  * @return stampId
  */
-public String getStampId() {
+public int getStampId() {
 	return stampId;
 }
 
@@ -61,7 +62,7 @@ public String getStampId() {
 /**
  * @param stampId セットする stampId
  */
-public void setStampId(String stampId) {
+public void setStampId(int stampId) {
 	this.stampId = stampId;
 }
 

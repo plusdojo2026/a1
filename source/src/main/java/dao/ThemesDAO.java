@@ -28,7 +28,7 @@ public class ThemesDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT * FROM thmes";
+			String sql = "SELECT * FROM themes";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 
@@ -41,7 +41,7 @@ public class ThemesDAO {
 				th.setThemeId(rs.getInt("theme_id"));
 				th.setTheme(rs.getString("theme"));
 				th.setStampId(rs.getInt("stamp_id"));
-				th.setDiary_flag(rs.getInt("diary_flag"));
+				th.setDiaryFlag(rs.getInt("diary_flag"));
 				themeList.add(th);
 			}
 		} catch (SQLException e) {
@@ -66,8 +66,121 @@ public class ThemesDAO {
 		return themeList;
 	}
 	
-	
-	
-	
-	
+	//スタンプ表示？	
+
+	//テーマ登録
+	public boolean insert(Theme theme) {
+		Connection conn = null;
+		boolean result = false;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000"
+					,"root", "password");
+
+			// SQL文を準備する
+			String sql =" INSERT INTO themes(theme,stamp_id,diary_flag) VALUES (?,?,?)";
+			
+			System.out.println(sql);
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			if (theme.getTheme() != null) {
+				pStmt.setString(1,theme.getTheme ());
+			} else {
+				pStmt.setString(1, "");
+			}
+			
+			if (theme.getStampId() != 0) {
+				pStmt.setInt(2,theme.getStampId ());
+			} else {
+				pStmt.setString(2, "");
+			}
+			
+			pStmt.setInt(3,theme.getDiaryFlag ());
+			
+		
+		
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+		}
+		 catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
+		}
+
+	//テーマ編集
+	public boolean update(Theme theme) {
+		Connection conn = null;
+		boolean result = false;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000"
+					,"root", "password");
+
+			// SQL文を準備する
+			String sql =" UPDATE Themes SET  theme_id=?,theme=?,stamp_id=?,diary_flag=?";
+			
+			System.out.println(sql);
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+		
+				pStmt.setInt(1,theme.getThemeId ());
+		
+				pStmt.setString(2,theme.getTheme ());
+			
+				pStmt.setInt(3,theme.getStampId ());
+			
+			pStmt.setInt(4,theme.getDiaryFlag ());
+			
+		
+		
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+		}
+		 catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		// 結果を返す
+		return result;
+		
+	}
 }
+	
+
