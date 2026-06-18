@@ -26,6 +26,7 @@ public class AccountRegistServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login/account_regist.jsp");
 		dispatcher.forward(request, response);
+		System.out.println("ここ5");
 	}
 
 	/**
@@ -34,8 +35,8 @@ public class AccountRegistServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		System.out.println("ここ6");
 		
-		String action = request.getParameter("action");
 		
 		// リクエストパラメータを取得する
 		//ブラウザでユーザが打ち込んだ登録情報を開封している
@@ -43,9 +44,9 @@ public class AccountRegistServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String pass = request.getParameter("pass");
 		
-		
-		if(action !=null) {
-			if(action.equals("regist")){
+		System.out.println("ここ７");
+			System.out.println("ここだよ");
+			
 		// 登録処理を行う
 		UsersDAO uDao = new UsersDAO();
 		//insert
@@ -57,18 +58,19 @@ public class AccountRegistServlet extends HttpServlet {
 							 null,
 							 0
 							 ))){
-			
+			System.out.println("ここ８");
 			//request.setAttribute("result", new Result("登録が成功しました", "名刺情報を登録しました。", "/webapp/MemberMenuServlet"));
 		}else {
 			//request.setAttribute("result", new Result("登録が失敗しました", "名刺情報を登録できませんでした。", "/webapp/MemberMenuServlet"));
 		}
-			}
 		
 		// 次のページににフォワードする
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login/login.jsp");
 				dispatcher.forward(request, response);
-		}
-		
 	}
-
 }
+		
+		
+	
+
+

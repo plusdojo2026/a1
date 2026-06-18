@@ -15,19 +15,26 @@
 <%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
 </header>
 <main>
-<form action="a1/login" method="post" >
+<h1>会員登録</h1>
+<form id="login_form" action="<c:url value="/login/regist" />" method="post" >
 <div>
 	<div>
-	メールアドレス<input type="text" name="mail"><br>
+	<input type="text" name="mail" placeholder="メールアドレス"><br>
 	</div>
 	<div>
-	名前<input type="text" name="name"><br>
+	<input type="text" name="name" placeholder="名前"><br>
 	</div>
 	<div>
-	パスワード<input type="password" name="pass"><br>
+	<div>
+	<input type="password" name="pass" placeholder="パスワード"><br>
 	</div>
+	<div>
+	<input type="password" name="pass2" placeholder="パスワード（確認）"><br>
+	</div>
+	<div id="error_message"></div>
 	
-	<input type="submit" name="login" value="ログイン">
+	</div>
+	<input type="submit" name="regist" value="登録">
 </div>
  <div>${msg}</div>
  </form>
@@ -39,6 +46,31 @@
 <script>
 'use strict';
 // ここから個別処理
+	/* HTML要素をオブジェクトとして取得する */
+	let formObj = document.getElementById('login_form');
+	let errorMessageObj = document.getElementById('error_message');
+
+	formObj.addEventListener('submit', function(event) { 
+	if (formObj.mail.value === '') {
+	    errorMessageObj.textContent += '※メールアドレスを入力してください。';
+	    event.preventDefault();
+	
+	}
+	if (formObj.name.value === '') {
+		    errorMessageObj.textContent += '※名前を入力してください。';
+		    event.preventDefault();
+	//パスワード空欄を確認
+	}
+	if (formObj.pass.value === '' || formObj.pass2.value === '') {
+			    errorMessageObj.textContent += '※パスワードを入力してください。';
+			    event.preventDefault();
+	//パスワード不一致を確認		    
+	}if (formObj.pass.value !== formObj.pass2.value) {
+			    errorMessageObj.textContent += '※パスワードが違います';
+			    event.preventDefault();
+	}    
+	});
+			
 </script>
 </body>
 </html>
