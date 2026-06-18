@@ -2,11 +2,15 @@ package servlet.login;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.UsersDAO;
+import model.User;
 
 /**
  * Servlet implementation class AccountRegistServlet
@@ -20,7 +24,8 @@ public class AccountRegistServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login/account_regist.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -28,7 +33,42 @@ public class AccountRegistServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
+		String action = request.getParameter("action");
+		
+		// リクエストパラメータを取得する
+		//ブラウザでユーザが打ち込んだ登録情報を開封している
+		String mail = request.getParameter("mail");
+		String name = request.getParameter("name");
+		String pass = request.getParameter("pass");
+		
+		
+		if(action !=null) {
+			if(action.equals("regist")){
+		// 登録処理を行う
+		UsersDAO uDao = new UsersDAO();
+		//insert
+		if(uDao.insert (new User(
+							 0,
+							 mail,
+							 name,
+							 pass,
+							 null,
+							 0
+							 ))){
+			
+			//request.setAttribute("result", new Result("登録が成功しました", "名刺情報を登録しました。", "/webapp/MemberMenuServlet"));
+		}else {
+			//request.setAttribute("result", new Result("登録が失敗しました", "名刺情報を登録できませんでした。", "/webapp/MemberMenuServlet"));
+		}
+			}
+		
+		// 次のページににフォワードする
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login/login.jsp");
+				dispatcher.forward(request, response);
+		}
+		
 	}
 
 }

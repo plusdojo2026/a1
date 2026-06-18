@@ -34,7 +34,7 @@ CREATE TABLE schedules(schedule_id INT AUTO_INCREMENT PRIMARY KEY,
 CREATE TABLE surveys(survey_id INT AUTO_INCREMENT PRIMARY KEY, 
 			 	     subject VARCHAR (50) NOT NULL,
 			 	     text VARCHAR (400) NOT NULL,
-			 	     filled_date DATE DEFAULT CURRENT_DATE
+			 	     filled_date DATE DEFAULT (CURRENT_DATE)
 			 	     );
 			 	   
 CREATE TABLE advices(advice_id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -46,7 +46,7 @@ CREATE TABLE news(news_id INT AUTO_INCREMENT PRIMARY KEY,
 			 	  subject VARCHAR (30) NOT NULL,
 			 	  text VARCHAR (400) NOT NULL,
 			 	  is_display INT DEFAULT 0,
-			 	  submitted_at DATE DEFAULT CURRENT_DATE
+			 	  submitted_at DATE DEFAULT (CURRENT_DATE)
 			 	  );
 			 	   
 CREATE TABLE users_inf(user_info_id INT AUTO_INCREMENT PRIMARY KEY, 
