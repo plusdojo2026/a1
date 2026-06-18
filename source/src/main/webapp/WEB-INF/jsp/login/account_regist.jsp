@@ -15,7 +15,7 @@
 <%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
 </header>
 <main>
-<form action="/login/regist" method="post" >
+<form action="a1/login" method="post" >
 <div>
 	<div>
 	メールアドレス<input type="text" name="mail"><br>
