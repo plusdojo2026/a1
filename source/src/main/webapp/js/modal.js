@@ -10,6 +10,18 @@ openBtn.forEach(function(btn){
 
 	//modalOpenクラスが付いた要素をクリックしたら
 	btn.onclick = function() {
+		// 要素の受け取り
+		let title = btn.dataset.title;
+		let content1 = btn.dataset.content1;
+		let content2 = btn.dataset.content2;
+		let content3 = btn.dataset.content3;
+		let img = btn.dataset.img;
+		
+		document.getElementById("modal-title").textContent = title;
+		document.getElementById("modal-content1").value = content1;
+		document.getElementById("modal-content2").value = content2;
+		document.getElementById("modal-content3").value = content3;
+		document.getElementById('modal-img').src = img;
 		
         //.modal-bgにactiveクラスを追加
         modal.classList.add("active");
