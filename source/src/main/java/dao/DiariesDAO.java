@@ -105,7 +105,7 @@ public class DiariesDAO {
 						while (rs.next()) {//rsに何かが入ってるのが分かったら次にいける　true or faulse
 							//データ取ってくる
 							Diary d = new Diary(rs.getInt("diary_id"), rs.getInt("user_id"), rs.getDate("date"), rs.getInt("weather_code"),
-									rs.getFloat("temp_min"), rs.getFloat("temp_max"), rs.getString("theme_id"), rs.getString("stamp_id"),
+									rs.getFloat("temp_min"), rs.getFloat("temp_max"), rs.getInt("theme_id"), rs.getInt("stamp_id"),
 									rs.getString("diary"), rs.getInt("satisfaction"), rs.getString("image"));
 							dryList.add(d);//ArrayListに追加（newしてないと追加×）
 						}
