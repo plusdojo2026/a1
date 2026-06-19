@@ -20,7 +20,7 @@
 
 <!-- 以下をコピーして使ってください。 -->
 <!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
-<button class="modalOpen" data-title="テーマの追加" data-content1="" data-content2="" data-content3="登録" data-img="">追加</button>
+<button class="modalOpen" data-title="テーマの追加" data-content1="" data-content2="" data-content3="登録" data-img="" data-radio="">追加</button>
 <!-- .modal-bgの中身がモーダル表示されます。 -->
 <div class="modal-bg">
     <div class="modal">
@@ -41,10 +41,10 @@
                
                  <textarea name="subject" id="modal-content1" autofocus></textarea><br>
             </p>
-            <p>
+             <p>
               
-                <input type="radio" name="choice" value="0">日替わり指定<br>
-<input type="radio" name="choice" value="1">通常指定<br>
+                <input class="modal-radio" type="radio" name="choice" value="0">日替わり指定<br>
+<input class="modal-radio" type="radio" name="choice" value="1">通常指定<br>
             </p>
            
 //スタンプ指定モーダル
@@ -73,7 +73,7 @@
             	<div id="data-content2">
             		<c:forEach var ="stamp" items="${stamp_list}">
             			<div class="stamp" data-id="${stamp_id}">
-            				<img src="${stamp_id}" alt="">
+            			<img src="${stamp_id}" alt="">
             			</div>
             		</c:forEach>
             		</div>
@@ -101,7 +101,7 @@
 	<option>${tm.theme}</option>
 <!-- 以下をコピーして使ってください。 -->
 <!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
-<button class="modalOpen" data-title="テーマの編集" data-content1="${tm.theme}" data-content2="" data-content3="編集" data-img="">編集</button>
+<button class="modalOpen" data-title="テーマの編集" data-content1="${tm.theme}" data-content2="" data-content3="保存" data-img="">編集</button>
 
 </c:forEach>
 </main>
