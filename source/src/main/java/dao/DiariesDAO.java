@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.Diary;
-import model.Stamp;
 
 //import dto.Employee;
 
@@ -135,54 +135,52 @@ public class DiariesDAO {
 	}
 	
 	//日記が存在するかしないか検索するメソッド
-	public boolean diaryExist(Diary dry) {
+	public boolean diaryExist(int userId,LocalDate date) {
 		Connection conn = null;
 		boolean result = false;
 
 		try {
-			// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
+				// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+					
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= "
+						+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
+						"root", "password");
 				
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= "
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
-					"root", "password");
-			
-			// SQL文を準備する
-			String sql = "SELECT diary FROM diaries WHERE user_is = ? AND date = ?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+				// SQL文を準備する
+				String sql = "SELECT diary FROM diaries WHERE user_id = ? AND date = ?";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+					
+				//JavaからsqlにDate変換
+				java.sql.Date sqlDate = new java.sql.Date(dry.getDate().getTime());
+					
+				pStmt.setInt(1, dry.getUserId());
+				pStmt.setDate(2, sqlDate);
 				
-			//JavaからsqlにDate変換
-			java.sql.Date sqlDate = new java.sql.Date(dry.getDate().getTime());
-				
-			pStmt.setInt(1, dry.getUserId());
-			pStmt.setDate(2, sqlDate);
-			
-			// SQL文を実行し、結果表を取得する
-			ResultSet rs = pStmt.executeQuery();
-
-			// 結果表をコレクションにコピーする
-			while (rs.next()) {		
-				Diary loginCheck = new Diary(
-						0, 
-						0, 
-						null, 
-						0,
-						0, 
-						0, 
-						null,
-						null,
-						rs.getString("diary"), 
-						0, 
-						null);
-				dryList.add(loginCheck);
+				// SQL文を実行し、結果表を取得する
+				ResultSet rs = pStmt.executeQuery();
+	
+				// 結果表をコレクションにコピーする
+				while (rs.next()) {		
+					Diary loginCheck = new Diary(
+							0, 
+							0, 
+							null, 
+							0,
+							0, 
+							0, 
+							0,
+							0,
+							rs.getString("diary"), 
+							0, 
+							null);
 			}
+			
 			} catch (SQLException e) {
 				e.printStackTrace();
-				stamplist = null;
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				stamplist = null;
 			} finally {
 				// データベースを切断
 				if (conn != null) {
@@ -190,13 +188,12 @@ public class DiariesDAO {
 						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
-						stamplist = null;
 					}
 				}
 			}
 		
-			return stamplist;
-		}			
-	}
-				
+		return result;
+	}			
 }
+				
+
