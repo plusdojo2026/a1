@@ -21,12 +21,14 @@
     <h2>予定</h2>
     <div>
         <h3>[日付]の予定</h3>
-        <p><button class="modalOpen"
+        <p>
+        <button class="modalOpen"
         	data-title="予定の登録"
         	data-content2=""
         	data-content3="登録">
         	予定の登録
-        </button></p>
+        </button>
+        </p>
     	<!-- 予定一覧 -->
     	<c:forEach var="item" items="${scheList}">
     	<form method="POST" action="date-details">
@@ -82,10 +84,10 @@
 
         <!--該当する日記データがある場合-->
         <c:if test="${not empty diary}">
-        <c:forEach var="d" items="${diaryList}">
-            <p>テーマ:${d.theme}</p>
-            <p><img src="${d.stamp}"></p>
-            <p>天気:${diary.weather} ${d.temp_max}℃/${d.temp_min}℃</p>
+        <c:forEach var="d" items="${diary}">
+            <p>テーマ:${theme[${d.themeId}]}</p>
+            <p><img src="${stamp[${d.stampId}]}"></p>
+            <p>天気:${d.weather} ${d.tempMax}℃/${d.tempMin}℃</p>
         	<p>[満足度]</p>
 	        <p><img src="${d.image}"></p>
 	        <p>${d.diary}</p>
