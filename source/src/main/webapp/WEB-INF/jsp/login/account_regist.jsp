@@ -47,10 +47,13 @@
 'use strict';
 // ここから個別処理
 	/* HTML要素をオブジェクトとして取得する */
-	let formObj = document.getElementById('login_form');
-	let errorMessageObj = document.getElementById('error_message');
+	const formObj = document.getElementById('login_form');
+	const errorMessageObj = document.getElementById('error_message');
 
 	formObj.addEventListener('submit', function(event) { 
+		
+	errorMessageObj.innerHTML = '';
+		
 	if (formObj.mail.value === '') {
 	    errorMessageObj.innerHTML += '※メールアドレスを入力してください。<br>';
 	    event.preventDefault();
