@@ -27,6 +27,7 @@ public class AccountRegistServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login/account_regist.jsp");
 		dispatcher.forward(request, response);
 		System.out.println("ここ5");
+		System.out.println("kokodayo");
 	}
 
 	/**

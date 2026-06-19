@@ -43,6 +43,7 @@ public class LoginServlet extends HttpServlet {
 		String mail = request.getParameter("mail");
 		String pass = request.getParameter("pass");
 		System.out.println("ここ4");
+		
 		//ログイン処理　mpDAO=メールアドレスパスワードDAO
 		UsersDAO mpDAO = new UsersDAO();
 		
