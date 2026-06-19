@@ -136,6 +136,9 @@ public class DiariesDAO {
 	
 	//日記が存在するかしないか検索するメソッド
 	public boolean diaryExist(int userId,LocalDate date) {
+		// 結果を受け取る用のlistをつくる
+		ArrayList<クラス名> loginCheck = new ArrayList<>();
+		
 		Connection conn = null;
 		boolean result = false;
 
@@ -152,10 +155,10 @@ public class DiariesDAO {
 				String sql = "SELECT diary FROM diaries WHERE user_id = ? AND date = ?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 					
-				//JavaからsqlにDate変換
-				java.sql.Date sqlDate = new java.sql.Date(dry.getDate().getTime());
+				//LocalDate→sqlDateの変換
+				java.sql.Date sqlDate = java.sql.Date.valueOf(date);
 					
-				pStmt.setInt(1, dry.getUserId());
+				pStmt.setInt(1, userId);
 				pStmt.setDate(2, sqlDate);
 				
 				// SQL文を実行し、結果表を取得する
@@ -175,8 +178,11 @@ public class DiariesDAO {
 							rs.getString("diary"), 
 							0, 
 							null);
-			}
-			
+					// 結果をlistに入れる
+				}
+				
+				// Listのなかが空ならfalse、存在するならtrueをresultに代入するif文 list名.eｍｐｔｙ（）；
+			result = 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
