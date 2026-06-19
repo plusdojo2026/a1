@@ -68,12 +68,11 @@ public class UsersDAO {
 			// データベースに接続する　
 			//地図を完成させ、通行所を同封させる
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
-					+ "useUnicode=true&characterEncoding=UTF-8"
-					+ "&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					+ "useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
 					"root", "password");
 			
 			//sql文を準備する
-			String sql = "INSERT INTO member VALUES (0, ?, ?, ?)";
+			String sql = "INSERT INTO users VALUES (0, ?, ?, ?,default,default)";
 			//船を用意し、必要なものを持っていく。
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			

@@ -14,6 +14,7 @@
 <%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
 </header>
 <main>
+<h1>ログイン</h1>
 <form action="/a1/login" method="post" >
 <div>
 	<div>

@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.Diary;
+import model.Stamp;
 
 //import dto.Employee;
 
@@ -15,7 +17,7 @@ public class DiariesDAO {
 	
 	
 
-	public List<Diary> select(Diary dry) {
+	public List<Diary> insert(Diary dry) {
 		// 結果セットを格納するコレクション
 		List<Diary> dryList = new ArrayList<Diary>();
 	
@@ -32,10 +34,11 @@ public class DiariesDAO {
 						+ "//localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
 						"root", "password");
 				
+				
 				// 日記テーブルではスタンプIDを保存する必要があるため、
 				// スタンプのパスをスタンプIDに変換する
 				//スタンプのSQL文
-				String sql = "SELECT stamp_id FROM stamps WHERE stamp_path =?";
+				/*String sql = "SELECT stamp_id FROM stamps WHERE stamp_path =?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
 				pStmt.setString(1,dry.getStamp());
@@ -53,7 +56,7 @@ public class DiariesDAO {
 				
 				//テーマのSQL文
 				sql = "SELECT theme_id FROM themes WHERE theme = ?";
-				/* PreparedStatement */ pStmt = conn.prepareStatement(sql);
+				 PreparedStatement  pStmt = conn.prepareStatement(sql);
 				
 				pStmt.setString(1,dry.getTheme());
 				
@@ -70,9 +73,10 @@ public class DiariesDAO {
 				if(stampId == 0 || themeId == 0) {
 					throw new Exception();
 				}
+				*/
 				
 				//最終形態のSQL文
-				sql = "INSERT INTO diaries"
+				String sql = "INSERT INTO diaries"
 						+ "(diary_id, user_id, date, weather_code, temp_min, temp_max, theme_id, stamp_id, diary, satisfaction, image)"
 						+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 						
@@ -81,7 +85,7 @@ public class DiariesDAO {
 				java.sql.Date sqlDate = new java.sql.Date(dry.getDate().getTime());
 				
 						//↓どこに繋ぐか
-						pStmt = conn.prepareStatement(sql);
+						PreparedStatement pStmt = conn.prepareStatement(sql);
 						
 						//↓全部入ってる　？を設定するための文、何を検索するのか
 						pStmt.setInt(1,dry.getDiaryId());//？の左から１つめ
@@ -90,14 +94,14 @@ public class DiariesDAO {
 						pStmt.setInt(4,dry.getWeatherCode());
 						pStmt.setFloat(5,dry.getTempMin());
 						pStmt.setFloat(6,dry.getTempMax());
-						pStmt.setInt(7,themeId);
-						pStmt.setInt(8, stampId);
+						pStmt.setInt(7,dry.getThemeId());
+						pStmt.setInt(8, dry.getStampId());
 						pStmt.setString(9,dry.getDiary());
 						pStmt.setInt(10,dry.getSatisfaction());
 						pStmt.setString(7,dry.getImage());
 						
 						//検索結果取得、db専用 sqlへ
-						rs = pStmt.executeQuery();
+						ResultSet rs = pStmt.executeQuery();
 												
 						// 検索結果をコレクションに格納する　Beans
 						while (rs.next()) {//rsに何かが入ってるのが分かったら次にいける　true or faulse
@@ -128,6 +132,71 @@ public class DiariesDAO {
 					}
 				}
 			}
+	}
+	
+	//日記が存在するかしないか検索するメソッド
+	public boolean diaryExist(Diary dry) {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+				
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= "
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
+					"root", "password");
+			
+			// SQL文を準備する
+			String sql = "SELECT diary FROM diaries WHERE user_is = ? AND date = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+				
+			//JavaからsqlにDate変換
+			java.sql.Date sqlDate = new java.sql.Date(dry.getDate().getTime());
+				
+			pStmt.setInt(1, dry.getUserId());
+			pStmt.setDate(2, sqlDate);
+			
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表をコレクションにコピーする
+			while (rs.next()) {		
+				Diary loginCheck = new Diary(
+						0, 
+						0, 
+						null, 
+						0,
+						0, 
+						0, 
+						null,
+						null,
+						rs.getString("diary"), 
+						0, 
+						null);
+				dryList.add(loginCheck);
+			}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				stamplist = null;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				stamplist = null;
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						stamplist = null;
+					}
+				}
+			}
+		
+			return stamplist;
+		}			
 	}
 				
 }
