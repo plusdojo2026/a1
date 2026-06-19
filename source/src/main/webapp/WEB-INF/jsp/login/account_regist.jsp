@@ -52,21 +52,21 @@
 
 	formObj.addEventListener('submit', function(event) { 
 	if (formObj.mail.value === '') {
-	    errorMessageObj.textContent += '※メールアドレスを入力してください。\n';
+	    errorMessageObj.innerHTML += '※メールアドレスを入力してください。<br>';
 	    event.preventDefault();
 	
 	}
 	if (formObj.name.value === '') {
-		    errorMessageObj.textContent += '※名前を入力してください。';
+		    errorMessageObj.innerHTML += '※名前を入力してください。<br>';
 		    event.preventDefault();
 	//パスワード空欄を確認
 	}
 	if (formObj.pass.value === '' || formObj.pass2.value === '') {
-			    errorMessageObj.textContent += '※パスワードを入力してください。';
+			    errorMessageObj.innerHTML += '※パスワードを入力してください。<br>';
 			    event.preventDefault();
 	//パスワード不一致を確認		    
 	}if (formObj.pass.value !== formObj.pass2.value) {
-			    errorMessageObj.textContent += '※パスワードが違います';
+			    errorMessageObj.innerHTML += '※パスワードが違います。<br>';
 			    event.preventDefault();
 	}    
 	});
