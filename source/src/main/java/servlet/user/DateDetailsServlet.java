@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.SchedulesDAO;
+import model.Diary;
 import model.Schedule;
 
 
@@ -28,7 +29,7 @@ public class DateDetailsServlet extends HttpServlet {
 //			response.sendRedirect("/a1/user/login");
 //		}
 		
-	//その日の予定一覧表示
+	//クリックした日の予定一覧表示
 		
 		//セッションスコープからユーザーIDを取得
 //		int userId = (int)session.getAttribute("user_id");
@@ -49,6 +50,10 @@ public class DateDetailsServlet extends HttpServlet {
 		//リクエストスコープに格納
 		request.setAttribute("scheList", resultSche);
 		
+	//クリックした日の日記閲覧表示
+		Diary diary = new Diary(0, 1, date, 0, 0, 0, 0,
+				0, null, 0, null);
+		
 		//日付詳細ページにフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/date_details.jsp");
 		dispatcher.forward(request, response);
@@ -61,24 +66,24 @@ public class DateDetailsServlet extends HttpServlet {
 //		HttpSession session = request.getSession();
 //		if (session.getAttribute("user_id") == null) {
 //			response.sendRedirect("/a1/user/login");
+//		}
 		
 		//セッションスコープからユーザーIDを取得
-//		int userId = (int)session.getAttribute("user_id");
+//		int userId = (int)session.getAttribute("user");
 		
 		//リクエストスコープから日付データを取得（カレンダーページ作成後）
-		//カレンダーページ作成前のため入れておく
+		//カレンダーページ作成前のため今日の日付を入れておく
 		LocalDate date = LocalDate.now();
 		
 		//リクエストパラメータを取得
 		request.setCharacterEncoding("UTF-8");
-//		int scheId = Integer.parseInt(request.getParameter("scheduleId"));
-//		String schedule = request.getParameter("schedule");
 		
 		SchedulesDAO sche = new SchedulesDAO();
 		
 		//以下予定の登録・編集・削除機能　失敗時はエラーページ（user_errormsg.jsp）にフォワードする
 		//登録ボタン押下時
 		if (request.getParameter("submit").equals("登録")) {
+			//リクエストパラメータを取得
 			String schedule = request.getParameter("schedule");
 			if (sche.insert(new Schedule(0, 1, date, schedule, null))) {
 //				request.setAttribute("msg", "予定を登録しました。");
@@ -89,6 +94,7 @@ public class DateDetailsServlet extends HttpServlet {
 			}
 		//削除ボタン押下時
 		} else if (request.getParameter("submit").equals("削除")) {
+			//リクエストパラメータを取得
 			int scheId = Integer.parseInt(request.getParameter("scheduleId"));
 			if (sche.delete(new Schedule(scheId,0,null,null,null))) {
 //				request.setAttribute("massage", "予定を削除しました。");
@@ -99,6 +105,7 @@ public class DateDetailsServlet extends HttpServlet {
 			}
 		//編集ボタン押下時
 		} else {
+			//リクエストパラメータを取得
 			int scheId = Integer.parseInt(request.getParameter("scheduleId"));
 			String schedule = request.getParameter("schedule");
 			if (sche.update(new Schedule(scheId, 0, null, schedule, null))) {

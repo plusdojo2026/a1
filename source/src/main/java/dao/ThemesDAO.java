@@ -28,7 +28,7 @@ public class ThemesDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT * FROM themes";
+			String sql = "SELECT * FROM themes JOIN stamps ON themes.stamp_id=stamps.stamp_id ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 

@@ -60,7 +60,7 @@ public class AdminThemeServlet extends HttpServlet {
 		String theme=request.getParameter("theme");
 		int stampId=Integer.parseInt(request.getParameter("stampId"));
 		
-		int diaryFlag=Integer.parseInt(request.getParameter("diaryFlag"));
+		int diaryFlag=Integer.parseInt(request.getParameter("diaryFlag"));//ラジオボタンで０か１をっとてくるのを文字型に直すこと必要
 		
 		ThemesDAO ThDAO=new ThemesDAO();
 		//登録処理
@@ -89,21 +89,10 @@ public class AdminThemeServlet extends HttpServlet {
 			
 		}
 	}
-	//スタンプ登録処理　
 	
+
 	
-	
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	//日替わり設定処理
-	
+
 	
 	}
 }
@@ -117,7 +106,6 @@ public class AdminThemeServlet extends HttpServlet {
 
 
 
-//編集モーダル
 
    
    

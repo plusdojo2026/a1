@@ -1,6 +1,6 @@
 <!-- 以下をコピーして使ってください。 -->
 <!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
-<button class="modalOpen" data-title="" data-content1="" data-content2="" data-content3="" data-img="">モーダルを開く</button>
+<button class="modalOpen" data-title="テーマの編集" data-content1="雨" data-content2="" data-content3="" data-img="" data-radio=>モーダルを開く</button>
 <!-- .modal-bgの中身がモーダル表示されます。 -->
 <div class="modal-bg">
     <div class="modal">
@@ -18,15 +18,21 @@
             <form action="" method="post" id="modal-form">
             <p>
                 <label for="subject">件名<span>*</span><span id="subject-alt"></span></label><br>
-                <input type="text" name="subject" id="modal-content1"  autofocus>
+                <input type="text" name="subject" id="modal-content1" autofocus>
             </p>
             <p>
                 <label for="message">本文<span>*</span><span id="message-alt"></span></label><br>
                 <textarea name="message" id="modal-content2"></textarea>
             </p>
             <p>
+            	<!-- ラジオボタンにはmodal-radioクラスをつけてください。valueは"0"と"1"としてください。nameは自由です。 -->
+            	<label><input class="modal-radio" type="radio" name="option" value="0">選択しない</label>
+            	<label><input class="modal-radio" type="radio" name="option" value="1">選択する</label>
+            </p>
+            <p>
                 <input type="submit" value="送信">
             </p>
+            <img id="modal-img">
         	</form>
         	<!-- .closeのものがクリックされると、モーダルが閉じます。 -->
         	<a class="modalClose close">モーダルを閉じる</a>
