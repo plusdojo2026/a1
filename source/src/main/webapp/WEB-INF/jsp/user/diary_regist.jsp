@@ -45,13 +45,18 @@
 	<form action="/a1/user/diary-regist" method="post" enctype="multipart/form-data">
 	
 		<div>
+			<div>
+				<input type=hidden name="userId">
+			</div>
+		</div>
+		<div>
 			<div class="date">
-				日付
+				<p>日付 ${date}</p>
 			</div>
 		</div>
 		<div>
 			<div>
-				天気:<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） --><span id="weather"></span>
+				天気:<input type=hidden name="weatherCode"><span id="weather"></span>
 			</div>
 		</div>
 		<div>
@@ -59,8 +64,8 @@
 			<input type="hidden" name="temperature-min" id="temperature-min">
 			<div>
 				気温<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） -->
-				<p>最高気温は<span id="mx"></span>
-				<p>最低気温は<span id="mn"></span>
+				<p>最高気温は<span id="mx"></span><input type = "hidden" name="tempMax">
+				<p>最低気温は<span id="mn"></span><input type = "hidden" name="tempMin">
 			</div>
 		</div>
 		<div>
@@ -102,11 +107,11 @@
 				
 				<div class="review">
   		<p id="stars">満足度</p>
-  		<div class="stars">
+  		<div class="stars"><input type=hidden name="satisfaction">
 		    <span>
-		      <input id="1" type="radio" name="review"><label for="review01">★</label>
+		      <input id="1" type="radio" name="review" onclick="b1()"><label id="star1" for="review01">★</label>
 		      <input id="2" type="radio" name="review"><label for="review02">★</label>
-		      <input id="3" type="radio" name="review" ><!-- onclick --><label for="review03">★</label>
+		      <input id="3" type="radio" name="review"><label for="review03">★</label>
 		      <input id="4" type="radio" name="review"><label for="review04">★</label>
 		      <input id="5" type="radio" name="review"><label for="review05">★</label>
 		    </span>
@@ -140,6 +145,12 @@
 <script src="${pageContext.request.contextPath}/js/common.js"></script>
 
 <script>
+
+	const star1 = document.getElementById('star1');
+	function b1() {
+		star1.style.color='#F8C601';
+	}
+	
 	function previewImage(obj){
 
 		var fileReader = new FileReader();
@@ -242,10 +253,7 @@
 	main();
 
 	
-	document.getElementById('1').onclick = function(){
-		let ele = document.getElementById('1');
-		  ele.style.color = '#F8C601';
-	}
+	
 </script>
 </body>
 </html>
