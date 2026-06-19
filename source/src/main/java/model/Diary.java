@@ -98,22 +98,22 @@ public class Diary implements Serializable {
 	}
 
 
-	public int getTheme() {
+	public int getThemeId() {
 		return themeId;
 	}
 
 
-	public void setTheme(int theme) {
+	public void setThemeId(int theme) {
 		this.themeId = theme;
 	}
 
 
-	public int getStamp() {
+	public int getStampId() {
 		return stampId;
 	}
 
 
-	public void setStamp(int stamp) {
+	public void setStampId(int stamp) {
 		this.stampId = stamp;
 	}
 
