@@ -1,3 +1,58 @@
+@charset "UTF-8";
+/* すべてのページに適用される設定 */
+:root {
+	--main-color: #f3d2c1;
+	--secondary-color: #8bd3dd;
+	--tertiary-color: #f582ae;
+	--background-color: #fef6e4;
+	--hightlight-color: #fef6e4;
+	--stroke-color: #001858;
+	
+	/* 文字の色のCSS変数 */
+	--headline-color: #001858;
+	--paragraph-color: #172c66;
+	--button-color: #f582ae;
+	--button-text-color: #001858
+}
+html {
+	/* 文字の大きさを設定　*/
+	font-size: 16px;
+	/* フォントの種類を設定 */
+	font-family: sans-serif;
+	background-color: #ffffff;
+}
+
+* {
+	/* ボックスモデルをボーダー領域まで拡張 */
+	box-sizing: border-box;
+	/* 文字のデフォルトの色を設定 */
+	color: var(--paragraph-color);
+}
+
+body {
+	/* 画面の一番外側の余白を削除 */
+	margin: 0 0 0 0;
+}
+
+/* 見出しのh1タグの設定 */
+h1 {
+	color: var(--headline-color);
+}
+
+/* headerの設定 */
+header {
+	background-color: var(--main-color);
+}
+
+/* mainタグの設定 */
+main {
+	margin: 0 auto;
+	max-width: 1000px;
+	background-color: var(--background-color);
+}
+
+
+/* modal関連の設定 */
 button{
     cursor: pointer;
 }
@@ -105,4 +160,9 @@ button{
 
 .hidden {
 	display: none;
+}
+
+/* モバイル対応 */
+@media(min-width: 768px) {
+    
 }
