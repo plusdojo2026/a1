@@ -16,41 +16,39 @@
 </header>
 <main>
     <h1>日記・予定詳細ページ</h1>
-    <p>
-  	  <c:out value="${msg}"/>
-    </p>
+    <c:out value="${msg}"></c:out>
     <!-- 予定タブ -->
     <h2>予定</h2>
     <div>
         <h3>[日付]の予定</h3>
-        <p><button class="modalOpen">予定の登録</button></p>
+        <p><button class="modalOpen"
+        	data-title="予定の登録"
+        	data-content2=""
+        	data-content3="登録">
+        	予定の登録
+        </button></p>
     	<!-- 予定一覧 -->
-    	<form method="POST" action="date-details">
     	<c:forEach var="item" items="${scheList}">
+    	<form method="POST" action="date-details">
     		<input type="hidden" name="scheduleId" value="${item.scheduleId}" />
 	        <c:out value="${item.schedule}" />
-        	<input type="submit" name="submit" value="編集">
+        	<input type="button" class="modalOpen"
+        		value="編集"
+        		data-title="予定の編集"
+        		data-content1="${item.scheduleId}"
+        		data-content2="${item.schedule}"
+        		data-content3="編集">
         	<input type="submit" name="submit" value="削除">
+        </form>
     	</c:forEach>
-    	</form>
     </div>
-    <!--  <div>
-    <h2>予定登録</h2>
-
-    <form method="post" action="date-details">
-    	予定名<br>
-    	<input type="text" name="schedule">
-    	<input type="submit" name="submit" value="登録">
-    </form>
-    </div>-->
-    
+  
 <!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
 <!-- .modal-bgの中身がモーダル表示されます。 -->
 <div class="modal-bg">
     <div class="modal">
         <div class="modal-content">
         	<!-- modal-contentの中は自由に変更してください。 -->
-            <p>予定登録</p>
             <!-- ×ボタン -->
             <div class="close-btn close">
                 <div>
@@ -59,9 +57,10 @@
                 </div>
             </div>
 		    <form method="post" action="date-details">
-		    	予定名<br>
-		    	<input type="text" name="registSchedule">
-		    	<input type="submit" name="submit" value="登録">
+		    	<h3 id="modal-title"></h3>
+		    	<input type="hidden" name="scheduleId" id="modal-content1">
+		    	<input type="text" name="schedule" id="modal-content2">
+		    	<input type="submit" name="submit" id="modal-content3">
 		    </form>
         	<!-- .closeのものがクリックされると、モーダルが閉じます。 -->
         	<a class="modalClose close">モーダルを閉じる</a>
@@ -69,6 +68,7 @@
         </div>
     </div>
 </div>
+
     <!-- 日記閲覧タブ -->
     <h2>日記閲覧</h2>
     <div>

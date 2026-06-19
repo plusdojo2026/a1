@@ -71,23 +71,36 @@ public class DateDetailsServlet extends HttpServlet {
 		
 		//リクエストパラメータを取得
 		request.setCharacterEncoding("UTF-8");
-		String schedule = request.getParameter("registSchedule");
+//		int scheId = Integer.parseInt(request.getParameter("scheduleId"));
+//		String schedule = request.getParameter("schedule");
 		
 		SchedulesDAO sche = new SchedulesDAO();
 		
 		//登録ボタン押下時
 		if (request.getParameter("submit").equals("登録")) {
+			String schedule = request.getParameter("schedule");
 			if (sche.insert(new Schedule(0, 1, date, schedule, null))) {
 				request.setAttribute("msg", "予定を登録しました。");
 			} else {
 				request.setAttribute("msg", "予定の登録に失敗しました");
 			}
+		//削除ボタン押下時
+		} else if (request.getParameter("submit").equals("削除")) {
+			int scheId = Integer.parseInt(request.getParameter("scheduleId"));
+			if (sche.delete(new Schedule(scheId,0,null,null,null))) {
+				request.setAttribute("msg", "予定を削除しました。");
+			} else {
+				request.setAttribute("msg", "予定の登録に失敗しました");
+			}
 		//編集ボタン押下時
-//		} else if (request.getParameter("submit").equals("編集")) {
-//		
-//		//削除ボタン押下時
-//		} else {
-//			
+		} else {
+			int scheId = Integer.parseInt(request.getParameter("scheduleId"));
+			String schedule = request.getParameter("schedule");
+			if (sche.update(new Schedule(scheId, 0, null, schedule, null))) {
+				request.setAttribute("msg", "予定を更新しました。");
+			} else {
+				request.setAttribute("msg", "予定の編集に失敗しました");
+			}
 		}
 		
 		//フォワード
