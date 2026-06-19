@@ -77,23 +77,21 @@
         <!--該当日記データが無い場合-->
         <c:if test="${empty diary}">
             <p>日記は登録されていません。</p>
+            <p><!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 --></p>
         </c:if>
 
         <!--該当する日記データがある場合-->
-        <div>
-            テーマ:${diary.theme}
-            <img src="${diary.stamp}">
-            天気:${diary.weather} ${diary.temp_max}℃/${dairy.temp_min}℃
-        </div>
-
-        <div>[満足度]</div>
-
-        <div>
-        	<img src="${diary.image}">
-        </div>
-
-        <div>${diary.diary}</div>
-        
+        <c:if test="${not empty diary}">
+        <c:forEach var="d" items="${diaryList}">
+            <p>テーマ:${d.theme}</p>
+            <p><img src="${d.stamp}"></p>
+            <p>天気:${diary.weather} ${d.temp_max}℃/${d.temp_min}℃</p>
+        	<p>[満足度]</p>
+	        <p><img src="${d.image}"></p>
+	        <p>${d.diary}</p>
+        </c:forEach>
+        <p><!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記編集ページを表示 --></p>
+        </c:if>
     </div>
 </main>
 <footer>

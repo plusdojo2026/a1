@@ -1,13 +1,13 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Diary implements Serializable {
 
 	private int diaryId;
 	private int userId;
-	private Date date;
+	private LocalDate date;
 	private int weatherCode;
 	private float tempMin;
 	private float tempMax;
@@ -21,7 +21,7 @@ public class Diary implements Serializable {
 		
 	};
 	
-	public Diary(int diaryId, int userId, Date date, int weatherCode, float tempMin, float tempMax, int theme,
+	public Diary(int diaryId, int userId, LocalDate date, int weatherCode, float tempMin, float tempMax, int theme,
 			int stamp, String diary, int satisfaction, String image) {
 		super();
 		this.diaryId = diaryId;
@@ -58,12 +58,12 @@ public class Diary implements Serializable {
 	}
 
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
