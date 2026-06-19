@@ -11,8 +11,8 @@ public class Diary implements Serializable {
 	private int weatherCode;
 	private float tempMin;
 	private float tempMax;
-	private String theme; //テーマIDをテーマ名に変換して格納する。
-	private String stamp; //スタンプIDをスタンプのパスに変換して格納する。
+	private int themeId; //テーマIDをテーマ名に変換して格納する。
+	private int stampId; //スタンプIDをスタンプのパスに変換して格納する。
 	private String diary;
 	private int satisfaction;
 	private String image;
@@ -21,8 +21,8 @@ public class Diary implements Serializable {
 		
 	};
 	
-	public Diary(int diaryId, int userId, Date date, int weatherCode, float tempMin, float tempMax, String theme,
-			String stamp, String diary, int satisfaction, String image) {
+	public Diary(int diaryId, int userId, Date date, int weatherCode, float tempMin, float tempMax, int theme,
+			int stamp, String diary, int satisfaction, String image) {
 		super();
 		this.diaryId = diaryId;
 		this.userId = userId;
@@ -30,8 +30,8 @@ public class Diary implements Serializable {
 		this.weatherCode = weatherCode;
 		this.tempMin = tempMin;
 		this.tempMax = tempMax;
-		this.theme = theme;
-		this.stamp = stamp;
+		this.themeId = theme;
+		this.stampId = stamp;
 		this.diary = diary;
 		this.satisfaction = satisfaction;
 		this.image = image;
@@ -98,23 +98,23 @@ public class Diary implements Serializable {
 	}
 
 
-	public String getTheme() {
-		return theme;
+	public int getTheme() {
+		return themeId;
 	}
 
 
-	public void setTheme(String theme) {
-		this.theme = theme;
+	public void setTheme(int theme) {
+		this.themeId = theme;
 	}
 
 
-	public String getStamp() {
-		return stamp;
+	public int getStamp() {
+		return stampId;
 	}
 
 
-	public void setStamp(String stamp) {
-		this.stamp = stamp;
+	public void setStamp(int stamp) {
+		this.stampId = stamp;
 	}
 
 

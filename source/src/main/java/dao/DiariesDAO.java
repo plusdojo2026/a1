@@ -17,7 +17,7 @@ public class DiariesDAO {
 	
 	
 
-	public List<Diary> select(Diary dry) {
+	public List<Diary> insert(Diary dry) {
 		// 結果セットを格納するコレクション
 		List<Diary> dryList = new ArrayList<Diary>();
 	

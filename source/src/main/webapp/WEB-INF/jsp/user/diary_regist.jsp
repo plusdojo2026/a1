@@ -36,17 +36,33 @@
 
 <body>
 <!-- ヘッダー -->
+<header>
+<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
+</header>
 <main>
 	<!-- ↓h1全画面共通！↓ -->
 	<h1 class="home">日記の登録</h1>              <!-- ↓調べる -->
 	<form action="/a1/user/diary-regist" method="post" enctype="multipart/form-data">
 	
 		<div>
-			<div>
-				日付天気気温
+			<div class="date">
+				日付
 			</div>
 		</div>
-		
+		<div>
+			<div>
+				天気:<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） --><span id="weather"></span>
+			</div>
+		</div>
+		<div>
+			<input type="hidden" name="temperature-max" id="temperature-max">
+			<input type="hidden" name="temperature-min" id="temperature-min">
+			<div>
+				気温<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） -->
+				<p>最高気温は<span id="mx"></span>
+				<p>最低気温は<span id="mn"></span>
+			</div>
+		</div>
 		<div>
 			<div>
 				テーマ
@@ -57,7 +73,18 @@
 				</select> --%>
 			</div>
 			<div>
-				スタンプ
+				<!-- スタンプ -->
+				<div class="stamp">
+            <input type="hidden" id="selected-id" name="stamp-id" value="1">
+            	<p id=sticker-buttom>スタンプ<img src="img/arrow_down.svg" alt=""></p>
+            	<div class="stickers">
+            		<c:forEach var ="sl" items="${stampList}">
+            			<div class="sticker" data-id="${sticker.stickerId}">
+            				<img src="${sl.stamp_path}" alt="">
+            			</div>
+            		</c:forEach>
+            	</div>
+            </div>
 				<%-- <div class="stamp">
 					<c:forEach var="sl" items="${stampList}">
 						<input type="hidden" name="stamp_id" value="${sl.stamp_id}"><!-- 送る用のスタンプID -->
@@ -74,12 +101,12 @@
 			<div>
 				
 				<div class="review">
-  		<p>満足度</p>
+  		<p id="stars">満足度</p>
   		<div class="stars">
 		    <span>
 		      <input id="1" type="radio" name="review"><label for="review01">★</label>
 		      <input id="2" type="radio" name="review"><label for="review02">★</label>
-		      <input id="3" type="radio" name="review"><label for="review03">★</label>
+		      <input id="3" type="radio" name="review" ><!-- onclick --><label for="review03">★</label>
 		      <input id="4" type="radio" name="review"><label for="review04">★</label>
 		      <input id="5" type="radio" name="review"><label for="review05">★</label>
 		    </span>
@@ -107,7 +134,11 @@
 	
 </main>
 <!-- フッター -->
-</body>
+<footer>
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+</footer>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+
 <script>
 	function previewImage(obj){
 
@@ -134,7 +165,87 @@
 		console.log(fileReader.result) // ← (確認用)null
 	}
 	
+	let temperatureMax = null;
+	let temperatureMin = null;
+	let weatherCode = null;
+	const url = "https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&daily=temperature_2m_max,temperature_2m_min,weather_code&models=jma_seamless&timezone=Asia%2FTokyo"
+
+	function getSimpleWeatherCode(rawWeatherCode) {
+	    if (rawWeatherCode === 0 || rawWeatherCode === 1) {
+	        // 0（晴れ）
+	        return 0;
+	    } else if (rawWeatherCode >= 2 && rawWeatherCode <= 49) {
+	        // 1（曇り）
+	        return 1;
+	    } else if (rawWeatherCode >= 50 && rawWeatherCode <= 69 || rawWeatherCode >=80 && rawWeatherCode <= 99) {
+	        // 2（雨）
+	        return 2;
+	    } else if (rawWeatherCode >=70 && rawWeatherCode <= 79) {
+	        // 3（雪）
+	        return 3;
+	    } else {
+	        // その他
+	        return 4;
+	    }
 
 
+	}
+
+	// asyncとawaitは非同期処理を同期処理のような見た目で書くための仕組み
+	async function getWetherInf() {
+	    const response = await fetch(url);
+	    const data = await response.json();
+
+	    weatherCode= getSimpleWeatherCode(data.daily.weather_code[0]);
+	    temperatureMax = data.daily.temperature_2m_max[0];
+	    temperatureMin = data.daily.temperature_2m_min[0];
+	}
+
+	async function main() {
+	    await getWetherInf();
+	    // weatherCodeという名前の変数に天気番号が入ってます。（0:晴れ、1:曇り、2:雨、3:雪、4:その他）
+	    // temperatureMaxという名前の変数に最高気温が入ってます。
+	    // temperatureMinという名前の変数に最低気温が入ってます。
+
+	    // 確認用
+	    console.log(weatherCode);
+	    console.log(temperatureMax);
+	    console.log(temperatureMin);
+
+	    // この下にテキストを表示させる処理を書いてください。
+	    //天気を数字から文字にする
+	    let weather = null;
+	    switch (weatherCode) {
+	    	case 0:
+	    		weather = '晴れ';
+	    		break;
+	    	case 1:
+	    		weather = '曇り';
+	    		break;
+	    	case 2:
+	    		weather = '雨';
+	    		break;
+	    	case 3:
+	    		weather = '雪';
+	    		break;
+	    	default:
+	    		weather = 'その他';
+	    }
+	    
+		document.getElementById("weather").textContent = weather;
+		document.getElementById("mx").textContent = temperatureMax;
+		document.getElementById("temperature-max").value = temperatureMax;
+		document.getElementById("mn").textContent = temperatureMin;
+		document.getElementById("temperature-min").textContent = temperatureMin;
+	}
+
+	main();
+
+	
+	document.getElementById('1').onclick = function(){
+		let ele = document.getElementById('1');
+		  ele.style.color = '#F8C601';
+	}
 </script>
+</body>
 </html>
