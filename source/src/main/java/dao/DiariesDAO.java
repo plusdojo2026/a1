@@ -137,7 +137,7 @@ public class DiariesDAO {
 	//日記が存在するかしないか検索するメソッド
 	public boolean diaryExist(int userId,LocalDate date) {
 		// 結果を受け取る用のlistをつくる
-		ArrayList<クラス名> loginCheck = new ArrayList<>();
+		ArrayList<Diary> loginCheck = new ArrayList<>();
 		
 		Connection conn = null;
 		boolean result = false;
@@ -166,7 +166,7 @@ public class DiariesDAO {
 	
 				// 結果表をコレクションにコピーする
 				while (rs.next()) {		
-					Diary loginCheck = new Diary(
+					Diary diaryCheck = new Diary(
 							0, 
 							0, 
 							null, 
@@ -179,10 +179,14 @@ public class DiariesDAO {
 							0, 
 							null);
 					// 結果をlistに入れる
+					loginCheck.add(diaryCheck);
 				}
 				
 				// Listのなかが空ならfalse、存在するならtrueをresultに代入するif文 list名.eｍｐｔｙ（）；
-			result = 
+				if(loginCheck.isEmpty()) {
+					result = true;
+				}
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
