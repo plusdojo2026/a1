@@ -92,7 +92,7 @@ public class SchedulesDAO {
 					"password");
 
 			// SQL文作成 ユーザーIDを基に予定を検索する
-			String sql = "SELECT schedule_id, schedule FROM schedules WHERE user_id = ?;";
+			String sql = "SELECT schedule_id, schedule, date FROM schedules WHERE user_id = ?;";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			pStmt.setInt(1, sche.getUserId());
@@ -105,7 +105,7 @@ public class SchedulesDAO {
 
 			// 検索結果を格納
 			while (rs.next()) {
-				Schedule schedule = new Schedule(rs.getInt("schedule_id"), 0, null, rs.getString("schedule"), null);
+				Schedule schedule = new Schedule(rs.getInt("schedule_id"), 0, rs.getDate("date").toLocalDate(), rs.getString("schedule"), null);
 				resultSche.add(schedule);
 			}
 
