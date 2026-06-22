@@ -3,7 +3,7 @@
 <nav class="nav">
         <div class="navbar">
         	<div class="logo">
-            	<a href="/a1/admin/survey"><img src="" alt=""></a>
+            	<a href="/a1/admin/survey"></a>
             	<p><a href="/a1/admin/survey">紫陽花ダイアリー（仮）</a></p>
         	</div>
             <ul class="center">
