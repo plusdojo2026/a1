@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +19,13 @@ public class DiariesDAO {
 	
 	
 
-	public List<Diary> insert(Diary dry) {
+	public int insert(Diary dry) {
 		// 結果セットを格納するコレクション
-		List<Diary> dryList = new ArrayList<Diary>();
+		//List<Diary> dryList = new ArrayList<Diary>();
 	
 		Connection conn = null;
 		//↑一旦空っぽにする
-	
+		int newId=0;
 		
 		try {
 				// JDBCドライバを読み込む
@@ -83,13 +84,13 @@ public class DiariesDAO {
 						
 				
 				//JavaからsqlにDate変換
-				java.sql.Date sqlDate = new java.sql.Date(dry.getDate().getTime());
+				java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
 				
 						//↓どこに繋ぐか
-						PreparedStatement pStmt = conn.prepareStatement(sql);
+						PreparedStatement pStmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 						
 						//↓全部入ってる　？を設定するための文、何を検索するのか
-						pStmt.setInt(1,dry.getDiaryId());//？の左から１つめ
+						pStmt.setInt(1,0);//？の左から１つめ
 						pStmt.setInt(2,dry.getUserId());//２つめ
 						pStmt.setDate(3,sqlDate);
 						pStmt.setInt(4,dry.getWeatherCode());
@@ -102,27 +103,18 @@ public class DiariesDAO {
 						pStmt.setString(7,dry.getImage());
 						
 						//検索結果取得、db専用 sqlへ
-						ResultSet rs = pStmt.executeQuery();
+						ResultSet rs = pStmt.getGeneratedKeys();
 												
 						// 検索結果をコレクションに格納する　Beans
 						while (rs.next()) {//rsに何かが入ってるのが分かったら次にいける　true or faulse
-							//データ取ってくる
-							Diary d = new Diary(rs.getInt("diary_id"), rs.getInt("user_id"), rs.getDate("date"), rs.getInt("weather_code"),
-									rs.getFloat("temp_min"), rs.getFloat("temp_max"), rs.getInt("theme_id"), rs.getInt("stamp_id"),
-									rs.getString("diary"), rs.getInt("satisfaction"), rs.getString("image"));
-							dryList.add(d);//ArrayListに追加（newしてないと追加×）
+							newId = rs.getInt(1);						
 						}
 
-						// 検索結果が格納されたコレクションを返す
-						return dryList;
-						
-						
 			}catch (Exception d) {
 				// ↓例外処理がコンソールに出る driverいなかったらと
 				d.printStackTrace();
-				return null;
-			}
-			finally {
+				
+			}finally {
 				// データベースを切断する
 				if (conn != null) {
 					try {
@@ -133,6 +125,8 @@ public class DiariesDAO {
 					}
 				}
 			}
+		// 検索結果が格納されたコレクションを返す
+			return newId;
 	}
 	
 	//日記が存在するかしないか検索するメソッド
