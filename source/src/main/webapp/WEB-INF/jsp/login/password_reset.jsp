@@ -23,20 +23,18 @@
 	<input type="text" name="name" placeholder="名前"><br>
 	</div>
 	<div>
-	<div>
 	<input type="password" name="pass" placeholder="パスワード"><br>
 	</div>
 	<div>
-	<input type="password" name="pass2" placeholder="パスワード（確認）"><br>
+	<input type="password" name="pass2" id="pass2" placeholder="パスワード（確認）">
 	<div id="error_message"></div>
 	</div>
-	<div id="error_message"></div>
 	
-	</div>
-	<input type="submit" name="regist" value="再設定">
+	<input type="submit" name="update" value="再設定">
 </div>
  <div>${msg}</div>
  </form>
+ 
 </main>
 <footer>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
@@ -50,14 +48,16 @@
 	const errorMessageObj = document.getElementById('error_message');
 
 	formObj.addEventListener('submit', function(event) { 
-		
+	//毎回エラーメッセージををリセットする
 	errorMessageObj.innerHTML = '';
-		
+	
+	//メールアドレス空欄を確認
 	if (formObj.mail.value === '') {
 	    errorMessageObj.innerHTML += '※メールアドレスを入力してください。<br>';
 	    event.preventDefault();
 	
 	}
+	//名前空欄を確認
 	if (formObj.name.value === '') {
 		    errorMessageObj.innerHTML += '※名前を入力してください。<br>';
 		    event.preventDefault();
@@ -70,7 +70,11 @@
 	}if (formObj.pass.value !== formObj.pass2.value) {
 			    errorMessageObj.innerHTML += '※パスワードが違います。<br>';
 			    event.preventDefault();
-	}    
+	//すべての妨げがなかったらpass2を送れないようにする
+	}if(!event.defaultPrevented){
+		formObj.pass2.disabled = true;
+	}
+	
 	});
 			
 </script>

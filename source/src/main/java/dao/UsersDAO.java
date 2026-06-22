@@ -135,22 +135,22 @@ public class UsersDAO {
 					"root", "password");
 			
 			//sql文を準備する
-			String sql = "UPDATE users INTO pass where user_id=?,mail=?,name=?,place=?,is_admin=?";
+			String sql = "UPDATE users set pass=? where mail=? and name=?";
 			//船を用意し、必要なものを持っていく。
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
-			if (us.getMail() != null) {
-				pStmt.setString(1, us.getMail());
+			if (us.getPass() != null) {
+				pStmt.setString(1, us.getPass());
 			} else {
 				pStmt.setString(1, "");
 			}
-			if (us.getName() != null) {
-				pStmt.setString(2, us.getName());
+			if (us.getMail() != null) {
+				pStmt.setString(2, us.getMail());
 			} else {
 				pStmt.setString(2, "");
 			}
-			if (us.getPass() != null) {
-				pStmt.setString(3, us.getPass());
+			if (us.getName() != null) {
+				pStmt.setString(3, us.getName());
 			} else {
 				pStmt.setString(3, "");
 			}

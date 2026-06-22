@@ -30,6 +30,7 @@
 	</div>
 	<div>
 	<input type="password" name="pass2" placeholder="パスワード（確認）"><br>
+	
 	</div>
 	<div id="error_message"></div>
 	
