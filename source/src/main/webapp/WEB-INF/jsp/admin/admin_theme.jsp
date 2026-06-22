@@ -20,7 +20,7 @@
 
 <!-- 以下をコピーして使ってください。 -->
 <!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
-<button class="modalOpen" data-title="テーマの追加" data-content1="" data-content2="" data-content3="登録" data-img="" data-radio="">追加</button>
+<button class="modalOpen" data-title="テーマの追加" data-content1="" data-content2="${themeId}" data-content3="登録" data-img="" data-radio="">追加</button>
 <!-- .modal-bgの中身がモーダル表示されます。 -->
 <div class="modal-bg">
     <div class="modal">
@@ -37,7 +37,7 @@
             </div>
             <form action="" method="post" id="modal-form">
             <p>
-                <label for="subject">本文<span>*</span><span id="subject-alt"></span></label><br>
+                <label for="subject">本文<span></span><span id="subject-alt"></span></label><br>
                
                  <textarea name="subject" id="modal-content1" autofocus></textarea><br>
             </p>
@@ -46,9 +46,20 @@
                 <input class="modal-radio" type="radio" name="choice" value="0">日替わり指定<br>
 <input class="modal-radio" type="radio" name="choice" value="1">通常指定<br>
             </p>
-           
-//スタンプ指定モーダル
+         <p>  <input type="hidden" id="modal-content2" name="themeID"  value="${themeId}"></p>
+
             <button class="modalOpen" data-title="" data-content1="" data-content2="" data-content3="" data-img="">スタンプ指定</button>
+            <div class="stamp-area" id="modal-content1">
+            <input type="hidden" id="selected-id" name="${themes.theme }" value="${themes.stampId}">
+            	<p id="modal-content1">スタンプ<img src="${pageContext.request.contextPath}/img/${stamp.stampPath}" alt=""></p>
+            	<div id="data-content2">
+            		<c:forEach var ="stamp" items="${stampList}">
+            			<div class="stamp" data-id="${stamp.stampId}">
+            			<img src="${pageContext.request.contextPath}/img/${stamp.stampPath}" alt="">
+            			</div>
+            		</c:forEach>
+            		</div>
+            		</div>
 <!-- .modal-bgの中身がモーダル表示されます。 -->
 <div class="modal-bg">
     <div class="modal">
@@ -68,12 +79,12 @@
             
             
              <div class="stamp-area" id="modal-content1">
-            <input type="hidden" id="selected-id" name="データを送るときに付ける名前" value="${themes.stamp_id}">
+            <input type="hidden" id="modal-content2" name="stampId">
             	<p id="modal-content1">スタンプ<img src="" alt=""></p>
             	<div id="data-content2">
-            		<c:forEach var ="stamp" items="${stamp_list}">
-            			<div class="stamp" data-id="${stamp_id}">
-            			<img src="${stamp_id}" alt="">
+            		<c:forEach var ="stamp" items="${stampList}">
+            			<div class="stamp" data-id="${stamp.stampId}">
+            			<img src="${stamp.stampPath}" alt="">
             			</div>
             		</c:forEach>
             		</div>
@@ -85,6 +96,7 @@
         </div>
     </div>
 </div>
+ 
   <p>
                 <input type="submit" id="modal-content3"><br>
             </p>          
@@ -101,7 +113,7 @@
 	<option>${tm.theme}</option>
 <!-- 以下をコピーして使ってください。 -->
 <!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
-<button class="modalOpen" data-title="テーマの編集" data-content1="${tm.theme}" data-content2="" data-content3="保存" data-img="">編集</button>
+<button class="modalOpen" data-title="テーマの編集" data-content1="${tm.theme}" data-content2="${tm.stampId}" data-content3="保存" data-img="">編集</button>
 
 </c:forEach>
 </main>
@@ -131,7 +143,7 @@ $(document).ready(function(){
 		$(this).addClass('grey-background');
 		
 		// クリックされた要素のidをフォームのvalueに代入する
-		$('#selected-id').val($(this).data('id'));
+		$('#modal-content2').val($(this).data('id'));
 	});
 });
 'use strict';
