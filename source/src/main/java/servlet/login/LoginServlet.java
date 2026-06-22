@@ -30,6 +30,10 @@ public class LoginServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login/login.jsp");
 		dispatcher.forward(request, response);
 		System.out.println("ここ2");
+		
+		//画像のパスをsessionに保存しておく
+		HttpSession session  = request.getSession();
+		session.setAttribute("pathDir", getServletContext().getRealPath("/img"));
 	}
 
 	/**

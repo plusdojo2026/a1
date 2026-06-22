@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>日記の登録</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
 <link>
 <style>
 /* これは評価の星のやつ */
@@ -71,11 +72,11 @@
 		<div>
 			<div>
 				テーマ
-				<%-- <select name="theme">
-					<c:forEach var="tm" items="${themeList}">サーブレットで付けた名前が入る
-						<option value="${tm.theme_id}">${tm.theme}</option><!-- 選ばれたvalueの中身が(番号付けて)情報として送られる -->
+				<select name="theme">
+					<c:forEach var="tm" items="${themesList}"><!-- サーブレットで付けた名前が入る -->
+						<option value="${tm.themeId}">${tm.theme}</option><!-- 選ばれたvalueの中身が(番号付けて)情報として送られる -->
 					</c:forEach>
-				</select> --%>
+				</select>
 			</div>
 			<div>
 				<!-- スタンプ -->
@@ -85,16 +86,17 @@
             	<div class="stickers">
             		<c:forEach var ="sl" items="${stampList}">
             			<div class="sticker" data-id="${sticker.stickerId}">
-            				<img src="${sl.stamp_path}" alt="">
+            				<img src="${pageContext.request.contextPath}/img/${sl.stampPath}" alt="">
             			</div>
             		</c:forEach>
             	</div>
             </div>
-				<%-- <div class="stamp">
+				<%--  <div class="stamp">スタンプ
 					<c:forEach var="sl" items="${stampList}">
-						<input type="hidden" name="stamp_id" value="${sl.stamp_id}"><!-- 送る用のスタンプID -->
+					<option value=""></option>
+						<input type="hidden" name="stamp_id" value="${sl.stampId}"><!-- 送る用のスタンプID -->
 						<div>
-							<img src="${sl.stamp_path}" alt="">
+							<img src="${pageContext.request.contextPath}/img/${sl.stampPath}" alt="">
 						</div>
 					</c:forEach>
 				</div> --%>
@@ -109,11 +111,11 @@
   		<p id="stars">満足度</p>
   		<div class="stars"><input type=hidden name="satisfaction">
 		    <span>
-		      <input id="1" type="radio" name="review" onclick="b1()"><label id="star1" for="review01">★</label>
-		      <input id="2" type="radio" name="review"><label for="review02">★</label>
-		      <input id="3" type="radio" name="review"><label for="review03">★</label>
-		      <input id="4" type="radio" name="review"><label for="review04">★</label>
-		      <input id="5" type="radio" name="review"><label for="review05">★</label>
+		      <input id="1" type="radio" name="review" ><label id="star1" for="1">★</label>
+		      <input id="2" type="radio" name="review"><label for="2">★</label>
+		      <input id="3" type="radio" name="review"><label for="3">★</label>
+		      <input id="4" type="radio" name="review"><label for="4">★</label>
+		      <input id="5" type="radio" name="review"><label for="5">★</label>
 		    </span>
  		 </div>
 	</div>
@@ -146,10 +148,10 @@
 
 <script>
 
-	const star1 = document.getElementById('star1');
+	/* const star1 = document.getElementById('star1');
 	function b1() {
 		star1.style.color='#F8C601';
-	}
+	} */
 	
 	function previewImage(obj){
 
