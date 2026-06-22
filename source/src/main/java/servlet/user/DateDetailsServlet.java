@@ -2,6 +2,7 @@ package servlet.user;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -59,6 +60,15 @@ public class DateDetailsServlet extends HttpServlet {
 		
 		List<DiaryView> dayDi = di.select(diary);
 		request.setAttribute("diary", dayDi);
+		
+	//今日(4:oo~28:00)の日付を取得&リクエストスコープに格納 [today]
+		//時間の処理
+		LocalDateTime dateNow = LocalDateTime.now();
+		// Dateから4時間引く　コピーを返すと言われたら、元ある変数に入れられる
+		dateNow = dateNow.minusHours(4);
+		// それをLocalDateに変換
+		LocalDate today = dateNow.toLocalDate();
+		request.setAttribute("today", today);
 		
 		//日付詳細ページにフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/date_details.jsp");

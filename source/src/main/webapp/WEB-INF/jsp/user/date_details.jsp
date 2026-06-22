@@ -9,6 +9,32 @@
 <title>日記・予定詳細ページ</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/user_survey.css">
+<style>
+
+.star {
+	position: relative;
+	display: inline-block;
+}
+
+.star::before {
+	content: "★★★★★";
+	color: #cccccc;
+}
+
+.star::after {
+	content: "★★★★★";
+	position: absolute;
+	width: var(--starWidth);	/*取得した満足度によって変化する*/
+	z-index: 1;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	color: #ffcf32;
+}
+
+	
+</style>
 </head>
 <body>
 <header>
@@ -86,9 +112,13 @@
         <c:if test="${not empty diary}">
         <c:forEach var="d" items="${diary}">
             <p>テーマ:${d.theme}</p>
-            <p><img src="${d.stampPath}"></p>
-            <p>天気:${d.weatherCode} ${d.tempMax}℃/${d.tempMin}℃</p>
-        	<p>${d.satisfaction}</p>
+            <p><img src="${pageContext.request.contextPath}/img/${d.stampPath}"></p>
+            <p>
+            	天気:
+            	<div id="weather" data-weather-code="${d.weatherCode}"></div>
+            	${d.tempMax}℃/${d.tempMin}℃
+            </p>
+        	<span class="star" id="satisfaction" data-satisfaction="${d.satisfaction}"><span></span></span>
 	        <p><img src="${d.image}"></p>
 	        <p>${d.diary}</p>
         </c:forEach>
@@ -104,7 +134,45 @@
 <script>
 'use strict';
 // ここから個別処理
-
+//天気を数字から文字にする
+	let weather = null;
+	
+	const weatherC = document.getElementById("weather");
+	//console.log("C：" + weatherC);
+	
+	let weatherCode = weatherC.dataset.weatherCode;
+	//console.log("コード：" + weatherCode);
+	
+	switch (weatherCode) {
+		case "0":
+			weather = '晴れ';
+			break;
+		case "1":
+			weather = '曇り';
+			break;
+		case "2":
+			weather = '雨';
+			break;
+		case "3":
+			weather = '雪';
+			break;
+		default:
+			weather = 'その他';
+	}
+	   
+	//console.log("天気：" + weather);
+	document.getElementById("weather").textContent = weather;
+	
+//満足度表示
+	const sat = document.getElementById("satisfaction");
+	let satisfaction = sat.dataset.satisfaction;
+	console.log("満足度：" + satisfaction);
+	
+	satisfaction *= 20;
+	console.log("満足度星：" + satisfaction);
+	
+	sat.style.setProperty('--starWidth', satisfaction + "%");
+	console.log(${satisfaction} + "%");
 
 </script>
 </body>
