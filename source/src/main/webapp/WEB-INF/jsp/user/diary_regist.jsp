@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>日記の登録</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/diary_regist.css"> --%>
 <link>
 <style>
 /* これは評価の星のやつ */
@@ -50,26 +51,31 @@
 				<input type=hidden name="userId">
 			</div>
 		</div>
-		<div>
-			<div class="date">
-				<p>日付 ${date}</p>
-			</div>
-		</div>
-		<div>
+		
+		<div class="datherture">
 			<div>
-				天気:<input type=hidden name="weatherCode"><span id="weather"></span>
+				<div class="date">
+					<p>日付 ${date}</p>
+				</div>
+			</div>
+			<div class="weture">
+				<div>
+					<div>
+						<p>天気:<input type=hidden name="weatherCode"><span id="weather"></span></p>
+					</div>
+				</div>
+				
+				<div>
+					<input type="hidden" name="temperature-max" id="temperature-max">
+					<input type="hidden" name="temperature-min" id="temperature-min">
+						<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） -->
+						<p>最高気温は<span id="mx"></span><input type = "hidden" name="tempMax">
+						最低気温は<span id="mn"></span><input type = "hidden" name="tempMin"></p>
+				</div>
 			</div>
 		</div>
-		<div>
-			<input type="hidden" name="temperature-max" id="temperature-max">
-			<input type="hidden" name="temperature-min" id="temperature-min">
-			<div>
-				気温<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） -->
-				<p>最高気温は<span id="mx"></span><input type = "hidden" name="tempMax">
-				<p>最低気温は<span id="mn"></span><input type = "hidden" name="tempMin">
-			</div>
-		</div>
-		<div>
+
+		<div class="tmsl">
 			<div>
 				テーマ
 				<select name="theme">
@@ -104,7 +110,7 @@
 			</div>
 		</div>
 		
-		<div>
+		<div class="satisfaction">
 			<div>
 				
 				<div class="review">
