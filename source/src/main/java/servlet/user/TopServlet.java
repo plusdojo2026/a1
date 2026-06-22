@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import dao.DiariesDAO;
 import dao.ThemesDAO;
 import model.Diary;
+import model.DiaryView;
 import model.Theme;
 
 /**
@@ -50,14 +51,14 @@ public class TopServlet extends HttpServlet {
 		int userId = (int)session.getAttribute("user_id");
 		//DAOを持ってくる
 		DiariesDAO dDao = new DiariesDAO();
-		boolean result = dDao.diaryExist((int)session.getAttribute("user_id"),localDate );
+		boolean result = dDao.diaryExist(userId,localDate );
 		//分岐
 		if (result == false) { //今日の日記がない場合
 			//テーマを全部取得する
 			ThemesDAO dao = new ThemesDAO();
 			//データベースに繋いで、全てのテーマのデータを取得してarraylistに格納
 			ArrayList<Theme> th =  dao.selectAll();
-			//下で行うが、DiaryFlagが0のもののThemeIdだけを格納するarraylistを作る今は空
+			//下で行うが、DiaryFlagが0のもののThemeIdだけを格納するarraylistを作る　今は空
 			ArrayList<Integer> themeIdList = new ArrayList<>();
 			//上のArrayListにDiaryFlagが0のもののThemeIdだけを格納する
 			for(Theme t : th) {
@@ -74,33 +75,32 @@ public class TopServlet extends HttpServlet {
 			Diary di = new Diary();
 			di.setThemeId(choiceId);
 			di.setUserId((int)session.getAttribute("user_id"));
-			di.setDate(new Date());
+			di.setDate(localDate);
 			//作成した上記のデータをテーブルにインサート
-			boolean ans = dDao.insert(di);
+			int diaryId = dDao.insert(di);
 			
-			if(ans == true ) {
+			if(diaryId > 0) {
 				//上でインサートした行のデータを取得して、requestにセット
-			}
-				
-			
-			
-			
+				request.setAttribute("diaryId",diaryId );//左がJSPのEL式に対応してる部分、右が８０行目
+			}			
 		}
-		//天気表示
-		
-		//気温表示
-		
+
 		//継続日数表示
+
 		
 		//１年前の今日の日記		
 		// Dateから1年引く　コピーを返すと言われたら、元ある変数に入れられる
 		LocalDate oneYearAgo = localDate.minusYears(1);
 		
-		if() {//１年前の日記あったら
+		Diary diary = new Diary(0, 1, oneYearAgo, 0, 0, 0, 0, 0, null, 0, null);
+		DiariesDAO di = new DiariesDAO();
+		List<DiaryView> dayDi = di.select(diary);
+		if(dayDi.size() != 0) {//１年前の日記あったら
 			//１年前の日記本文を取得
+			String diaryBody = dayDi.get(0).getDiary();
 			
 			//リクエストスコープにセット
-			request.setAttribute("past_diary", );
+			request.setAttribute("pastDiary",diaryBody);
 		}
 		//お知らせ
 	}
