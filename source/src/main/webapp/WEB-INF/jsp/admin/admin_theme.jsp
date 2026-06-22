@@ -15,12 +15,16 @@
 <%@ include file="/WEB-INF/jsp/common/admin_header.jsp" %>
 </header>
 <main>
+
 <h1>テーマ</h1>
+<button class="modalOpen" data-title="テーマの追加" data-content1="" data-content2="" data-content3="登録" data-img="" data-radio="">追加</button>
 
+<c:forEach var="tm" items="${themeList}">
+	<p>${tm.theme}</p>
+	<button class="modalOpen" data-title="テーマの編集" data-content1="${tm.theme}" data-content2="${tm.themeId}" data-content3="保存" data-stamp-id=${tm.stampId} data-img="" data-radio=${tm.diaryFlag}>編集</button>
+</c:forEach>
 
-<!-- 以下をコピーして使ってください。 -->
-<!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
-<button class="modalOpen" data-title="テーマの追加" data-content1="" data-content2="${themeId}" data-content3="登録" data-img="" data-radio="">追加</button>
+<!-- モーダルウィンドウ部分 -->
 <!-- .modal-bgの中身がモーダル表示されます。 -->
 <div class="modal-bg">
     <div class="modal">
@@ -36,86 +40,43 @@
                 </div>
             </div>
             <form action="" method="post" id="modal-form">
-            <p>
-                <label for="subject">本文<span></span><span id="subject-alt"></span></label><br>
-               
-                 <textarea name="subject" id="modal-content1" autofocus></textarea><br>
-            </p>
-             <p>
+            	<p>
+                	<label for="subject">テーマ名<span></span><span id="subject-alt"></span></label><br>
+               		
+                 	<input type="text" name="theme" id="modal-content1" autofocus>
+            	</p>
+             	<p>
               
-                <input class="modal-radio" type="radio" name="choice" value="0">日替わり指定<br>
-<input class="modal-radio" type="radio" name="choice" value="1">通常指定<br>
-            </p>
-         <p>  <input type="hidden" id="modal-content2" name="themeID"  value="${themeId}"></p>
+                	<input class="modal-radio" type="radio" name="choice" value="0">日替わり指定<br>
+					<input class="modal-radio" type="radio" name="choice" value="1">通常指定<br>
+            	</p>
+         		<p>
+         			<input type="hidden" id="modal-content2" name="themeId"  value="${themeId}">
+         		</p>
 
-            <button class="modalOpen" data-title="" data-content1="" data-content2="" data-content3="" data-img="">スタンプ指定</button>
-            <div class="stamp-area" id="modal-content1">
-            <input type="hidden" id="selected-id" name="${themes.theme }" value="${themes.stampId}">
-            	<p id="modal-content1">スタンプ<img src="${pageContext.request.contextPath}/img/${stamp.stampPath}" alt=""></p>
-            	<div id="data-content2">
-            		<c:forEach var ="stamp" items="${stampList}">
-            			<div class="stamp" data-id="${stamp.stampId}">
-            			<img src="${pageContext.request.contextPath}/img/${stamp.stampPath}" alt="">
-            			</div>
-            		</c:forEach>
+            	<div class="stamp-area">
+            		<input type="hidden" id="modal-stamp-id" name="stampId">
+            		<div id="stamp-button">
+            		<p id="modal-content1">スタンプ選択<img src="${pageContext.request.contextPath}/img/arrow_down.svg" alt=""></p>
             		</div>
-            		</div>
-<!-- .modal-bgの中身がモーダル表示されます。 -->
-<div class="modal-bg">
-    <div class="modal">
-        <div class="modal-content">
-        	<!-- modal-contentの中は自由に変更してください。 -->
-            <p id="modal-title">スタンプ指定</p>
-            
-            <!-- .closeのものがクリックされると、モーダルが閉じます。 -->
-            <div class="close-btn close">
-                <div>
-                <span></span>
-                <span></span>
-                </div>
-            </div>
-           
-                
-            
-            
-             <div class="stamp-area" id="modal-content1">
-            <input type="hidden" id="modal-content2" name="stampId">
-            	<p id="modal-content1">スタンプ<img src="" alt=""></p>
-            	<div id="data-content2">
-            		<c:forEach var ="stamp" items="${stampList}">
-            			<div class="stamp" data-id="${stamp.stampId}">
-            			<img src="${stamp.stampPath}" alt="">
-            			</div>
-            		</c:forEach>
-            		</div>
-            		</div>
-        
-        	<!-- .closeのものがクリックされると、モーダルが閉じます。 -->
-        	<a class="modalClose close">モーダルを閉じる</a>
-        	<!-- modal-contentここまで -->
-        </div>
-    </div>
-</div>
- 
-  <p>
+            		<div class="stamps hidden">
+	            		<c:forEach var ="stamp" items="${stampList}">
+	            			<div class="stamp" data-id="${stamp.stampId}">
+	            				<img src="${pageContext.request.contextPath}/img/${stamp.stampPath}" alt="">
+	            			</div>
+	            		</c:forEach>
+	            	</div>
+           		</div>
+  				<p>
                 <input type="submit" id="modal-content3"><br>
-            </p>          
-           </form>
+            	</p>          
+           	</form>
            
-        	<!-- .closeのものがクリックされると、モーダルが閉じます。 -->
-        	<a class="modalClose close">モーダルを閉じる</a>
-        	<!-- modal-contentここまで -->
+        	
         </div>
     </div>
 </div>
 
-<c:forEach var="tm" items="${themeList}">
-	<option>${tm.theme}</option>
-<!-- 以下をコピーして使ってください。 -->
-<!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
-<button class="modalOpen" data-title="テーマの編集" data-content1="${tm.theme}" data-content2="${tm.stampId}" data-content3="保存" data-img="">編集</button>
-
-</c:forEach>
 </main>
 <footer>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
@@ -124,30 +85,31 @@
 <script src="${pageContext.request.contextPath}/js/modal.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
 
-<script>// jQueryのDOM
+<script>
+'use strict';
+//ここから個別処理
+//jQueryのDOM
 $(document).ready(function(){
 	
 	// ステッカー選択画面表示のtoggle
-	$("#sticker-buttom").on('click', function(){
-		$('.stickers').toggleClass('hidden');
+	$("#stamp-button").on('click', function(){
+		$('.stamps').toggleClass('hidden');
 	});
 	
 	// 最初のスタンプを初期値とする
-	$(".sticker").first().addClass('grey-background');
+	$(".stamp").first().addClass('selected');
 	
 	// スタンプをクリックしたときの処理を追加する
-	$('.sticker').on('click', function(){
+	$('.stamp').on('click', function(){
 		// 全ての要素の背景を白にする
-		$('.sticker').removeClass('grey-background');
+		$('.stamp').removeClass('selected');
 		// クリックされた要素の背景をグレーにする
-		$(this).addClass('grey-background');
+		$(this).addClass('selected');
 		
 		// クリックされた要素のidをフォームのvalueに代入する
-		$('#modal-content2').val($(this).data('id'));
+		$('#modal-stamp-id').val($(this).data('id'));
 	});
 });
-'use strict';
-// ここから個別処理
 
 </script>
 </body>

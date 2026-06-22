@@ -217,10 +217,10 @@ footer {
     height: 200px;
 }
 /* スタンプ設定 */
-#stamp-buttom {
+#stamp-button {
 	cursor: pointer;
 }
-#stamp-buttom img {
+#stamp-button img {
 	vertical-align: middle;
 }
 .stamps {
@@ -228,7 +228,8 @@ footer {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 20px;
     width: auto;
-    height: 400px;
+    height: auto;
+    max-height: 240px;
     overflow: auto;
 }
 
@@ -236,14 +237,13 @@ footer {
 	width: 80px;
 	height: 80px;
 	background-color: #ffffff;
-	padding: 5px;
+	padding: 0;
 	border: 1px solid #000000;
-	margin: auto;
 	cursor: pointer;
 }
 
-.grey-background {
-	background-color: #D9D9D9;
+.selected {
+	opacity: 0.5;
 }
 
 .hidden {
