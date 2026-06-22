@@ -38,6 +38,11 @@ public class AdminThemeServlet extends HttpServlet {
 		ThemesDAO thDAO=new ThemesDAO();
 		List<Theme>themeList=thDAO.selectAll();
 		request.setAttribute("themeList",themeList);
+	
+		
+		
+		
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_theme.jsp");
 		dispatcher.forward(request, response);
 		
