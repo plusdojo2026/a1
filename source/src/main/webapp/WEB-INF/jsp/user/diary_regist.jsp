@@ -87,12 +87,16 @@
 			<div>
 				<!-- スタンプ -->
 				<div class="stamp">
-            <input type="hidden" id="selected-id" name="stamp-id" value="1">
+				
             	<p id=sticker-buttom>スタンプ<img src="img/arrow_down.svg" alt=""></p>
+            	<input type="hidden" id="selected-id" name="stamp-id" value="1">
+            	
             	<div class="stickers">
             		<c:forEach var ="sl" items="${stampList}">
             			<div class="sticker" data-id="${sticker.stickerId}">
-            				<img src="${pageContext.request.contextPath}/img/${sl.stampPath}" alt="">
+            				<label><input type="radio" name="stamp" value="${sl.stampId}">
+            					<img src="${pageContext.request.contextPath}/img/${sl.stampPath}" alt="">
+            				</label>
             			</div>
             		</c:forEach>
             	</div>
