@@ -85,14 +85,14 @@
         <!--該当する日記データがある場合-->
         <c:if test="${not empty diary}">
         <c:forEach var="d" items="${diary}">
-            <p>テーマ:${theme[${d.themeId}]}</p>
-            <p><img src="${stamp[${d.stampId}]}"></p>
-            <p>天気:${d.weather} ${d.tempMax}℃/${d.tempMin}℃</p>
-        	<p>[満足度]</p>
+            <p>テーマ:${d.theme}</p>
+            <p><img src="${d.stampPath}"></p>
+            <p>天気:${d.weatherCode} ${d.tempMax}℃/${d.tempMin}℃</p>
+        	<p>${d.satisfaction}</p>
 	        <p><img src="${d.image}"></p>
 	        <p>${d.diary}</p>
         </c:forEach>
-        <p><!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記編集ページを表示 --></p>
+        <p><!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記編集ボタンを表示 --></p>
         </c:if>
     </div>
 </main>

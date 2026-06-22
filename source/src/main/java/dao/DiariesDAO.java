@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Diary;
+import model.DiaryView;
 
 //import dto.Employee;
 
@@ -204,6 +205,80 @@ public class DiariesDAO {
 		
 		return result;
 	}			
+	
+	//指定したユーザーと日付の日記表示メソッド
+	public List<DiaryView> select(Diary dry){
+		Connection conn = null;
+		List<DiaryView> dryList = new ArrayList<DiaryView>();
+
+		try {
+			//JDBCドライバの読み込み
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			//データベースに接続
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/"
+					+ "Tokyo&connectTimeout =30000",
+					"root", "password");
+			
+			//SQL文作成 ユーザーIDと日付を基に日記を検索する
+			String sql = "SELECT diary_id, date, weather_code, temp_min, temp_max, themes.theme, "
+					+ "stamps.stamp_path, diary, satisfaction, image "
+					+ "FROM diaries "
+					+ "JOIN themes "
+					+ "ON diaries.theme_id = themes.theme_id "
+					+ "JOIN stamps "
+					+ "ON diaries.stamp_id = stamps.stamp_id "
+					+ "WHERE user_id = ? AND date = ?";	
+				
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			//LocalDate→sqlDateの変換
+			java.sql.Date sqlDate = java.sql.Date.valueOf(dry.getDate());
+			
+			pStmt.setInt(1, dry.getUserId());
+			pStmt.setDate(2, sqlDate);
+			
+			//SQL文実行
+			ResultSet rs = pStmt.executeQuery();
+			
+			//検索結果を格納
+			while (rs.next()) {
+				DiaryView list = new DiaryView(rs.getInt("diary_id"),
+								0,
+								null,
+								rs.getInt("weather_code"),
+								rs.getFloat("temp_min"),
+								rs.getFloat("temp_max"),
+								rs.getString("theme"),
+								rs.getString("stamp_path"),
+								rs.getString("diary"),
+								rs.getInt("satisfaction"),
+								rs.getString("image"));
+				dryList.add(list);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			dryList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			dryList = null;
+		} finally {
+			//データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					dryList = null;
+				}
+			}
+		}
+		
+		//結果を返す
+		return dryList;
+	}	
 }
 				
 
