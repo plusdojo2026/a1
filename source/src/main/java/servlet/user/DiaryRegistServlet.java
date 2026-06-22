@@ -1,11 +1,10 @@
 package servlet.user;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import dao.DiariesDAO;
@@ -31,7 +29,7 @@ public class DiaryRegistServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/* System.out.println("come"); */
 		//スタンプのデータを取得する
 		StampsDAO sDAO = new StampsDAO();
 		List<Stamp> stampList = sDAO.selectAll();
@@ -42,13 +40,18 @@ public class DiaryRegistServlet extends HttpServlet {
 		request.setAttribute("themesList",themesList);
 		
 		
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-				HttpSession session = request.getSession();
-				if (session.getAttribute("id") == null) {
-					response.sendRedirect("/a1/LoginServlet");
-					return;
-				}
+		/*
+		 * // もしもログインしていなかったらログインサーブレットにリダイレクトする HttpSession session =
+		 * request.getSession(); if (session.getAttribute("id") == null) {
+		 * response.sendRedirect("/a1/LoginServlet"); return; }
+		 */
 				
+		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime today = now.minusHours(4);
+		LocalDate date = today.toLocalDate(); 
+		request.setAttribute("date", date);
+		/* System.out.println("bbbbbb"+date+"aaaaaaaaaaaaaaaa"); */
+		
 		//次、どのページに飛ぶかの記述をする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/diary_regist.jsp");
 		dispatcher.forward(request, response);
@@ -56,23 +59,23 @@ public class DiaryRegistServlet extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/*System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");*/
 		// リクエストパラメータを取得する
 			//request.setCharacterEncoding("UTF-8");
-			//int diaryId
+			
 			LocalDateTime now = LocalDateTime.now();
 			LocalDateTime today = now.minusHours(4);
 			LocalDate date = today.toLocalDate(); 
-			
-			//int userId = Integer.parseInt(request.getParameter(""));
-			//int weatherCode = Integer.parseInt(request.getParameter(""));
-			//float TempMin = Float.parseFloat(getParameter(""));
-			//float TempMax = Float.parseFloat(getParameter(""));
+			//int diaryId
+			int userId = Integer.parseInt(request.getParameter("userId"));
+			int weatherCode = Integer.parseInt(request.getParameter("weatherCode"));
+			float TempMin = Float.parseFloat(request.getParameter("tempMin"));
+			float TempMax = Float.parseFloat(request.getParameter("tempMax"));
 			String theme = request.getParameter("theme");
 			String stamp = request.getParameter("stamp");
 			String diary = request.getParameter("diary");
-			int satisfaction = Integer.parseInt(request.getParameter("satisfaction")
-			int review = Integer.parseInt(request.getParameter("review"));
+			int satisfaction = Integer.parseInt(request.getParameter("satisfaction"));
+			/* int review = Integer.parseInt(request.getParameter("review")); */
 			
 			
 	        // アップロード先のパスを動的に取得
@@ -93,8 +96,8 @@ public class DiaryRegistServlet extends HttpServlet {
 	        // macでは\、windowsでは/
 	        
 	        // データベースに画像の置き場所（パス）を保存する（Diaryインスタンスに入れる）
-	        Diary d = new Diary(-1,userId, date, weatherCode, float tempMin, float tempMax, int theme,
-	    			int stamp, String diary, int satisfaction, String image);
+	        Diary d = new Diary(-1,userId, date, -1, TempMin, TempMax, theme,
+	    			stamp, diary, satisfaction,image );
 	        
 	        //DAOをnewする
 	        DiariesDAO dDAO = new DiariesDAO();
