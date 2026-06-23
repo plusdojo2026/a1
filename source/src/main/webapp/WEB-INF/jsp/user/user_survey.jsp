@@ -20,14 +20,14 @@
 	<div>
 		<form action="/a1/user/survey" method="post" id="survey-form">
 			<p>
-				<label for="subject">件名</label>
-				<input type="text" name="subject" id="subject" autofocus>
+				<label for="subject">件名</label><br>
+				<input type="text" name="subject" id="subject" class="input-text" autofocus>
 			</p>
 			<p>
 				<label for="text">本文</label>
-				<textarea name="text" id="text"></textarea>
+				<textarea name="text" id="text" class="input-textarea"></textarea>
 			</p>
-			<p id="alt-message">${message}</p>
+			<p id="alt-message" class="e-msg">${message}</p>
 			<p>
 				<input type="submit" value="送信">
 			</p>
