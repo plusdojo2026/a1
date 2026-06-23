@@ -11,7 +11,7 @@
 </head>
 <body>
 <header>
-<%@ include file="/WEB-INF/jsp/common/admin_header.jsp" %>
+<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
 </header>
 <!--	<c:if test="${ご褒美デイなら}">
 		

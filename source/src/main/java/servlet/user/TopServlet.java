@@ -88,14 +88,29 @@ public class TopServlet extends HttpServlet {
 			System.out.println(diaryId+"入れた日記のidだよ");
 			if(diaryId > 0) {
 				//上でインサートした行のデータを取得して、requestにセット
-				request.setAttribute("diaryId",diaryId );//左がJSPのEL式に対応してる部分、右が８０行目
+				request.setAttribute("diaryId",diaryId );//左がJSPのEL式に対応してる部分
 			}
 			List<DiaryView> diaryList =  dDao.selectD(diaryId);
 			System.out.println(diaryList.size()+"：とってきた日記だよ");
 			request.setAttribute("diaryList", diaryList);
 			//テーマだけセット
+			request.setAttribute("theme", diaryList.get(0).getTheme());	
+		} else {
+			Diary diary = new Diary(0, 1, localDate, 0, 0, 0, 0, 0, null, 0, null);
+			
+			
+			List<DiaryView> diaryList =  dDao.selectD(diaryId);
+			
+			request.setAttribute("diaryList", diaryList);
+			//テーマだけセット
 			request.setAttribute("theme", diaryList.get(0).getTheme());
 			
+//			Diary diary = new Diary(0, 1, localDate, 0, 0, 0, 0, 0, null, 0, null);
+//			
+//			DiariesDAO di = new DiariesDAO();
+//			
+//			List<DiaryView> dayDi = di.select(theme);
+//			request.setAttribute("theme", dayDi);
 		}
 
 		//継続日数表示
