@@ -10,32 +10,46 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/top.css">
 </head>
 <body>
-	<c:if test="${ご褒美デイなら}">
+<header>
+<%@ include file="/WEB-INF/jsp/common/admin_header.jsp" %>
+</header>
+<!--	<c:if test="${ご褒美デイなら}">
 		
-	</c:if>
+	</c:if>    -->
 	<h1>紫陽花Dialy</h1>
 	<div>
-		今日のテーマ：<c:out value="${サーブレットで設定した名前}"></c:out>
+		今日のテーマ：<c:out value="${theme}"></c:out>
 	</div>
 	<div>
-		今日の天気<c:out value="${ }"></c:out>
+		今日の天気
+		<img id = "weather_img" src ="${pageContext.request.contextPath}/img/sunny.png">
 	</div>
 	<div>
-		今日の気温
-		<img id = "weather_img" src = デフォルト画像>
+		今日の最高/最低気温<br>
+		<div><span id=temp_max></span>/<span id=temp_min></span>℃</div>
 	</div>
+
 	<div>
-		連続記録<c:out value="${ }"></c:out>
-	</div>
-	<div>
-		一年前の今日の日記<c:out value="${ }"></c:out>
+		一年前の今日の日記
+        <c:if test="${empty diary}">
+            <p>日記は登録されていません。</p>
+            <p><!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 --></p>
+        </c:if>
+        
+ 		<!--該当する日記データがある場合-->
+		<c:if test="${not empty diary}">
+			<c:out value="${pastDiary}"></c:out>
+		</c:if>
 		<a href="date_details.jsp">続きを読む>></a>
 	</div>
-	<div>
-		お知らせ<c:out value="${ }"></c:out>
-		<a href="user_news.jsp">お知らせ一覧>></a>
-	</div>
+
 </body>
+<footer>
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+</footer>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/modal.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
 <script>
 	let temperatureMax = null;
 	let temperatureMin = null;
@@ -85,6 +99,26 @@
 	    console.log(temperatureMin);
 	
 	    // この下にテキストを表示させる処理を書いてください。
+		const weatherImg = dpcument.getElementById;
+	    switch (weatherCode) {
+	    	case 0:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/sunny.png";
+	    		break;
+	    	case 1:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/cloudy.png";
+	    		break;
+	    	case 2:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/rainy.png";
+	    		break;
+	    	case 3:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/snowy.png";
+	    		break;
+	    	default:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/sunny.png";
+	    }	   
+	    
+		document.getElementById("temp_max").textContent = temperatureMax;
+		document.getElementById("temp_min").textContent = temperatureMin;
 
 }
 

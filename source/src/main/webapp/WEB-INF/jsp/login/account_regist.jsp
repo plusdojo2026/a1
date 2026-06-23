@@ -6,38 +6,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>アンケート</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/account_regist.css">
+<title>新規会員登録</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/login.css">
 </head>
 <body>
 <header>
-<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
+<!--<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>-->
 </header>
 <main>
+<div class="login">
 <h1>会員登録</h1>
 <form id="login_form" action="<c:url value="/login/regist" />" method="post" >
 <div>
 	<div>
-	<input type="text" name="mail" placeholder="メールアドレス"><br>
+	<input type="text" name="mail" placeholder="メールアドレス" class="form"><br>
 	</div>
 	<div>
-	<input type="text" name="name" placeholder="名前"><br>
+	<input type="text" name="name" placeholder="名前" class="form"><br>
 	</div>
 	<div>
 	<div>
-	<input type="password" name="pass" placeholder="パスワード"><br>
+	<input type="password" name="pass" placeholder="パスワード" class="form"><br>
 	</div>
 	<div>
-	<input type="password" name="pass2" placeholder="パスワード（確認）"><br>
+	<input type="password" name="pass2" placeholder="パスワード（確認）" class="form"><br>
 	
 	</div>
-	<div id="error_message"></div>
+	<div id="error_message" class="e-msg"></div>
 	
 	</div>
-	<input type="submit" name="regist" value="登録">
+	<input type="submit" name="regist" value="登録" class="login-button">
 </div>
  <div>${msg}</div>
  </form>
+</div>
 </main>
 <footer>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>

@@ -76,16 +76,47 @@ img {
 
 /* buttonタグの設定 */
 button{
-    cursor: pointer;
-    background-color: var(--button-color);
-    color:var(--button-text-color);
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 2.5em;
+	cursor: pointer;
+	background-color: var(--button-color);
+	color: var(--button-text-color);
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: 500;
+}
+.button {
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 2.5em;
+	cursor: pointer;
+	background-color: var(--button-color);
+	color: var(--button-text-color);
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: 500;
 }
 
+.login-button{
+	width: 100%;
+	padding: 12px;
+	background-color: var(--button-color);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 /* headerの設定 */
 header {
 	background-color: var(--main-color);
 	color: var(--headline-color);
-	height: 60px;
+	height: 65px;
 	/* 影をつける設定 */
 	position: relative;
 	box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.20);
@@ -115,10 +146,48 @@ header {
 	color: var(--button-text-color);
 }
 
+/* inputタグ */
+.input-text{
+	width: 60%;
+	margin-top: 0.5rem;
+	margin-bottom: 1.5rem;
+	padding: 10px 16px;
+	border: 2px solid #e1e5e9;
+	border-radius: 8px;
+	font-size: 16px;
+	transition: border-color 0.3s ease, box-shadow 0.2s ease;
+	background-color: #fff;
+	box-sizing: border-box;
+}
+.input-text:focus {
+	outline: none;
+	border-color: #eeeeee;
+	box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.2);	
+}
+
+.input-textarea {
+	width: 100%;
+	height: 150px;
+	margin-top: 0.5rem;
+	margin-bottom: 1.5rem;
+	padding: 10px 16px;
+	border: 2px solid #e1e5e9;
+	border-radius: 8px;
+	font-size: 16px;
+	transition: border-color 0.3s ease, box-shadow 0.2s ease;
+	background-color: #fff;
+	box-sizing: border-box;	
+}
+.input-textarea:focus {
+	outline: none;
+	border-color: #eeeeee;
+	box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.2);	
+}
 /* mainタグ共通の設定 */
 main {
 	margin: 0 auto;
 	padding: 40px 50px;
+	min-height: 600px;
 	max-width: 1000px;
 	background-color: var(--secondary-color);
 	/* 影をつける設定 */
@@ -127,7 +196,7 @@ main {
 
 /* footerの設定 */
 footer {
-	min-height: 60px;
+	min-height: 80px;
 	background-color: var(--main-color);
 	/* 影をつける設定 */
 	position: relative;
@@ -217,10 +286,10 @@ footer {
     height: 200px;
 }
 /* スタンプ設定 */
-#stamp-buttom {
+#stamp-button {
 	cursor: pointer;
 }
-#stamp-buttom img {
+#stamp-button img {
 	vertical-align: middle;
 }
 .stamps {
@@ -228,7 +297,8 @@ footer {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 20px;
     width: auto;
-    height: 400px;
+    height: auto;
+    max-height: 240px;
     overflow: auto;
 }
 
@@ -236,14 +306,13 @@ footer {
 	width: 80px;
 	height: 80px;
 	background-color: #ffffff;
-	padding: 5px;
+	padding: 0;
 	border: 1px solid #000000;
-	margin: auto;
 	cursor: pointer;
 }
 
-.grey-background {
-	background-color: #D9D9D9;
+.selected {
+	opacity: 0.5;
 }
 
 .hidden {
@@ -253,4 +322,12 @@ footer {
 /* モバイル対応 */
 @media(min-width: 768px) {
     
+}
+
+/*-classの設定-------------------*/
+
+.e-msg {
+	font-size: 14px;
+	color: #ED1A3D;
+	margin: 7px 0 7px 0;
 }

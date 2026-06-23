@@ -15,6 +15,7 @@ openBtn.forEach(function(btn){
 		let content1 = btn.dataset.content1;
 		let content2 = btn.dataset.content2;
 		let content3 = btn.dataset.content3;
+		let stampId = btn.dataset.stampId;
 		let img = btn.dataset.img;
 		let radio = btn.dataset.radio;
 		
@@ -23,6 +24,7 @@ openBtn.forEach(function(btn){
 		let modalContent1 = document.getElementById("modal-content1");
 		let modalContent2 = document.getElementById("modal-content2");
 		let modalContent3 = document.getElementById("modal-content3");
+		let modalStampId = document.getElementById("modal-stamp-id");
 		let modalImg = document.getElementById('modal-img');
 		let modalRadio = document.querySelectorAll('.modal-radio');
 		
@@ -30,6 +32,11 @@ openBtn.forEach(function(btn){
 		if (modalContent1 !== null)modalContent1.value = content1;
 		if (modalContent2 !== null)modalContent2.value = content2;
 		if (modalContent3 !== null)modalContent3.value = content3;
+		if (modalStampId !== null) {
+			modalStampId.value = stampId;
+			const selectedStamp = document.querySelector('.stamp[data-id="' + stampId +'"]');
+			selectedStamp.classList.add('selected');
+		}
 		if (modalImg !== null)modalImg.src = img;
 		modalRadio.forEach(function(radioBtn) {
 			if (radioBtn.value === radio) radioBtn.checked = true;

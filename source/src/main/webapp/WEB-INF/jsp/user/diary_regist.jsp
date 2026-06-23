@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>日記の登録</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/diary_regist.css">
 <link>
 <style>
 /* これは評価の星のやつ */
@@ -41,7 +43,7 @@
 </header>
 <main>
 	<!-- ↓h1全画面共通！↓ -->
-	<h1 class="home">日記の登録</h1>              <!-- ↓調べる -->
+	<h2 class="home">日記を登録する</h2>              <!-- ↓調べる -->
 	<form action="/a1/user/diary-regist" method="post" enctype="multipart/form-data">
 	
 		<div>
@@ -49,52 +51,60 @@
 				<input type=hidden name="userId">
 			</div>
 		</div>
-		<div>
-			<div class="date">
-				<p>日付 ${date}</p>
+		
+		<div class="tenki">
+			
+				<div class="date">
+					<p>日付 ${date}</p>
+				</div>
+			
+			<div class="weture">
+				<div class="weather">
+					<p>天気:<input type=hidden name="weatherCode" id="weather"><span id="weatherCode"></span></p>
+				</div>
+				
+				<div>
+					<!-- <input type="hidden" name="temperature-min">
+					<input type="hidden" name="temperature-max"> -->
+						<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） -->
+						<p>最低気温は<span id="mn"></span><input type = "hidden" name="tempMin"  id="temperature-min">
+						最高気温は<span id="mx"></span><input type = "hidden" name="tempMax" id="temperature-max"></p>
+				</div>
 			</div>
 		</div>
-		<div>
-			<div>
-				天気:<input type=hidden name="weatherCode"><span id="weather"></span>
-			</div>
-		</div>
-		<div>
-			<input type="hidden" name="temperature-max" id="temperature-max">
-			<input type="hidden" name="temperature-min" id="temperature-min">
-			<div>
-				気温<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） -->
-				<p>最高気温は<span id="mx"></span><input type = "hidden" name="tempMax">
-				<p>最低気温は<span id="mn"></span><input type = "hidden" name="tempMin">
-			</div>
-		</div>
-		<div>
+
+		<div class="tmsl">
 			<div>
 				テーマ
-				<%-- <select name="theme">
-					<c:forEach var="tm" items="${themeList}">サーブレットで付けた名前が入る
-						<option value="${tm.theme_id}">${tm.theme}</option><!-- 選ばれたvalueの中身が(番号付けて)情報として送られる -->
+				<select name="theme">
+					<c:forEach var="tm" items="${themesList}"><!-- サーブレットで付けた名前が入る -->
+						<option value="${tm.themeId}">${tm.theme}</option><!-- 選ばれたvalueの中身が(番号付けて)情報として送られる -->
 					</c:forEach>
-				</select> --%>
+				</select>
 			</div>
 			<div>
 				<!-- スタンプ -->
 				<div class="stamp">
-            <input type="hidden" id="selected-id" name="stamp-id" value="1">
+				
             	<p id=sticker-buttom>スタンプ<img src="img/arrow_down.svg" alt=""></p>
+            	<input type="hidden" id="selected-id" name="stamp-id" value="1">
+            	
             	<div class="stickers">
             		<c:forEach var ="sl" items="${stampList}">
             			<div class="sticker" data-id="${sticker.stickerId}">
-            				<img src="${sl.stamp_path}" alt="">
+            				<label><input type="radio" name="stamp" value="${sl.stampId}">
+            					<img src="${pageContext.request.contextPath}/img/${sl.stampPath}" alt="">
+            				</label>
             			</div>
             		</c:forEach>
             	</div>
             </div>
-				<%-- <div class="stamp">
+				<%--  <div class="stamp">スタンプ
 					<c:forEach var="sl" items="${stampList}">
-						<input type="hidden" name="stamp_id" value="${sl.stamp_id}"><!-- 送る用のスタンプID -->
+					<option value=""></option>
+						<input type="hidden" name="stamp_id" value="${sl.stampId}"><!-- 送る用のスタンプID -->
 						<div>
-							<img src="${sl.stamp_path}" alt="">
+							<img src="${pageContext.request.contextPath}/img/${sl.stampPath}" alt="">
 						</div>
 					</c:forEach>
 				</div> --%>
@@ -102,18 +112,18 @@
 			</div>
 		</div>
 		
-		<div>
+		<div class="satisfaction">
 			<div>
 				
 				<div class="review">
   		<p id="stars">満足度</p>
-  		<div class="stars"><input type=hidden name="satisfaction">
+  		<div class="stars"><!-- <input type=hidden name="satisfaction"> -->
 		    <span>
-		      <input id="1" type="radio" name="review" onclick="b1()"><label id="star1" for="review01">★</label>
-		      <input id="2" type="radio" name="review"><label for="review02">★</label>
-		      <input id="3" type="radio" name="review"><label for="review03">★</label>
-		      <input id="4" type="radio" name="review"><label for="review04">★</label>
-		      <input id="5" type="radio" name="review"><label for="review05">★</label>
+		      <input id="1" type="radio" name="satisfaction" value="1"><label for="1">★</label>
+		      <input id="2" type="radio" name="satisfaction" value="2"><label for="2">★</label>
+		      <input id="3" type="radio" name="satisfaction" value="3"><label for="3">★</label>
+		      <input id="4" type="radio" name="satisfaction" value="4"><label for="4">★</label>
+		      <input id="5" type="radio" name="satisfaction" value="5"><label for="5">★</label>
 		    </span>
  		 </div>
 	</div>
@@ -127,11 +137,11 @@
 			</div>
 		</div>
 		
-		<div>
+		<div class="input-textarea">
 			本文<br><textarea name="diary" maxlength="300"></textarea>
 		</div>
 		
-		<div>
+		<div class="button">
 			<input type="submit" name="regist" value="登録" ><br>
 		</div>
 		
@@ -146,10 +156,10 @@
 
 <script>
 
-	const star1 = document.getElementById('star1');
+	/* const star1 = document.getElementById('star1');
 	function b1() {
 		star1.style.color='#F8C601';
-	}
+	} */
 	
 	function previewImage(obj){
 
@@ -243,11 +253,12 @@
 	    		weather = 'その他';
 	    }
 	    
-		document.getElementById("weather").textContent = weather;
+		document.getElementById("weatherCode").textContent = weather;
 		document.getElementById("mx").textContent = temperatureMax;
 		document.getElementById("temperature-max").value = temperatureMax;
 		document.getElementById("mn").textContent = temperatureMin;
-		document.getElementById("temperature-min").textContent = temperatureMin;
+		document.getElementById("temperature-min").value = temperatureMin;
+		document.getElementById("weather").value = weatherCode;
 	}
 
 	main();

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +19,13 @@ public class DiariesDAO {
 	
 	
 
-	public List<Diary> insert(Diary dry) {
+	public int insert(Diary dry) {
 		// 結果セットを格納するコレクション
-		List<Diary> dryList = new ArrayList<Diary>();
+		//List<Diary> dryList = new ArrayList<Diary>();
 	
 		Connection conn = null;
 		//↑一旦空っぽにする
-	
+		int newId=0;
 		
 		try {
 				// JDBCドライバを読み込む
@@ -79,17 +80,17 @@ public class DiariesDAO {
 				//最終形態のSQL文
 				String sql = "INSERT INTO diaries"
 						+ "(diary_id, user_id, date, weather_code, temp_min, temp_max, theme_id, stamp_id, diary, satisfaction, image)"
-						+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 						
 				
 				//JavaからsqlにDate変換
-				java.sql.Date sqlDate = new java.sql.Date(dry.getDate().getTime());
+				java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
 				
 						//↓どこに繋ぐか
-						PreparedStatement pStmt = conn.prepareStatement(sql);
+						PreparedStatement pStmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 						
 						//↓全部入ってる　？を設定するための文、何を検索するのか
-						pStmt.setInt(1,dry.getDiaryId());//？の左から１つめ
+						pStmt.setInt(1,0);//？の左から１つめ
 						pStmt.setInt(2,dry.getUserId());//２つめ
 						pStmt.setDate(3,sqlDate);
 						pStmt.setInt(4,dry.getWeatherCode());
@@ -99,30 +100,23 @@ public class DiariesDAO {
 						pStmt.setInt(8, dry.getStampId());
 						pStmt.setString(9,dry.getDiary());
 						pStmt.setInt(10,dry.getSatisfaction());
-						pStmt.setString(7,dry.getImage());
+						pStmt.setString(11,dry.getImage());
 						
 						//検索結果取得、db専用 sqlへ
-						ResultSet rs = pStmt.executeQuery();
+						pStmt.executeUpdate();
+						ResultSet rs = pStmt.getGeneratedKeys();
 												
 						// 検索結果をコレクションに格納する　Beans
 						while (rs.next()) {//rsに何かが入ってるのが分かったら次にいける　true or faulse
-							//データ取ってくる
-							Diary d = new Diary(rs.getInt("diary_id"), rs.getInt("user_id"), rs.getDate("date"), rs.getInt("weather_code"),
-									rs.getFloat("temp_min"), rs.getFloat("temp_max"), rs.getInt("theme_id"), rs.getInt("stamp_id"),
-									rs.getString("diary"), rs.getInt("satisfaction"), rs.getString("image"));
-							dryList.add(d);//ArrayListに追加（newしてないと追加×）
+							newId = rs.getInt(1);						
 						}
+						System.out.println(newId);
 
-						// 検索結果が格納されたコレクションを返す
-						return dryList;
-						
-						
 			}catch (Exception d) {
 				// ↓例外処理がコンソールに出る driverいなかったらと
 				d.printStackTrace();
-				return null;
-			}
-			finally {
+				
+			}finally {
 				// データベースを切断する
 				if (conn != null) {
 					try {
@@ -133,6 +127,8 @@ public class DiariesDAO {
 					}
 				}
 			}
+		// 検索結果が格納されたコレクションを返す
+			return newId;
 	}
 	
 	//日記が存在するかしないか検索するメソッド
@@ -184,7 +180,7 @@ public class DiariesDAO {
 				}
 				
 				// Listのなかが空ならfalse、存在するならtrueをresultに代入するif文 list名.eｍｐｔｙ（）；
-				if(loginCheck.isEmpty()) {
+				if(!loginCheck.isEmpty()) {
 					result = true;
 				}
 
@@ -279,6 +275,78 @@ public class DiariesDAO {
 		//結果を返す
 		return dryList;
 	}	
+	//指定したユーザーと日付の日記表示メソッド
+		public List<DiaryView> selectD(int diaryId){
+			Connection conn = null;
+			List<DiaryView> dryList = new ArrayList<DiaryView>();
+
+			try {
+				//JDBCドライバの読み込み
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				
+				//データベースに接続
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
+						+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/"
+						+ "Tokyo&connectTimeout =30000",
+						"root", "password");
+				
+				//SQL文作成 ユーザーIDと日付を基に日記を検索する
+				String sql = "SELECT diary_id, date, weather_code, temp_min, temp_max, themes.theme, "
+						+ "stamps.stamp_path, diary, satisfaction, image "
+						+ "FROM diaries "
+						+ "JOIN themes "
+						+ "ON diaries.theme_id = themes.theme_id "
+						+ "JOIN stamps "
+						+ "ON diaries.stamp_id = stamps.stamp_id "
+						+ "WHERE diaries.diary_id = ? ";	
+					
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+				
+				
+				
+				pStmt.setInt(1, diaryId);
+				
+				
+				//SQL文実行
+				ResultSet rs = pStmt.executeQuery();
+				
+				//検索結果を格納
+				while (rs.next()) {
+					DiaryView list = new DiaryView(rs.getInt("diary_id"),
+									0,
+									null,
+									rs.getInt("weather_code"),
+									rs.getFloat("temp_min"),
+									rs.getFloat("temp_max"),
+									rs.getString("theme"),
+									rs.getString("stamp_path"),
+									rs.getString("diary"),
+									rs.getInt("satisfaction"),
+									rs.getString("image"));
+					dryList.add(list);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				dryList = null;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				dryList = null;
+			} finally {
+				//データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						dryList = null;
+					}
+				}
+			}
+			
+			//結果を返す
+			return dryList;
+		}
 }
 				
 
