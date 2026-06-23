@@ -46,7 +46,7 @@
     <!-- 予定タブ -->
     <h2>予定</h2>
     <div>
-        <h3>[日付]の予定</h3>
+        <h3>${date}の予定</h3>
         <p>
         <button class="modalOpen"
         	data-title="予定の登録"
@@ -87,6 +87,7 @@
 		    <form method="post" action="date-details">
 		    	<h3 id="modal-title"></h3>
 		    	<input type="hidden" name="scheduleId" id="modal-content1">
+		    	<input type="hidden" name="date" value="${date}">
 		    	<input type="text" name="schedule" id="modal-content2">
 		    	<input type="submit" name="submit" id="modal-content3">
 		    </form>
@@ -100,7 +101,7 @@
     <!-- 日記閲覧タブ -->
     <h2>日記閲覧</h2>
     <div>
-        <h3>[日付]の日記</h3>
+        <h3>${date}の日記</h3>
 
         <!--該当日記データが無い場合-->
         <c:if test="${empty diary}">
@@ -144,7 +145,8 @@
 <script>
 'use strict';
 // ここから個別処理
-//天気を数字から文字にする
+if (${not empty diary}) {
+	//天気を数字から文字にする
 	let weather = null;
 	
 	const weatherC = document.getElementById("weather");
@@ -183,10 +185,10 @@
 	
 	sat.style.setProperty('--starWidth', satisfaction + "%");
 	console.log(${satisfaction} + "%");
+}
 
 //今日かどうかの判定
-	//カレンダーページから取得した日付入れたい
-	const selectDate = "2026-06-22";
+	const selectDate = "${date}";
 	const cDate = "${today}";
 	
 	const hide = document.getElementById("hide");
