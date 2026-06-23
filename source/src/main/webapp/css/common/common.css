@@ -76,9 +76,28 @@ img {
 
 /* buttonタグの設定 */
 button{
-    cursor: pointer;
-    background-color: var(--button-color);
-    color:var(--button-text-color);
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 2.5em;
+	cursor: pointer;
+	background-color: var(--button-color);
+	color: var(--button-text-color);
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: 500;
+}
+.button {
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 2.5em;
+	cursor: pointer;
+	background-color: var(--button-color);
+	color: var(--button-text-color);
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: 500;
 }
 
 .login-button{
@@ -168,6 +187,7 @@ header {
 main {
 	margin: 0 auto;
 	padding: 40px 50px;
+	min-height: 600px;
 	max-width: 1000px;
 	background-color: var(--secondary-color);
 	/* 影をつける設定 */
@@ -176,7 +196,7 @@ main {
 
 /* footerの設定 */
 footer {
-	min-height: 60px;
+	min-height: 80px;
 	background-color: var(--main-color);
 	/* 影をつける設定 */
 	position: relative;

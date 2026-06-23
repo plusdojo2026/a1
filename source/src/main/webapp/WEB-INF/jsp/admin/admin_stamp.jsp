@@ -5,16 +5,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>管理者｜スタンプ登録</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/admin_stamp.css">
 </head>
 <body>
+<header>
+<%@ include file="/WEB-INF/jsp/common/admin_header.jsp" %>
+</header>
+<main>
 	<h1>スタンプ登録</h1>
 	<c:forEach var = "stamp" items = "${stampList}">
 		<div>
 			<input type="hidden" name="number" value="${stamp.stampId}">
-			<div>
+			<div style="width:100px;">
 				<img src="${pageContext.request.contextPath}/img/${stamp.stampPath}">
 			</div>
 		</div>
@@ -23,8 +28,12 @@
 	<form action="<c:url value='/admin/stamp' />" method="post" enctype="multipart/form-data">
 		画像:<input type="file" name="IMAGE" accept="image/*" onchange="previewImage(this);"><br>
 		<canvas id="preview" style="max-width:200px;"></canvas><br>
-		<input type="submit" value="送信">
+		<input type="submit" value="送信" class="button">
 	</form>
+</main>
+<footer>
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+</footer>
 </body>
 <script>
 	function previewImage(obj){

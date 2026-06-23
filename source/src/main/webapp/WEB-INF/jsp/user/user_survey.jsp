@@ -29,7 +29,7 @@
 			</p>
 			<p id="alt-message" class="e-msg">${message}</p>
 			<p>
-				<input type="submit" value="送信">
+				<input type="submit" value="送信" class="button">
 			</p>
 		</form>
 	</div>
