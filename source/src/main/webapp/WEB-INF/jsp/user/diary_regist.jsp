@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>日記の登録</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/diary_regist.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/diary_regist.css">
 <link>
 <style>
 /* これは評価の星のやつ */
@@ -43,7 +43,7 @@
 </header>
 <main>
 	<!-- ↓h1全画面共通！↓ -->
-	<h1 class="home">日記の登録</h1>              <!-- ↓調べる -->
+	<h2 class="home">日記を登録する</h2>              <!-- ↓調べる -->
 	<form action="/a1/user/diary-regist" method="post" enctype="multipart/form-data">
 	
 		<div>
@@ -53,24 +53,22 @@
 		</div>
 		
 		<div class="datherture">
-			<div>
+			
 				<div class="date">
 					<p>日付 ${date}</p>
 				</div>
-			</div>
+			
 			<div class="weture">
-				<div>
-					<div>
-						<p>天気:<input type=hidden name="weatherCode"><span id="weather"></span></p>
-					</div>
+				<div class="weather">
+					<p>天気:<input type=hidden name="weatherCode" id="weather"><span id="weatherCode"></span></p>
 				</div>
 				
 				<div>
 					<input type="hidden" name="temperature-max" id="temperature-max">
 					<input type="hidden" name="temperature-min" id="temperature-min">
 						<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） -->
-						<p>最高気温は<span id="mx"></span><input type = "hidden" name="tempMax">
-						最低気温は<span id="mn"></span><input type = "hidden" name="tempMin"></p>
+						<p>最高気温は<span id="mx"></span><input type = "hidden" name="tempMax" >
+						最低気温は<span id="mn"></span><input type = "hidden" name="tempMin" ></p>
 				</div>
 			</div>
 		</div>
@@ -255,11 +253,12 @@
 	    		weather = 'その他';
 	    }
 	    
-		document.getElementById("weather").textContent = weather;
+		document.getElementById("weatherCode").textContent = weather;
 		document.getElementById("mx").textContent = temperatureMax;
 		document.getElementById("temperature-max").value = temperatureMax;
 		document.getElementById("mn").textContent = temperatureMin;
-		document.getElementById("temperature-min").textContent = temperatureMin;
+		document.getElementById("temperature-min").value = temperatureMin;
+		document.getElementById("weather").value = weatherCode;
 	}
 
 	main();

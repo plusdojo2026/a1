@@ -67,7 +67,7 @@ public class DiaryRegistServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");*/
 		// リクエストパラメータを取得する
-			//request.setCharacterEncoding("UTF-8");
+			request.setCharacterEncoding("UTF-8");
 			HttpSession session = request.getSession();
 			User user = (User)session.getAttribute("user");
 			LocalDateTime now = LocalDateTime.now();

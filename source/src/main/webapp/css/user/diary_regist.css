@@ -1,10 +1,22 @@
 @charset "UTF-8";
 
-
+.home{
+	text-align: center;
+}
 .datherture{
 	display:flex;
+	align-items: center;
 }
 
+weture{
+    display: flex;
+    gap: 10px;
+}
+
+.weather{
+	margin-left: auto;
+}
 .tmsl{
 	display:flex;
+	justify-content: space-between;
 }
