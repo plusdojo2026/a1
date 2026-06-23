@@ -105,7 +105,12 @@
         <!--該当日記データが無い場合-->
         <c:if test="${empty diary}">
             <p>日記は登録されていません。</p>
-            <p><!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 --></p>
+            <p>
+            	<!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 -->
+				<button id="hide" onclick="location.href='/a1/user/diary-regist'">
+					登録する
+        		</button>
+            </p>
         </c:if>
 
         <!--該当する日記データがある場合-->
@@ -122,7 +127,12 @@
 	        <p><img src="${d.image}"></p>
 	        <p>${d.diary}</p>
         </c:forEach>
-        <p><!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記編集ボタンを表示 --></p>
+        <p>
+        	<!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記編集ボタンを表示 -->
+        	<button id="hide" onclick="location.href='/a1/user/diary-update'">
+				編集する
+        	</button>
+        </p>
         </c:if>
     </div>
 </main>
@@ -174,6 +184,16 @@
 	sat.style.setProperty('--starWidth', satisfaction + "%");
 	console.log(${satisfaction} + "%");
 
+//今日かどうかの判定
+	//カレンダーページから取得した日付入れたい
+	const selectDate = "2026-06-22";
+	const cDate = "${today}";
+	
+	const hide = document.getElementById("hide");
+	hide.style.visibility = "hidden";
+	if (selectDate == cDate) {
+		hide.style.visibility = "visible";
+	}
 </script>
 </body>
 </html>
