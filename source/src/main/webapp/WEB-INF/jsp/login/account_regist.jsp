@@ -6,12 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>アンケート</title>
+<title>新規会員登録</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/account_regist.css">
 </head>
 <body>
 <header>
-<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
+<!--<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>-->
 </header>
 <main>
 <h1>会員登録</h1>

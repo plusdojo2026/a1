@@ -12,7 +12,7 @@
 </head>
 <body>
 <header>
-<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
+<!--<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>-->
 </header>
 <main>
 <h1>パスワード再設定</h1>

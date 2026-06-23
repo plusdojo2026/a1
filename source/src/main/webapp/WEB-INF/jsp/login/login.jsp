@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
+<!--<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>-->
 </header>
 <main>
 <h1>ログイン</h1>
@@ -29,8 +29,8 @@
 </form>
 <div>
 	<div>
-    <a href="AccountRegistServlet?action=regist_screen">会員登録はこちら</a><br>
-    <a href="PasswordResetServlet?action=reset_screen">パスワードを忘れた方はこちら</a><br>
+    <a href="/a1/login/regist">会員登録はこちら</a><br>
+    <a href="/a1/login/password-reset">パスワードを忘れた方はこちら</a><br>
   </div>
 	</div>
 </main>
