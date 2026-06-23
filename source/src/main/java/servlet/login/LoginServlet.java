@@ -65,13 +65,13 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", u);
 			//リダイレクト処理
-			response.sendRedirect("TopServlet");
+			response.sendRedirect("/a1/user/top");
 			
 			}else if(isAdmin == 1){//1は管理者
 			HttpSession session = request.getSession();
 			session.setAttribute("user", u);
 			//リダイレクト処理
-			response.sendRedirect("AdminSurveyServlet");
+			response.sendRedirect("/a1/admin/survey");
 			}else{
 				request.setAttribute("msg", "ログインできませんでした。メールアドレス,パスワードを確認してください");//JSP側で取得するには${msg}
 				// 結果ページにフォワードする
