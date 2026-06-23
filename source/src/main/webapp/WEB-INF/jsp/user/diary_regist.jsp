@@ -52,7 +52,7 @@
 			</div>
 		</div>
 		
-		<div class="datherture">
+		<div class="tenki">
 			
 				<div class="date">
 					<p>日付 ${date}</p>
@@ -64,11 +64,11 @@
 				</div>
 				
 				<div>
-					<input type="hidden" name="temperature-max" id="temperature-max">
-					<input type="hidden" name="temperature-min" id="temperature-min">
+					<!-- <input type="hidden" name="temperature-min">
+					<input type="hidden" name="temperature-max"> -->
 						<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） -->
-						<p>最高気温は<span id="mx"></span><input type = "hidden" name="tempMax" >
-						最低気温は<span id="mn"></span><input type = "hidden" name="tempMin" ></p>
+						<p>最低気温は<span id="mn"></span><input type = "hidden" name="tempMin"  id="temperature-min">
+						最高気温は<span id="mx"></span><input type = "hidden" name="tempMax" id="temperature-max"></p>
 				</div>
 			</div>
 		</div>
@@ -117,13 +117,13 @@
 				
 				<div class="review">
   		<p id="stars">満足度</p>
-  		<div class="stars"><input type=hidden name="satisfaction">
+  		<div class="stars"><!-- <input type=hidden name="satisfaction"> -->
 		    <span>
-		      <input id="1" type="radio" name="review" ><label id="star1" for="1">★</label>
-		      <input id="2" type="radio" name="review"><label for="2">★</label>
-		      <input id="3" type="radio" name="review"><label for="3">★</label>
-		      <input id="4" type="radio" name="review"><label for="4">★</label>
-		      <input id="5" type="radio" name="review"><label for="5">★</label>
+		      <input id="1" type="radio" name="satisfaction" value="1"><label for="1">★</label>
+		      <input id="2" type="radio" name="satisfaction" value="2"><label for="2">★</label>
+		      <input id="3" type="radio" name="satisfaction" value="3"><label for="3">★</label>
+		      <input id="4" type="radio" name="satisfaction" value="4"><label for="4">★</label>
+		      <input id="5" type="radio" name="satisfaction" value="5"><label for="5">★</label>
 		    </span>
  		 </div>
 	</div>

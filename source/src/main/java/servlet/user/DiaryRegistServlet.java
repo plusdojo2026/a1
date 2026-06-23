@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ import model.Stamp;
 import model.Theme;
 import model.User;
 
-
+@MultipartConfig
 @WebServlet("/user/diary-regist")
 public class DiaryRegistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -97,13 +98,15 @@ public class DiaryRegistServlet extends HttpServlet {
 	        // ファイル取得
 	        Part part = request.getPart("image");
 	        String fileName = part.getSubmittedFileName();
-
-	        // 保存
-	        part.write(uploadDir + File.separator + fileName);
-	        // macでは\、windowsでは/
+	        if(!fileName.equals("")) {
+		        System.out.println(uploadDir + File.separator + fileName+":ここだよ！");
+		        // 保存
+		        part.write(uploadDir + File.separator + fileName);
+		        // macでは\、windowsでは/
+	        }
 	        
 	        // データベースに画像の置き場所（パス）を保存する（Diaryインスタンスに入れる）
-	        Diary d = new Diary(-1,userId, date, weatherCode, tempMin, tempMax, 1,
+	        Diary d = new Diary(0,userId, date, weatherCode, tempMin, tempMax, 1,
 	    				1, diary, satisfaction, fileName );
 			/*DTOから引用
 			 * int diaryId, int userId, LocalDate date, int weatherCode, float tempMin,
