@@ -6,34 +6,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>アンケート</title>
+<title>パスワード再設定</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/password_reset.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/login.css">
 </head>
 <body>
 <header>
 <!--<%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>-->
 </header>
-<main>
+<main class="none">
+<div class="login">
 <h1>パスワード再設定</h1>
 <form id="login_form" action="<c:url value="/login/password-reset" />" method="post" >
 <div>
 	<div>
-	<input type="text" name="mail" placeholder="メールアドレス">
-	<input type="text" name="name" placeholder="名前"><br>
+	<input type="text" name="mail" placeholder="メールアドレス" class="form"><br>
+	<input type="text" name="name" placeholder="名前" class="form"><br>
 	</div>
 	<div>
-	<input type="password" name="pass" placeholder="パスワード"><br>
+	<input type="password" name="pass" placeholder="パスワード" class="form"><br>
 	</div>
 	<div>
-	<input type="password" name="pass2" id="pass2" placeholder="パスワード（確認）">
-	<div id="error_message"></div>
+	<input type="password" name="pass2" id="pass2" placeholder="パスワード（確認）" class="form">
+	<div id="error_message" class="e-msg"></div>
 	</div>
 	
-	<input type="submit" name="update" value="再設定">
+	<input type="submit" name="update" value="再設定" class="login-button">
 </div>
- <div>${msg}</div>
- </form>
+<div>${msg}</div>
+</form>
+</div> 
  
 </main>
 <footer>

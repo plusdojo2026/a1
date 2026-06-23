@@ -81,6 +81,18 @@ button{
     color:var(--button-text-color);
 }
 
+.login-button{
+	width: 100%;
+	padding: 12px;
+	background-color: var(--button-color);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 /* headerの設定 */
 header {
 	background-color: var(--main-color);
@@ -114,6 +126,7 @@ header {
 .nav a {
 	color: var(--button-text-color);
 }
+
 
 /* mainタグ共通の設定 */
 main {
@@ -253,4 +266,12 @@ footer {
 /* モバイル対応 */
 @media(min-width: 768px) {
     
+}
+
+/*-classの設定-------------------*/
+
+.e-msg {
+	font-size: 14px;
+	color: #ED1A3D;
+	margin: 7px 0 7px 0;
 }
