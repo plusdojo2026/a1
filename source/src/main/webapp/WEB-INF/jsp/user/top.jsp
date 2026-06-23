@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/top.css">
 </head>
 <body>
-	<c:if test="${ご褒美デイなら}">
+<!--	<c:if test="${ご褒美デイなら}">
 		
-	</c:if>
+	</c:if>    -->
 	<h1>紫陽花Dialy</h1>
 	<div>
 		今日のテーマ：<c:out value="${today_theme}"></c:out>
@@ -25,9 +25,9 @@
 		今日の最高/最低気温<br>
 		<div><span id=temp_max></span>/<span id=temp_min></span>℃</div>
 	</div>
-	<div>
+<!--	<div>
 		連続記録<c:out value="${ }"></c:out>
-	</div>
+	</div>  -->
 	<div>
 		一年前の今日の日記
         <c:if test="${empty diary}">
@@ -41,10 +41,10 @@
 		</c:if>
 		<a href="date_details.jsp">続きを読む>></a>
 	</div>
-	<div>
+<!--	<div>
 		お知らせ<c:out value="${ }"></c:out>
 		<a href="user_news.jsp">お知らせ一覧>></a>
-	</div>
+	</div> -->
 </body>
 <script>
 	let temperatureMax = null;
