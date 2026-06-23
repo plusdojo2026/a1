@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ログイン</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/login.css">
 </head>
 <body>
