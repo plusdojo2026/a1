@@ -10,12 +10,15 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/top.css">
 </head>
 <body>
+<header>
+<%@ include file="/WEB-INF/jsp/common/admin_header.jsp" %>
+</header>
 <!--	<c:if test="${ご褒美デイなら}">
 		
 	</c:if>    -->
 	<h1>紫陽花Dialy</h1>
 	<div>
-		今日のテーマ：<c:out value="${today_theme}"></c:out>
+		今日のテーマ：<c:out value="${theme}"></c:out>
 	</div>
 	<div>
 		今日の天気
@@ -25,9 +28,7 @@
 		今日の最高/最低気温<br>
 		<div><span id=temp_max></span>/<span id=temp_min></span>℃</div>
 	</div>
-<!--	<div>
-		連続記録<c:out value="${ }"></c:out>
-	</div>  -->
+
 	<div>
 		一年前の今日の日記
         <c:if test="${empty diary}">
@@ -37,15 +38,18 @@
         
  		<!--該当する日記データがある場合-->
 		<c:if test="${not empty diary}">
-			<c:out value="${past_diary}"></c:out>
+			<c:out value="${pastDiary}"></c:out>
 		</c:if>
 		<a href="date_details.jsp">続きを読む>></a>
 	</div>
-<!--	<div>
-		お知らせ<c:out value="${ }"></c:out>
-		<a href="user_news.jsp">お知らせ一覧>></a>
-	</div> -->
+
 </body>
+<footer>
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+</footer>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/modal.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
 <script>
 	let temperatureMax = null;
 	let temperatureMin = null;

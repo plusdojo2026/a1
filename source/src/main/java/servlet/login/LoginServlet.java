@@ -27,13 +27,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("ここ1");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login/login.jsp");
-		dispatcher.forward(request, response);
+
 		System.out.println("ここ2");
 		
-		//画像のパスをsessionに保存しておく
 		HttpSession session  = request.getSession();
 		session.setAttribute("pathDir", getServletContext().getRealPath("/img"));
+		//画像のパスをsessionに保存しておく
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login/login.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -61,17 +62,18 @@ public class LoginServlet extends HttpServlet {
 			
 			if(isAdmin == 0) {//0はユーザー
 			
-			// セッションスコープにIDを格納する
-			HttpSession session = request.getSession();
-			session.setAttribute("user", u);
-			//リダイレクト処理
-			response.sendRedirect("/a1/user/top");
+				// セッションスコープにIDを格納する
+				HttpSession session = request.getSession();
+				session.setAttribute("user", u);
+				//リダイレクト処理
+				response.sendRedirect("/a1/user/top");
+				return;
 			
 			}else if(isAdmin == 1){//1は管理者
-			HttpSession session = request.getSession();
-			session.setAttribute("user", u);
-			//リダイレクト処理
-			response.sendRedirect("/a1/admin/survey");
+				HttpSession session = request.getSession();
+				session.setAttribute("user", u);
+				//リダイレクト処理
+				response.sendRedirect("/a1/admin/survey");
 			}else{
 				request.setAttribute("msg", "ログインできませんでした。メールアドレス,パスワードを確認してください");//JSP側で取得するには${msg}
 				// 結果ページにフォワードする

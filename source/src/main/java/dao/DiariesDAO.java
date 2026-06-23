@@ -80,7 +80,7 @@ public class DiariesDAO {
 				//最終形態のSQL文
 				String sql = "INSERT INTO diaries"
 						+ "(diary_id, user_id, date, weather_code, temp_min, temp_max, theme_id, stamp_id, diary, satisfaction, image)"
-						+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 						
 				
 				//JavaからsqlにDate変換
@@ -100,15 +100,17 @@ public class DiariesDAO {
 						pStmt.setInt(8, dry.getStampId());
 						pStmt.setString(9,dry.getDiary());
 						pStmt.setInt(10,dry.getSatisfaction());
-						pStmt.setString(7,dry.getImage());
+						pStmt.setString(11,dry.getImage());
 						
 						//検索結果取得、db専用 sqlへ
+						pStmt.executeUpdate();
 						ResultSet rs = pStmt.getGeneratedKeys();
 												
 						// 検索結果をコレクションに格納する　Beans
 						while (rs.next()) {//rsに何かが入ってるのが分かったら次にいける　true or faulse
 							newId = rs.getInt(1);						
 						}
+						System.out.println(newId);
 
 			}catch (Exception d) {
 				// ↓例外処理がコンソールに出る driverいなかったらと
@@ -178,7 +180,7 @@ public class DiariesDAO {
 				}
 				
 				// Listのなかが空ならfalse、存在するならtrueをresultに代入するif文 list名.eｍｐｔｙ（）；
-				if(loginCheck.isEmpty()) {
+				if(!loginCheck.isEmpty()) {
 					result = true;
 				}
 
@@ -273,6 +275,78 @@ public class DiariesDAO {
 		//結果を返す
 		return dryList;
 	}	
+	//指定したユーザーと日付の日記表示メソッド
+		public List<DiaryView> selectD(int diaryId){
+			Connection conn = null;
+			List<DiaryView> dryList = new ArrayList<DiaryView>();
+
+			try {
+				//JDBCドライバの読み込み
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				
+				//データベースに接続
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
+						+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/"
+						+ "Tokyo&connectTimeout =30000",
+						"root", "password");
+				
+				//SQL文作成 ユーザーIDと日付を基に日記を検索する
+				String sql = "SELECT diary_id, date, weather_code, temp_min, temp_max, themes.theme, "
+						+ "stamps.stamp_path, diary, satisfaction, image "
+						+ "FROM diaries "
+						+ "JOIN themes "
+						+ "ON diaries.theme_id = themes.theme_id "
+						+ "JOIN stamps "
+						+ "ON diaries.stamp_id = stamps.stamp_id "
+						+ "WHERE diaries.diary_id = ? ";	
+					
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+				
+				
+				
+				pStmt.setInt(1, diaryId);
+				
+				
+				//SQL文実行
+				ResultSet rs = pStmt.executeQuery();
+				
+				//検索結果を格納
+				while (rs.next()) {
+					DiaryView list = new DiaryView(rs.getInt("diary_id"),
+									0,
+									null,
+									rs.getInt("weather_code"),
+									rs.getFloat("temp_min"),
+									rs.getFloat("temp_max"),
+									rs.getString("theme"),
+									rs.getString("stamp_path"),
+									rs.getString("diary"),
+									rs.getInt("satisfaction"),
+									rs.getString("image"));
+					dryList.add(list);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				dryList = null;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				dryList = null;
+			} finally {
+				//データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						dryList = null;
+					}
+				}
+			}
+			
+			//結果を返す
+			return dryList;
+		}
 }
 				
 
