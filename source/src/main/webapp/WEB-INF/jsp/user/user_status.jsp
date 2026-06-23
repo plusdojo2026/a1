@@ -15,6 +15,22 @@
 <%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
 </header>
 <main>
+<h1>あなたの日々の満足度</h1>
+
+
+<c:forEach var="uib" items="${weatherList}" >
+	<h2>天気ごとの満足度</h2>
+	
+<c:out value="${uib.sunny}" /><br>
+<c:out value="${uib.cloudy}" /><br>
+<c:out value="${uib.rainy}" /><br>
+<c:out value="${uib.snowy}" /><br>
+<h3>気温ごとの満足度</h3>
+<c:out value="${uib.cold}" /><br>
+<c:out value="${uib.ideal}" /><br>
+<c:out value="${uib.hot}" /><br>
+</c:forEach>
+
 
 </main>
 <footer>
