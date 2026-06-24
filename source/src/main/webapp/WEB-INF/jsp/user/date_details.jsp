@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>日記・予定詳細ページ</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/user_survey.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/date_details.css">
 <style>
 
 .star {
@@ -41,100 +41,116 @@
 <%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
 </header>
 <main>
-    <h1>日記・予定詳細ページ</h1>
-    <c:out value="${msg}"></c:out>
-    <!-- 予定タブ -->
-    <h2>予定</h2>
-    <div>
-        <h3>${date}の予定</h3>
-        <p>
-        <button class="modalOpen"
-        	data-title="予定の登録"
-        	data-content2=""
-        	data-content3="登録">
-        	予定の登録
-        </button>
-        </p>
-    	<!-- 予定一覧 -->
-    	<c:forEach var="item" items="${scheList}">
-    	<form method="POST" action="date-details">
-    		<input type="hidden" name="scheduleId" value="${item.scheduleId}" />
-	        <c:out value="${item.schedule}" />
-        	<input type="button" class="modalOpen"
-        		value="編集"
-        		data-title="予定の編集"
-        		data-content1="${item.scheduleId}"
-        		data-content2="${item.schedule}"
-        		data-content3="編集">
-        	<input type="submit" name="submit" value="削除">
-        </form>
-    	</c:forEach>
-    </div>
-  
-<!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
-<!-- .modal-bgの中身がモーダル表示されます。 -->
-<div class="modal-bg">
-    <div class="modal">
-        <div class="modal-content">
-        	<!-- modal-contentの中は自由に変更してください。 -->
-            <!-- ×ボタン -->
-            <div class="close-btn close">
-                <div>
-                <span></span>
-                <span></span>
-                </div>
-            </div>
-		    <form method="post" action="date-details">
-		    	<h3 id="modal-title"></h3>
-		    	<input type="hidden" name="scheduleId" id="modal-content1">
-		    	<input type="hidden" name="date" value="${date}">
-		    	<input type="text" name="schedule" id="modal-content2">
-		    	<input type="submit" name="submit" id="modal-content3">
+
+	<h2>日記・予定詳細ページ</h2	>
+	<p></p>
+	<c:out value="${msg}"></c:out>
+<div class="tabs">
+<input id="all" type="radio" name="tab_item" checked>
+<label class="tab_item" for="all">予定</label>
+<input id="programming" type="radio" name="tab_item">
+<label class="tab_item" for="programming">日記</label>
+	<!-- 予定タブ -->
+	<div class="tab_content" id="all_content">
+		<div>
+		    <h3>${date}の予定</h3>
+		    <p>
+		    <button class="modalOpen"
+		    	data-title="予定の登録"
+		    	data-content2=""
+		    	data-content3="登録">
+		    	予定の登録
+		    </button>
+		    </p>
+			<!-- 予定一覧 -->
+			<c:forEach var="item" items="${scheList}">
+			<form method="POST" action="date-details">
+				<input type="hidden" name="scheduleId" value="${item.scheduleId}" />
+		    <div class="border">
+			    <div class="list">
+			    	<c:out value="${item.schedule}" />
+		    	</div>
+			    <div style="float: left;">
+			    	<input type="button" class="modalOpen submit-btn"
+			    		value="編集"
+			    		data-title="予定の編集"
+			    		data-content1="${item.scheduleId}"
+			    		data-content2="${item.schedule}"
+			    		data-content3="編集">
+			    	<input type="submit" name="submit" value="削除" class="submit-btn">
+			    </div>
+		    </div>
 		    </form>
-        	<!-- .closeのものがクリックされると、モーダルが閉じます。 -->
-        	<a class="modalClose close">モーダルを閉じる</a>
-        	<!-- modal-contentここまで -->
-        </div>
-    </div>
-</div>
-
+			</c:forEach>
+		</div>
+	</div>
+	  
+	<!-- .modalOpenを持つボタンがクリックされると、モーダルが表示されます。 -->
+	<!-- .modal-bgの中身がモーダル表示されます。 -->
+	<div class="modal-bg">
+	    <div class="modal">
+	        <div class="modal-content">
+	        	<!-- modal-contentの中は自由に変更してください。 -->
+	            <!-- ×ボタン -->
+	            <div class="close-btn close">
+	                <div>
+	                <span></span>
+	                <span></span>
+	                </div>
+	            </div>
+			    <form method="post" action="date-details">
+			    	<h3 id="modal-title"></h3>
+			    	<input type="hidden" name="scheduleId" id="modal-content1">
+			    	<input type="hidden" name="date" value="${date}">
+			    	<input type="text" name="schedule" id="modal-content2" class="input-text">
+			    	<input type="submit" name="submit" id="modal-content3" class="button">
+			    </form>
+	        	<!-- .closeのものがクリックされると、モーダルが閉じます。 -->
+	        	<a class="modalClose close">モーダルを閉じる</a>
+	        	<!-- modal-contentここまで -->
+	        </div>
+	    </div>
+	</div>
+	
     <!-- 日記閲覧タブ -->
-    <h2>日記閲覧</h2>
-    <div>
-        <h3>${date}の日記</h3>
-
-        <!--該当日記データが無い場合-->
-        <c:if test="${empty d.diary}">
-            <p>日記は登録されていません。</p>
-            <p>
-            	<!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 -->
-				<button id="hide" onclick="location.href='/a1/user/diary-regist'">
-					登録する
-        		</button>
-            </p>
-        </c:if>
-
-        <!--該当する日記データがある場合-->
-        <c:if test="${not empty d.diary}">
-        <c:forEach var="d" items="${diary}">
-            <p>テーマ:${d.theme}</p>
-            <p><img src="${pageContext.request.contextPath}/img/${d.stampPath}"></p>
-            <p>
-            	天気:
-            	<div id="weather" data-weather-code="${d.weatherCode}"></div>
-            	${d.tempMax}℃/${d.tempMin}℃
-            </p>
-        	<span class="star" id="satisfaction" data-satisfaction="${d.satisfaction}"><span></span></span>
-	        <p><img src="${d.image}"></p>
-	        <p>${d.diary}</p>
-        </c:forEach>
-        <p>
-        	<!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記編集ボタンを表示 -->
-        	<button id="hide" onclick="location.href='/a1/user/diary-update'">
-				編集する
-        	</button>
-        </p>
-        </c:if>
+    <div class="tab_content" id="programming_content">
+	    <div>
+	        <h3>${date}の日記</h3>
+	
+	        <!--該当日記データが無い場合-->
+	        <c:if test="${empty d.diary}">
+	            <p>日記は登録されていません。</p>
+	            <p>
+	            	<!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 -->
+					<button id="hide" onclick="location.href='/a1/user/diary-regist'">
+						登録する
+	        		</button>
+	            </p>
+	        </c:if>
+	
+	        <!--該当する日記データがある場合-->
+	        <c:if test="${not empty d.diary}">
+	        <c:forEach var="d" items="${diary}">
+	            <p>テーマ:${d.theme}</p>
+	            <p><img src="${pageContext.request.contextPath}/img/${d.stampPath}"></p>
+	            <p>
+	            	天気:
+	            	<div id="weather" data-weather-code="${d.weatherCode}"></div>
+	            	${d.tempMax}℃/${d.tempMin}℃
+	            </p>
+	        	<span class="star" id="satisfaction" data-satisfaction="${d.satisfaction}"><span></span></span>
+		        <p><img src="${d.image}"></p>
+		        <p>${d.diary}</p>
+	        </c:forEach>
+	        <p>
+	        	<!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記編集ボタンを表示 -->
+	        	<button id="hide" onclick="location.href='/a1/user/diary-update'">
+					編集する
+	        	</button>
+	        </p>
+	        </c:if>
+	    </div>
+    </div>
     </div>
 </main>
 <footer>
