@@ -18,7 +18,7 @@ import model.DiaryView;
 public class DiariesDAO {
 	
 	
-
+	//日記登録メソッド
 	public int insert(Diary dry) {
 		// 結果セットを格納するコレクション
 		//List<Diary> dryList = new ArrayList<Diary>();
@@ -275,7 +275,7 @@ public class DiariesDAO {
 		//結果を返す
 		return dryList;
 	}	
-	//指定したユーザーと日付の日記表示メソッド
+		//指定した日記IDの日記表示メソッド
 		public List<DiaryView> selectD(int diaryId){
 			Connection conn = null;
 			List<DiaryView> dryList = new ArrayList<DiaryView>();
@@ -348,7 +348,7 @@ public class DiariesDAO {
 			return dryList;
 		}
 		
-		//最新の日記IDを持ってくるメソッド
+		//指定したユーザーと日付の日記表示メソッド
 		public List<DiaryView> select(int diaryId){
 			Connection conn = null;
 			List<DiaryView> dryList = new ArrayList<DiaryView>();
@@ -421,8 +421,8 @@ public class DiariesDAO {
 			return dryList;
 		}
 		
-		//指定したユーザーと日付の日記表示メソッド
-		public List<DiaryView> selectT(int userId){
+		//指定したユーザーの最新の日記IDを持ってくるメソッド
+		public List<DiaryView> selectNewDiaryId(int userId){
 			Connection conn = null;
 			List<DiaryView> dryList = new ArrayList<DiaryView>();
 
@@ -490,7 +490,8 @@ public class DiariesDAO {
 			//結果を返す
 			return dryList;
 		}
-
+	
+	//日記を更新するメソッド
 }
 				
 
