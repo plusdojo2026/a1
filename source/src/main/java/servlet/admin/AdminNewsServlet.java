@@ -104,7 +104,7 @@ public class AdminNewsServlet extends HttpServlet {
 					}
 				//削除処理
 				
-				if(request.getParameter("button").equals("削除")){
+				if(request.getParameter("submit").equals("削除")){
 					if(neDAO.delete(new News(newsId,subject,text,isDisplay,submittedAt))){//編集成功
 						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
 				        dispatcher.forward(request, response);

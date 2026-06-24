@@ -193,21 +193,14 @@ public boolean delete(News news) {
 				,"root", "password");
 
 		// SQL文を準備する
-		String sql =" Delete FROM News WHERE  news_id=?,subject=?,text=?,is_display=?,submitted_at=?";
+		String sql =" Delete FROM News WHERE  news_id=?";
 		
 		System.out.println(sql);
 		PreparedStatement pStmt = conn.prepareStatement(sql);
 
 		pStmt.setInt(1,news.getNewsId());
 		
-			pStmt.setString(2,news.getSubject ());
-	
-			pStmt.setString(3,news.getText());
-		
-			pStmt.setInt(4,news.getIsDisplay ());
 			
-			pStmt.setDate(5,java.sql.Date.valueOf(news.getSubmittedAt()));
-		
 	
 		
 	
