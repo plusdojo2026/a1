@@ -96,21 +96,13 @@ public class TopServlet extends HttpServlet {
 			//テーマだけセット
 			request.setAttribute("theme", diaryList.get(0).getTheme());	
 		} else {
-			Diary diary = new Diary(0, 1, localDate, 0, 0, 0, 0, 0, null, 0, null);
+//			Diary diary = new Diary(0, userId, localDate, 0, 0, 0, 0, 0, null, 0, null);
+			DiariesDAO di = new DiariesDAO();
 			
-			
-			List<DiaryView> diaryList =  dDao.selectD(diaryId);
-			
-			request.setAttribute("diaryList", diaryList);
-			//テーマだけセット
-			request.setAttribute("theme", diaryList.get(0).getTheme());
-			
-//			Diary diary = new Diary(0, 1, localDate, 0, 0, 0, 0, 0, null, 0, null);
-//			
-//			DiariesDAO di = new DiariesDAO();
-//			
-//			List<DiaryView> dayDi = di.select(theme);
-//			request.setAttribute("theme", dayDi);
+			DiaryView dry = di.selectNewDiaryId(userId);
+			request.setAttribute("dry", dry);
+
+			request.setAttribute("theme", dry.getTheme());		
 		}
 
 		//継続日数表示

@@ -437,15 +437,15 @@ public class DiariesDAO {
 						"root", "password");
 				
 				//SQL文作成 ユーザーIDと日付を基に日記を検索する
-				String sql = "SELECT diary_id, date, weather_code, temp_min, temp_max, themes.theme, "
+				String sql = "SELECT user_id,diary_id, date, weather_code, temp_min, temp_max, themes.theme, "
 						+ "stamps.stamp_path, diary, satisfaction, image "
 						+ "FROM diaries "
 						+ "JOIN themes "
 						+ "ON diaries.theme_id = themes.theme_id "
 						+ "JOIN stamps "
 						+ "ON diaries.stamp_id = stamps.stamp_id "
-						+ "WHERE user_id = ? ORDER BY diaryId DESC LIMIT 1";	
-					
+						+ "WHERE user_id = ? ORDER BY diary_id DESC LIMIT 1";	
+					System.out.print(sql);
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
 				pStmt.setInt(1, userId);

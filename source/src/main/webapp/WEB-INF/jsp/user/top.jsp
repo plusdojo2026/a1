@@ -10,38 +10,39 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/top.css">
 </head>
 <body>
-<main>
 <header>
 <%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
 </header>
+<main>
 <!--	<c:if test="${ご褒美デイなら}">
 		
 	</c:if>    -->
-	<h1>紫陽花Dialy</h1>
+	<h1>紫陽花ダイアリー</h1>
 	<div>
-		今日のテーマ：<c:out value="${theme}"></c:out>
+		<h3>今日のテーマ：<c:out value="${theme}"></c:out></h3>
+	</div>
+	<div><h3>今日の天気</h3></div>
+	<div>
+		<img id = "weather_img" src ="">
 	</div>
 	<div>
-		今日の天気
-		<img id = "weather_img" src ="${pageContext.request.contextPath}/img/sunny.png">
+		<h3>今日の最高/最低気温<br>
+			<div><span id="temp_max"></span>/<span id="temp_min"></span>℃</div>
+		</h3>
 	</div>
+	<div><h3>連続記録</h3></div>
 	<div>
-		今日の最高/最低気温<br>
-		<div><span id=temp_max></span>/<span id=temp_min></span>℃</div>
-	</div>
-
-	<div>
-		一年前の今日の日記
+		<h3>一年前の今日の日記</h3>
+		<!--該当する日記データがない場合-->
         <c:if test="${empty diary}">
             <p>日記は登録されていません。</p>
             <p><!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 --></p>
-        </c:if>
-        
+        </c:if>    
  		<!--該当する日記データがある場合-->
 		<c:if test="${not empty diary}">
 			<c:out value="${pastDiary}"></c:out>
+			<a href="date_details.jsp">続きを読む>></a>
 		</c:if>
-		<a href="date_details.jsp">続きを読む>></a>
 	</div>
 </main>
 </body>
@@ -100,10 +101,10 @@
 	    console.log(temperatureMin);
 	
 	    // この下にテキストを表示させる処理を書いてください。
-		const weatherImg = dpcument.getElementById;
+		const weatherImg = document.getElementById("weather_img");
 	    switch (weatherCode) {
 	    	case 0:
-	    		weatherImg.src = "${pageContext.request.contextPath}/img/sunny.png";
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/sun.png";
 	    		break;
 	    	case 1:
 	    		weatherImg.src = "${pageContext.request.contextPath}/img/cloudy.png";
@@ -114,8 +115,6 @@
 	    	case 3:
 	    		weatherImg.src = "${pageContext.request.contextPath}/img/snowy.png";
 	    		break;
-	    	default:
-	    		weatherImg.src = "${pageContext.request.contextPath}/img/sunny.png";
 	    }	   
 	    
 		document.getElementById("temp_max").textContent = temperatureMax;
