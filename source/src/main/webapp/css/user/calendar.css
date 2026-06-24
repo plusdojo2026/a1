@@ -1,1 +1,100 @@
-@charset "UTF-8";
+:root {
+	/* カレンダー全体の横幅。ここを変えると全体のサイズが変わる */ 
+	--calendar-width: 740px;
+	/* 1マスの高さ。予定が多い場合は大きくする */ 
+	--day-height: 100px;
+	/* 1マスの横幅。calendar-width ÷ 7列で自動計算される */ 
+	--day-width: calc((var(--calendar-width) - 40px)/7);
+}
+
+/* カレンダー全体の横幅を上書き */
+.flatpickr-calendar {
+	width: var(--calendar-width) !important;
+}
+
+.flatpickr-calendar.open, .flatpickr-calendar.inline {
+    max-height: none;
+    padding-top: 10px;
+}
+
+/* 曜日行・日付エリアの横幅を揃える
+           これを設定しないとセルが左に寄って縦長になる */
+.flatpickr-weekdays, .flatpickr-days, .dayContainer {
+	width: var(--calendar-width) !important;
+	min-width: var(--calendar-width) !important;
+	max-width: var(--calendar-width) !important;
+}
+/* 曜日ヘッダーと日付セルの横幅を固定
+           flex: none でflatpickrの自動伸縮を無効にする */
+span.flatpickr-weekday, .flatpickr-day {
+	width: var(--day-width) !important;
+	max-width: var(--day-width) !important;
+	flex: none !important;
+}
+
+.flatpickr-weekdays {
+	margin-top: 20px;
+	padding: 0 20px;
+}
+
+.dayContainer {
+	padding: 5px 20px 20px 20px;
+}
+
+/* 日付セルの高さと余白
+           height を大きくすると予定を多く表示できる */
+.flatpickr-day {
+	height: var(--day-height) !important;
+	line-height: 1.3 !important;
+	padding: 10px 0 !important;
+	cursor: pointer; /* クリックできることを示す */
+}
+
+/* 選択された予定に色が付かないように */
+.flatpickr-day.selected {
+	background: transparent !important;
+	border-color: transparent !important;
+	color: var(--paragraph-color) !important;
+}
+
+/* 予定ラベルのスタイル
+           <span> で表示するのでリンクではなく見た目だけ装飾する */
+.flatpickr-day span.schedule-item {
+	display: block;
+	font-size: 11px;
+	color: var(--paragraph-color);
+	background: none; /* 予定バーの背景色 */
+	border-radius: 3px;
+	padding: 1px 4px;
+	margin-top: 2px;
+	overflow: hidden;
+	white-space: nowrap; /* 長いテキストを折り返さない */
+	text-overflow: ellipsis; /* はみ出た文字を...で省略 */
+}
+
+.flatpickr-day.today { /* todayの枠の色を変更した */
+	border-color: var(--main-color);
+}
+
+.flatpickr-day { /* 日付の枠の形を少し四角くした */
+	border-radius: 5px;
+}
+
+.flatpickr-day:hover,			/* 日付の:hover時の色を変更した */
+.flatpickr-day:focus {
+	background: var(--background-color) !important;
+}
+.flatpickr-day.today:hover,		/* .today:hoverの色を変更した */
+.flatpickr-day.today:focus {	/* !importantがなくても色は変化した */
+	border-color: var(--main-color) !important;	
+	background: var(--background-color) !important;
+	color: var(--paragraph-color);
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: var(--background-color);
+}
+

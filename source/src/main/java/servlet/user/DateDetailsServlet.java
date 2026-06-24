@@ -11,12 +11,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DiariesDAO;
 import dao.SchedulesDAO;
 import model.Diary;
 import model.DiaryView;
 import model.Schedule;
+import model.User;
 
 
 @WebServlet("/user/date-details")
@@ -25,28 +27,29 @@ public class DateDetailsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		//リクエストパラメータを取得
+		request.setCharacterEncoding("UTF-8");
 		
 		//未ログイン時、ログインサーブレットにリダイレクト
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("user_id") == null) {
-//			response.sendRedirect("/a1/user/login");
-//		}
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null) {
+			response.sendRedirect("/a1/user/login");
+		}
 		
 	//クリックした日の予定一覧表示
 		
 		//セッションスコープからユーザーIDを取得
-//		int userId = (int)session.getAttribute("user");
+		User user = (User)session.getAttribute("user");
+		int userId = user.getUserId();
 		
-		//リクエストスコープから日付データを取得（カレンダーページ作成後）
-		
-		//カレンダーページ作成前のため入れておく
-		LocalDate date = LocalDate.now();
+		//リクエストスコープから日付データを取得
+		LocalDate date = LocalDate.parse((String)request.getParameter("date"));
+		request.setAttribute("date", date);
 		
 //		System.out.println("LocalDate.now :" + date);
 		
 		//検索処理 戻り値＝予定(String)のリスト
-		//ログインページ作成後、1=userIdに変更する
-		Schedule plan = new Schedule(0, 1, date, null, null);
+		Schedule plan = new Schedule(0, userId, date, null, null);
 		SchedulesDAO sche = new SchedulesDAO();
 		List<Schedule> resultSche = sche.scList(plan);
 		
@@ -54,7 +57,7 @@ public class DateDetailsServlet extends HttpServlet {
 		request.setAttribute("scheList", resultSche);
 		
 	//クリックした日の日記閲覧表示
-		Diary diary = new Diary(0, 1, date, 0, 0, 0, 0, 0, null, 0, null);
+		Diary diary = new Diary(0, userId, date, 0, 0, 0, 0, 0, null, 0, null);
 		
 		DiariesDAO di = new DiariesDAO();
 		
@@ -78,21 +81,22 @@ public class DateDetailsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-////		未ログイン時、ログインサーブレットにリダイレクト
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("user_id") == null) {
-//			response.sendRedirect("/a1/user/login");
-//		}
-		
-		//セッションスコープからユーザーIDを取得
-//		int userId = (int)session.getAttribute("user");
-		
-		//リクエストスコープから日付データを取得（カレンダーページ作成後）
-		//カレンダーページ作成前のため今日の日付を入れておく
-		LocalDate date = LocalDate.now();
-		
 		//リクエストパラメータを取得
 		request.setCharacterEncoding("UTF-8");
+		
+//		未ログイン時、ログインサーブレットにリダイレクト
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null) {
+			response.sendRedirect("/a1/user/login");
+		}
+		
+		//セッションスコープからユーザーIDを取得
+		User user = (User)session.getAttribute("user");
+		int userId = user.getUserId();
+		
+		//リクエストスコープから日付データを取得
+		String strDate = (String)request.getParameter("date");
+		LocalDate date = LocalDate.parse(strDate);
 		
 		SchedulesDAO sche = new SchedulesDAO();
 		
@@ -101,7 +105,7 @@ public class DateDetailsServlet extends HttpServlet {
 		if (request.getParameter("submit").equals("登録")) {
 			//リクエストパラメータを取得
 			String schedule = request.getParameter("schedule");
-			if (sche.insert(new Schedule(0, 1, date, schedule, null))) {
+			if (sche.insert(new Schedule(0, userId, date, schedule, null))) {
 //				request.setAttribute("msg", "予定を登録しました。");
 			} else {
 				request.setAttribute("msg", "予定の登録に失敗しました");
@@ -134,7 +138,7 @@ public class DateDetailsServlet extends HttpServlet {
 		}
 		
 		//リダイレクト
-		response.sendRedirect("/a1/user/date-details");
+		response.sendRedirect("/a1/user/date-details?date=" + strDate);
 	}
 
 }

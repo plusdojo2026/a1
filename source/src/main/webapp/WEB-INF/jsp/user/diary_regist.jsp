@@ -137,11 +137,11 @@
 			</div>
 		</div>
 		
-		<div>
+		<div class="input-textarea">
 			本文<br><textarea name="diary" maxlength="300"></textarea>
 		</div>
 		
-		<div>
+		<div class="button">
 			<input type="submit" name="regist" value="登録" ><br>
 		</div>
 		
