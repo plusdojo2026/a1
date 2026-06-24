@@ -28,16 +28,16 @@ openBtn.forEach(function(btn){
 		let modalImg = document.getElementById('modal-img');
 		let modalRadio = document.querySelectorAll('.modal-radio');
 		
-		if (modalTitle !== null) modalTitle.textContent = title;
-		if (modalContent1 !== null)modalContent1.value = content1;
-		if (modalContent2 !== null)modalContent2.value = content2;
-		if (modalContent3 !== null)modalContent3.value = content3;
-		if (modalStampId !== null) {
+		if (modalTitle !== null || modalTitle === "") modalTitle.textContent = title;
+		if (modalContent1 !== null || modalContent1 === "")modalContent1.value = content1;
+		if (modalContent2 !== null || modalContent2 === "")modalContent2.value = content2;
+		if (modalContent3 !== null || modalContent3 === "")modalContent3.value = content3;
+		if (modalStampId !== null || modalStampId === "") {
 			modalStampId.value = stampId;
 			const selectedStamp = document.querySelector('.stamp[data-id="' + stampId +'"]');
-			selectedStamp.classList.add('selected');
+			// selectedStamp.classList.add('selected');
 		}
-		if (modalImg !== null)modalImg.src = img;
+		if (modalImg !== null || modalTitle === "")modalImg.src = img;
 		modalRadio.forEach(function(radioBtn) {
 			if (radioBtn.value === radio) radioBtn.checked = true;
 		});

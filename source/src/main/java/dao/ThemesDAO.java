@@ -92,14 +92,15 @@ public class ThemesDAO {
 			} else {
 				pStmt.setString(1, "");
 			}
-			pStmt.setInt(2,theme.getThemeId ());
+			
+			
 			if (theme.getStampId() != 0) {
-				pStmt.setInt(3,theme.getStampId ());
+				pStmt.setInt(2,theme.getStampId ());
 			} else {
-				pStmt.setString(3, "");
+				pStmt.setString(2, "");
 			}
 			
-			pStmt.setInt(4,theme.getDiaryFlag ());
+			pStmt.setInt(3,theme.getDiaryFlag ());
 			
 		
 		
@@ -141,21 +142,21 @@ public class ThemesDAO {
 					,"root", "password");
 
 			// SQL文を準備する
-			String sql =" UPDATE Themes SET  theme_id=?,theme=?,stamp_id=?,diary_flag=?";
+			String sql =" UPDATE Themes SET theme=?,stamp_id=?,diary_flag=? WHERE theme_id=?";
 			
 			System.out.println(sql);
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 		
-				pStmt.setInt(1,theme.getThemeId ());
-		
-				pStmt.setString(2,theme.getTheme ());
-			
-				pStmt.setInt(3,theme.getStampId ());
-			
-			pStmt.setInt(4,theme.getDiaryFlag ());
 			
 		
+				pStmt.setString(1,theme.getTheme ());
+			
+				pStmt.setInt(2,theme.getStampId ());
+			
+			pStmt.setInt(3,theme.getDiaryFlag ());
+			
+			pStmt.setInt(4,theme.getThemeId ());
 		
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
