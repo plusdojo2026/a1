@@ -3,7 +3,6 @@
 <nav class="nav">
         <div class="navbar">
         	<div class="logo">
-        	<!--img src="" alt="">-->
             	<a href="/a1/user/top"></a>
             	<p><a href="/a1/user/top">紫陽花ダイアリー（仮）</a></p>
         	</div>

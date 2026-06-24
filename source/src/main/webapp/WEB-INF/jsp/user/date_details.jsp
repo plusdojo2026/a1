@@ -104,7 +104,7 @@
         <h3>${date}の日記</h3>
 
         <!--該当日記データが無い場合-->
-        <c:if test="${empty diary}">
+        <c:if test="${empty d.diary}">
             <p>日記は登録されていません。</p>
             <p>
             	<!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 -->
@@ -115,7 +115,7 @@
         </c:if>
 
         <!--該当する日記データがある場合-->
-        <c:if test="${not empty diary}">
+        <c:if test="${not empty d.diary}">
         <c:forEach var="d" items="${diary}">
             <p>テーマ:${d.theme}</p>
             <p><img src="${pageContext.request.contextPath}/img/${d.stampPath}"></p>
