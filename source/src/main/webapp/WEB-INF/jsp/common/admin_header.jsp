@@ -20,9 +20,6 @@
                     <a href="/a1/admin/news">お知らせ</a>
                 </li>
                 <li>
-                    <a href="/a1/admin/advice">アドバイス</a>
-                </li>
-                <li>
                     <a href="/a1/admin/status">ステータス</a>
                 </li>
             </ul>

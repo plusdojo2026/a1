@@ -127,7 +127,7 @@ public class DiaryRegistServlet extends HttpServlet {
 	        }
 		
 		//次、どのページに飛ぶかの記述をする
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/diary_regist.jsp");
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/top.jsp");
 			dispatcher.forward(request, response);
 	}
 

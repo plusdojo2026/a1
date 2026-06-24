@@ -75,7 +75,7 @@ img {
 }
 
 /* buttonタグの設定 */
-button{
+button, .button{
 	padding-left: 12px;
 	padding-right: 12px;
 	height: 2.5em;
@@ -86,18 +86,14 @@ button{
 	border-radius: 4px;
 	font-size: 16px;
 	font-weight: 500;
+	box-shadow: 2px 2px 4px gray;
 }
-.button {
-	padding-left: 12px;
-	padding-right: 12px;
-	height: 2.5em;
-	cursor: pointer;
-	background-color: var(--button-color);
-	color: var(--button-text-color);
-	border: none;
-	border-radius: 4px;
-	font-size: 16px;
-	font-weight: 500;
+button:hover, .button:hover{
+	background-color: #E26B03;
+}
+button:active, .button:active{
+	background-color: #E26B03;
+	box-shadow: none;
 }
 
 .login-button{
@@ -111,6 +107,27 @@ button{
 	font-weight: 600;
 	cursor: pointer;
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.login-button:hover {
+	background-color: #E26B03;
+}
+
+.submit-btn {
+	padding-left: 9px;
+	padding-right: 9px;
+	height: 1.7em;
+	cursor: pointer;
+	background-color: var(--button-color);
+	color: var(--button-text-color);
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+}
+.submit-btn:hover{
+	background-color: #E26B03;
+}
+.submit-btn:active {
+	background-color: #E26B03;
 }
 /* headerの設定 */
 header {
@@ -149,8 +166,7 @@ header {
 /* inputタグ */
 .input-text{
 	width: 60%;
-	margin-top: 0.5rem;
-	margin-bottom: 1.5rem;
+	margin: 0.5rem 10px 1.5rem 0;
 	padding: 10px 16px;
 	border: 2px solid #e1e5e9;
 	border-radius: 8px;
@@ -285,6 +301,11 @@ footer {
     width: 100%;
     height: 200px;
 }
+
+.modal-link {
+	cursor: pointer;
+}
+
 /* スタンプ設定 */
 #stamp-button {
 	cursor: pointer;
@@ -330,4 +351,9 @@ footer {
 	font-size: 14px;
 	color: #ED1A3D;
 	margin: 7px 0 7px 0;
+}
+.list {
+	min-width: 400px;
+	margin: 8px 0 8px 0;
+	float: left;
 }
