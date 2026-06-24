@@ -58,7 +58,7 @@
 					<p>日付 ${date}</p>
 				</div>
 			
-			<div class="weture">
+			<div class="wetherondo">
 				<div class="weather">
 					<p>天気:<input type=hidden name="weatherCode" id="weather"><span id="weatherCode"></span></p>
 				</div>
@@ -137,12 +137,12 @@
 			</div>
 		</div>
 		
-		<div class="input-textarea">
-			本文<br><textarea name="diary" maxlength="300"></textarea>
+		<div>
+			本文<br><textarea name="diary" maxlength="300" class="input-textarea" ></textarea>
 		</div>
 		
-		<div class="button">
-			<input type="submit" name="regist" value="登録" ><br>
+		<div>
+			<input type="submit" name="regist" value="登録" class="button"><br>
 		</div>
 		
 	</form>
