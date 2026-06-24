@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/top.css">
 </head>
 <body>
+<main>
 <header>
 <%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
 </header>
@@ -42,7 +43,7 @@
 		</c:if>
 		<a href="date_details.jsp">続きを読む>></a>
 	</div>
-
+</main>
 </body>
 <footer>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
