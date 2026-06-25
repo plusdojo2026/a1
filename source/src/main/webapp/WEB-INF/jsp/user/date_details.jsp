@@ -118,6 +118,7 @@
 	        <h3>${date}の日記</h3>
 	
 	        <!--該当日記データが無い場合-->
+	        <c:forEach var="d" items="${diary}">
 	        <c:if test="${empty d.diary}">
 	            <p>日記は登録されていません。</p>
 	            <p>
@@ -127,10 +128,10 @@
 	        		</button>
 	            </p>
 	        </c:if>
-	
+			</c:forEach>
 	        <!--該当する日記データがある場合-->
-	        <c:if test="${not empty d.diary}">
 	        <c:forEach var="d" items="${diary}">
+	        <c:if test="${not empty d.diary}">
 	            <p>テーマ:${d.theme}</p>
 	            <p><img src="${pageContext.request.contextPath}/img/${d.stampPath}"></p>
 	            <p>
@@ -141,7 +142,6 @@
 	        	<span class="star" id="satisfaction" data-satisfaction="${d.satisfaction}"><span></span></span>
 		        <p><img src="${d.image}"></p>
 		        <p>${d.diary}</p>
-	        </c:forEach>
 	        <p>
 	        	<!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記編集ボタンを表示 -->
 	        	<button id="hide" onclick="location.href='/a1/user/diary-update'">
@@ -149,6 +149,7 @@
 	        	</button>
 	        </p>
 	        </c:if>
+	        </c:forEach>
 	    </div>
     </div>
     </div>
@@ -161,6 +162,18 @@
 <script>
 'use strict';
 // ここから個別処理
+//今日かどうかの判定
+	const selectDate = "${date}";
+	const cDate = "${today}";
+	console.log("クリック："+ selectDate + "今日：" + cDate);
+	
+	document.getElementById("hide").style.visibility ="hidden";
+	const hide = document.getElementById("hide");
+	console.log(hide);
+	if (selectDate == cDate) {
+		hide.style.visibility = "visible";
+	}
+	
 if (${not empty diary}) {
 	//天気を数字から文字にする
 	let weather = null;
@@ -169,7 +182,7 @@ if (${not empty diary}) {
 	//console.log("C：" + weatherC);
 	
 	let weatherCode = weatherC.dataset.weatherCode;
-	//console.log("コード：" + weatherCode);
+	console.log("コード：" + weatherCode);
 	
 	switch (weatherCode) {
 		case "0":
@@ -203,15 +216,7 @@ if (${not empty diary}) {
 	console.log(${satisfaction} + "%");
 }
 
-//今日かどうかの判定
-	const selectDate = "${date}";
-	const cDate = "${today}";
-	
-	const hide = document.getElementById("hide");
-	hide.style.visibility = "hidden";
-	if (selectDate == cDate) {
-		hide.style.visibility = "visible";
-	}
+
 </script>
 </body>
 </html>

@@ -21,6 +21,7 @@ import dao.DiariesDAO;
 import dao.StampsDAO;
 import dao.ThemesDAO;
 import model.Diary;
+import model.DiaryView;
 import model.Stamp;
 import model.Theme;
 import model.User;
@@ -37,11 +38,26 @@ public class DiaryRegistServlet extends HttpServlet {
 		StampsDAO sDAO = new StampsDAO();
 		List<Stamp> stampList = sDAO.selectAll();
 		request.setAttribute("stampList",stampList);
+		
 		//テーマのデータを取得する
 		ThemesDAO tDAO = new ThemesDAO();
 		ArrayList<Theme> themesList = tDAO.selectAll();
 		request.setAttribute("themesList",themesList);
 		System.out.println(themesList.size()+":テーマリストのサイズ");
+		
+		//ユーザーの日記データを取得する　ここはセッション
+		HttpSession session = request.getSession();
+		//信憑性がないから(User)でユーザーって教えてあげる
+		User user = (User)session.getAttribute("user");
+		int userId = user.getUserId();
+		
+		
+		//一回全てnewして使うものだけ選ぶ
+		DiariesDAO dDAO = new DiariesDAO();
+		DiaryView d = dDAO.selectNewDiaryId(user.getUserId());
+		request.setAttribute("diary", d);
+		
+		//int diaryId = Integer.parseInt(request.getParameter("diaryId"));
 		
 		/*
 		 * // もしもログインしていなかったらログインサーブレットにリダイレクトする HttpSession session =
@@ -56,8 +72,10 @@ public class DiaryRegistServlet extends HttpServlet {
 		/* System.out.println("bbbbbb"+date+"aaaaaaaaaaaaaaaa"); */
 		
 		//画像のパスをsessionに保存しておく
-		HttpSession session  = request.getSession();
-		session.setAttribute("pathDir", getServletContext().getRealPath("/img"));
+		
+		/* HttpSession session = request.getSession(); */
+		  session.setAttribute("pathDir",getServletContext().getRealPath("/img"));
+		
 		
 		//次、どのページに飛ぶかの記述をする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/diary_regist.jsp");
@@ -74,9 +92,10 @@ public class DiaryRegistServlet extends HttpServlet {
 			LocalDateTime now = LocalDateTime.now();
 			LocalDateTime today = now.minusHours(4);
 			LocalDate date = today.toLocalDate(); 
-			//int diaryId
+			
 			int userId =user.getUserId();
 			int weatherCode = Integer.parseInt(request.getParameter("weatherCode"));
+			int diaryId = Integer.parseInt(request.getParameter("diary_id"));
 			float tempMin = Float.parseFloat(request.getParameter("tempMin"));
 			float tempMax = Float.parseFloat(request.getParameter("tempMax"));
 			String theme = request.getParameter("theme");
@@ -106,7 +125,7 @@ public class DiaryRegistServlet extends HttpServlet {
 	        }
 	        
 	        // データベースに画像の置き場所（パス）を保存する（Diaryインスタンスに入れる）
-	        Diary d = new Diary(0,userId, date, weatherCode, tempMin, tempMax, 1,
+	        Diary d = new Diary(diaryId,userId, date, weatherCode, tempMin, tempMax, 1,
 	    				1, diary, satisfaction, fileName );
 			/*DTOから引用
 			 * int diaryId, int userId, LocalDate date, int weatherCode, float tempMin,
@@ -116,10 +135,11 @@ public class DiaryRegistServlet extends HttpServlet {
 	        
 	        //DAOをnewする
 	        DiariesDAO dDAO = new DiariesDAO();
-	        int diaryId = dDAO.insert(d);
-	        if (diaryId > 0){
+	        boolean dId = dDAO.update(d);
+	        if (dId ==true){
 	        	//↓これはいらない
-	        	//request.setAttribute("msg", "登録できました！");
+	        	request.setAttribute("massage", "登録できました！");
+	        	System.out.println("登録完了！！");
 	        }else {
 	        	request.setAttribute("massage", "登録できませんでした！");
 	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/user_errormsg.jsp");
