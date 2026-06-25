@@ -52,9 +52,7 @@ public class AdminNewsServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		System.out.println(request.getParameter("newsId")+":ニュースidだよ");
 		int newsId=0;
-		if(request.getParameter("newsId")!=null ){
-			newsId=Integer.parseInt(request.getParameter("newsId"));
-		}
+		
 		
 		String subject=request.getParameter("subject");
 		String text=request.getParameter("text");
@@ -75,17 +73,12 @@ public class AdminNewsServlet extends HttpServlet {
 		//登録処理
                
                
-				if(request.getParameter("submit").equals("登録"))
-				{
-					
-				
-				
-				if(neDAO.insert(new News(newsId,subject,text,isDisplay,submittedAt))
+				if(request.getParameter("submit").equals("登録")){
+					if(neDAO.insert(new News(newsId,subject,text,isDisplay,submittedAt))
 						) {//登録成功	
 					
+					response.sendRedirect("/a1/admin/news");
 					
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
-			        dispatcher.forward(request, response);
 
 				}else {//登録失敗
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
@@ -94,9 +87,11 @@ public class AdminNewsServlet extends HttpServlet {
 				}
 				//編集処理
 								if(request.getParameter("submit").equals("保存")){
+									
+										newsId=Integer.parseInt(request.getParameter("newsId"));
+									
 					if(neDAO.update(new News(newsId,subject,text,isDisplay,submittedAt))){//編集成功
-						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
-				        dispatcher.forward(request, response);
+						response.sendRedirect("/a1/admin/news");
 					}else {//編集失敗
 						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
 				        dispatcher.forward(request, response);
@@ -105,32 +100,16 @@ public class AdminNewsServlet extends HttpServlet {
 				//削除処理
 				
 				if(request.getParameter("submit").equals("削除")){
+					newsId=Integer.parseInt(request.getParameter("newsId"));
 					if(neDAO.delete(new News(newsId,subject,text,isDisplay,submittedAt))){//編集成功
-						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
-				        dispatcher.forward(request, response);
+						response.sendRedirect("/a1/admin/news");
 					}else {//編集失敗
 						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
 				        dispatcher.forward(request, response);
 					}
 					}
 				//送信処理
-				if(request.getParameter("button").equals("送信")){
-					NewsDAO changes=new NewsDAO();
-					if(changes.update(new News(newsId,subject,text,isDisplay,submittedAt)));{ 
-						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
-				        dispatcher.forward(request, response);
-							  
-							   
-						   
-					}
-				}
-	if(request.getParameter("button").equals("送信取り消す")){
-		NewsDAO changes=new NewsDAO();
-		if(changes.update(new News(newsId,subject,text,isDisplay,submittedAt)));{ 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
-	        dispatcher.forward(request, response);}
-				  
-				}
-	}
+				/**/
 
+}
 }
