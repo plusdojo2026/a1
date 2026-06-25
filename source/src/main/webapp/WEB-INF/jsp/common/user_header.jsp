@@ -32,4 +32,7 @@
                 </li>
             </ul>
         </div>
-    </nav>
+</nav>
+	<div class="btn-diary-regist">
+		<a href="/a1/user/regist-or-update">日記</a>
+	</div>
