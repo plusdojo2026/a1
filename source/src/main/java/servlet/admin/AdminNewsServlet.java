@@ -113,7 +113,24 @@ public class AdminNewsServlet extends HttpServlet {
 				        dispatcher.forward(request, response);
 					}
 					}
-				
+				//送信処理
+				if(request.getParameter("button").equals("送信")){
+					NewsDAO changes=new NewsDAO();
+					if(changes.update(new News(newsId,subject,text,isDisplay,submittedAt)));{ 
+						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
+				        dispatcher.forward(request, response);
+							  
+							   
+						   
+					}
+				}
+	if(request.getParameter("button").equals("送信取り消す")){
+		NewsDAO changes=new NewsDAO();
+		if(changes.update(new News(newsId,subject,text,isDisplay,submittedAt)));{ 
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_news.jsp");
+	        dispatcher.forward(request, response);}
+				  
+				}
 	}
 
 }

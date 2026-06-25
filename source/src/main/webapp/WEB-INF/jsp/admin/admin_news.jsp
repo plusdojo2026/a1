@@ -53,10 +53,14 @@
 	<button class="modalOpen" data-title="お知らせのの編集" data-content1="${news.subject}" data-content2="${news.text}" data-content3="保存"  onclick="openModal('${news.text}','${news.subject}','${news.newsId }')">編集</button>
 
  <form action="" method="post" >
+ <input type="hidden"   name="subject"  value="${news.subject}">
+ <input type="hidden"  id="modal-content4 " name="newsId"  value="${news.newsId}">
 <input type="submit" name="submit" value="削除">
 </form>
 
 <form action="" method="post" >
+ <input type="hidden"   name="subject"  value="${news.subject}">
+<input type="hidden"  id="modal-content4 " name="newsId"  value="${news.newsId}">
 <c:if test="${news.isDisplay==0}">
 	<input type=button name="message1" class="" value="送信">
 </c:if>

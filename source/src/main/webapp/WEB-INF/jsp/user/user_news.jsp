@@ -15,12 +15,15 @@
 </header>
 <main>
 <p>お知らせ</p>
+ <c:if test="${is_display==0}">
 <c:forEach var="news" items="${newsList}">
 
-	<button class="modalOpen" data-title="お知らせ詳細" data-content1="${news.subject}" data-content2="${news.text}" data-content3="＜＜お知らせ一覧に戻る"  >${news.subject}</button>
+	<button class="modalOpen" data-title="お知らせ詳細" data-content1="${news.subject}" data-content2="${news.text}" data-content3="＜＜お知らせ一覧に戻る"  >
+	${news.subject}</button>
 	<p>${news.submittedAt}</p>
-	</c:forEach>
 	
+	</c:forEach>
+	</c:if>
 	
 	
 	
