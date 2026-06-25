@@ -34,14 +34,14 @@
 	<div>
 		<h3>一年前の今日の日記</h3>
 		<!--該当する日記データがない場合-->
-        <c:if test="${empty diary}">
+        <c:if test="${empty pastDiary}">
             <p>日記は登録されていません。</p>
             <p><!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 --></p>
         </c:if>    
  		<!--該当する日記データがある場合-->
-		<c:if test="${not empty diary}">
+		<c:if test="${not empty pastDiary}">
 			<c:out value="${pastDiary}"></c:out>
-			<a href="date_details.jsp">続きを読む>></a>
+			<a href="date-details?date=${date}">詳細を見る>></a>
 		</c:if>
 	</div>
 </main>
