@@ -59,3 +59,12 @@ CREATE TABLE news(news_id INT AUTO_INCREMENT PRIMARY KEY,
 			 	  submitted_at DATE DEFAULT (CURRENT_DATE)
 			 	  );
 			 	   
+
+--ここからINSERT文
+
+--サトシの管理者情報登録文
+INSERT INTO users(mail,name,pass,is_admin) VALUES('satoshi@sample.com','真田サトシ','satoshi','1')
+--ヒカリののユーザー情報登録文
+INSERT INTO users(mail,name,pass) VALUES('hikari@sample.com','相澤ヒカリ','hikari')
+--発表日一年前のヒカリの日記
+INSERT
