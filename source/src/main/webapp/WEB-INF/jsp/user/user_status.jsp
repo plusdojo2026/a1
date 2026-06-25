@@ -14,35 +14,45 @@
 <header>
 <%@ include file="/WEB-INF/jsp/common/user_header.jsp" %>
 </header>
-<main>
+<main class="stp">
 <h1>あなたの日々の満足度</h1>
-
-
-
-<h2>天気ごとの満足度</h2>
 <c:forEach var="uib" items="${weatherList}" >
-<c:if test="${not empty uib.sunny}">
+<c:if test="${uib.sunny !=0 || uib.cloudy !=0 || uib.rainy !=0 || uib.snowy !=0}">
+<h2>天気ごとの満足度</h2>
+
+<c:if test="${uib.sunny !=0 }">
 晴れの日の満足度平均:<c:out value="${uib.sunny}" /><br>
 </c:if>
-<c:if test="${not empty uib.cloudy}">
+<c:if test="${uib.cloudy !=0 }">
 曇りの日の満足度平均:<c:out value="${uib.cloudy}" /><br>
 </c:if>
-<c:if test="${not empty uib.rainy}">
+<c:if test="${uib.rainy !=0 }">
 雨の日の満足度平均:<c:out value="${uib.rainy}" /><br>
 </c:if>
-<c:if test="${not empty uib.snowy}">
+<c:if test="${uib.snowy !=0 }">
 雪の日の満足度平均:<c:out value="${uib.snowy}" /><br>
+</c:if>
 </c:if>
 </c:forEach>
 
-<h3>気温ごとの満足度</h3>
 <c:forEach var="uib" items="${templist}" >
-    寒い日の満足度平均: <c:out value="${uib.cold}" /><br>
-    普通の日の満足度平均: <c:out value="${uib.ideal}" /><br>
-    暑い日の満足度平均：<c:out value="${uib.hot}" /><br>
+<c:if test="${uib.cold !=0 || uib.ideal !=0 || uib.hot !=0 }">
+<h3>気温ごとの満足度</h3>
+<c:if test="${uib.cold !=0 }">
+寒い日の満足度平均: <c:out value="${uib.cold}" /><br>
+</c:if>
+<c:if test="${uib.ideal !=0 }">
+普通の日の満足度平均: <c:out value="${uib.ideal}" /><br>
+</c:if>
+<c:if test="${uib.hot !=0 }">
+暑い日の満足度平均：<c:out value="${uib.hot}" /><br>
+</c:if>    
+</c:if> 
 </c:forEach>
 
-
+<c:if test="${empty weatherList && empty templist}">
+データが存在しません。
+</c:if>
 
 </main>
 <footer>

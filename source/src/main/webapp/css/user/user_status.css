@@ -1,1 +1,10 @@
 @charset "UTF-8";
+.stp {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  padding-bottom: 4rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}

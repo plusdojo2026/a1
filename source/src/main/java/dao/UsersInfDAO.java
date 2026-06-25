@@ -137,58 +137,58 @@ public class UsersInfDAO {
 			return uib;
 			
 		}
-public ArrayList<UserInf> select2(UserInf ui2){
-		
-		//マイバックを用意する user inf bagでuibとします
-		ArrayList<UserInf> uib = new ArrayList<UserInf>();
-		
-		Connection conn = null;
-	
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
-	
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
-					+ "useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/"
-					+ "Tokyo&connectTimeout=30000",
-					"root", "password");			
-			
-			String inSql = "INSERT INTO  users_inf "
-					+ "(avg_sunny,avg_cloudy,avg_rainy,avg_snowy,"
-					+ "avg_cold,avg_ideal,avg_hot) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
-			
-			PreparedStatement inpStmt = conn.prepareStatement(inSql);
-				inpStmt.setInt(1,ui2.getUserId());
-				inpStmt.setFloat(2,ui2.getSunny());
-				inpStmt.setFloat(3,ui2.getCloudy());
-				inpStmt.setFloat(4,ui2.getRainy());
-				inpStmt.setFloat(5,ui2.getSnowy());
-				inpStmt.setFloat(6,ui2.getCold());
-				inpStmt.setFloat(7,ui2.getIdeal());
-				inpStmt.setFloat(8,ui2.getHot());
-				
-				inpStmt.executeUpdate();
-			
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		return uib;
-		
-	}
+//public ArrayList<UserInf> select2(UserInf ui2){
+//		
+//		//マイバックを用意する user inf bagでuibとします
+//		ArrayList<UserInf> uib = new ArrayList<UserInf>();
+//		
+//		Connection conn = null;
+//	
+//		try {
+//			// JDBCドライバを読み込む
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+//	
+//			// データベースに接続する
+//			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
+//					+ "useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/"
+//					+ "Tokyo&connectTimeout=30000",
+//					"root", "password");			
+//			
+//			String inSql = "INSERT INTO users_inf "
+//					+ "(user_id ,avg_sunny,avg_cloudy,avg_rainy,avg_snowy,"
+//					+ "avg_cold,avg_ideal,avg_hot) "
+//					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+//			
+//			PreparedStatement inpStmt = conn.prepareStatement(inSql);
+//				inpStmt.setInt(1,ui2.getUserId());
+//				inpStmt.setFloat(2,ui2.getSunny());
+//				inpStmt.setFloat(3,ui2.getCloudy());
+//				inpStmt.setFloat(4,ui2.getRainy());
+//				inpStmt.setFloat(5,ui2.getSnowy());
+//				inpStmt.setFloat(6,ui2.getCold());
+//				inpStmt.setFloat(7,ui2.getIdeal());
+//				inpStmt.setFloat(8,ui2.getHot());
+//				
+//				inpStmt.executeUpdate();
+//			
+//			
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} finally {
+//			// データベースを切断
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		
+//		return uib;
+//		
+//	}
 }
