@@ -119,7 +119,7 @@
 	
 	        <!--該当日記データが無い場合-->
 	        <c:forEach var="d" items="${diary}">
-	        <c:if test="${empty d.diary}">
+	        <c:if test="${empty d.diary or empty diary}">
 	            <p>日記は登録されていません。</p>
 	            <p>
 	            	<!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 -->
@@ -133,7 +133,7 @@
 	        <c:forEach var="d" items="${diary}">
 	        <c:if test="${not empty d.diary}">
 	            <p>テーマ:${d.theme}</p>
-	            <p><img src="${pageContext.request.contextPath}/img/${d.stampPath}"></p>
+	            <p><img src="${pageContext.request.contextPath}/img/${d.stampPath}" class="stamp"></p>
 	            <p>
 	            	天気:
 	            	<div id="weather" data-weather-code="${d.weatherCode}"></div>

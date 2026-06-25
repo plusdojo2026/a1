@@ -135,7 +135,7 @@ public class UsersDAO {
 					"root", "password");
 			
 			//sql文を準備する
-			String sql = "UPDATE users set pass=? where mail=? and name=?";
+			String sql = "UPDATE users set pass=? WHERE mail=? and name=?";
 			//船を用意し、必要なものを持っていく。
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
