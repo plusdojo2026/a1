@@ -478,9 +478,9 @@ public class DiariesDAO {
 
 	// ユーザーIDから全日記を取得するメソッド
 	// 指定したユーザーの最新の日記IDを持ってくるメソッド
-	public DiaryView selectAllByUserId(int userId) {
+	public List<DiaryView> selectAllByUserId(int userId) {
 		Connection conn = null;
-		DiaryView dry = null;
+		List<DiaryView> diaryViewList = new ArrayList<>();
 
 		try {
 			// JDBCドライバの読み込み
@@ -506,10 +506,10 @@ public class DiariesDAO {
 
 			// 検索結果を格納
 			while (rs.next()) {
-				dry = new DiaryView(rs.getInt("diary_id"), rs.getInt("user_id"), rs.getDate("date").toLocalDate(),
+				diaryViewList.add(new DiaryView(rs.getInt("diary_id"), rs.getInt("user_id"), rs.getDate("date").toLocalDate(),
 						rs.getInt("weather_code"), rs.getFloat("temp_min"), rs.getFloat("temp_max"),
 						rs.getString("theme"), rs.getString("stamp_path"), rs.getString("diary"),
-						rs.getInt("satisfaction"), rs.getString("image"));
+						rs.getInt("satisfaction"), rs.getString("image")));
 			}
 
 		} catch (SQLException e) {
@@ -531,7 +531,7 @@ public class DiariesDAO {
 		}
 
 		// 結果を返す
-		return dry;
+		return diaryViewList;
 	}
 
 	// 日記を更新するメソッド

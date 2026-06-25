@@ -66,6 +66,7 @@
 			<c:forEach var="item" items="${scheList}">
 			<form method="POST" action="date-details">
 				<input type="hidden" name="scheduleId" value="${item.scheduleId}" />
+				<input type="hidden" name="date" value="${date}">
 		    <div class="border">
 			    <div class="list">
 			    	<c:out value="${item.schedule}" />

@@ -78,16 +78,17 @@ span.flatpickr-weekday, .flatpickr-day {
 
 .flatpickr-day { /* 日付の枠の形を少し四角くした */
 	border-radius: 5px;
+	background-size: contain;
 }
 
 .flatpickr-day:hover,			/* 日付の:hover時の色を変更した */
 .flatpickr-day:focus {
-	background: var(--background-color) !important;
+	background: #FC9F4D20 !important;
 }
 .flatpickr-day.today:hover,		/* .today:hoverの色を変更した */
 .flatpickr-day.today:focus {	/* !importantがなくても色は変化した */
 	border-color: var(--main-color) !important;	
-	background: var(--background-color) !important;
+	background: #FC9F4D20 !important;
 	color: var(--paragraph-color);
 }
 
@@ -95,6 +96,9 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: var(--background-color);
+}
+
+span {
+	font-weight: 500 !important;
 }
 
