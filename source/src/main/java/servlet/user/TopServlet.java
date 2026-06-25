@@ -118,9 +118,10 @@ public class TopServlet extends HttpServlet {
 		if(dayDi.size() != 0) {//１年前の日記あったら
 			//１年前の日記本文を取得
 			String diaryBody = dayDi.get(0).getDiary();
-			
+			System.out.println(diaryBody +"やほ");
 			//リクエストスコープにセット
 			request.setAttribute("pastDiary",diaryBody);
+			request.setAttribute("date",oneYearAgo);
 		}
 		//お知らせ
 		
@@ -132,9 +133,25 @@ public class TopServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
-//	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+//		request.setCharacterEncoding("UTF-8");
+//		
+//		LocalDateTime date = LocalDateTime.now();
+//		date = date.minusHours(4);
+//		LocalDate localDate = date.toLocalDate();
+//		LocalDate oneYearAgo = localDate.minusYears(1);
+//		LocalDate date = LocalDate.parse(request.getParameter("date"));
+//		//LocalDateTime date = LocalDateTime.now();
+//		date = date.minusHours(4);
+//		
+//		// セッションスコープに日付を格納する
+//		HttpSession session = request.getSession();
+//		session.setAttribute("date", oneYearAgo);
+//		//日記詳細ページにフォワード
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/date_details.jsp");
+//		dispatcher.forward(request, response);
+	}
 
 }
