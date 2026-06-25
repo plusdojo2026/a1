@@ -22,6 +22,9 @@
                 <li>
                     <a href="/a1/user/survey">アンケート</a>
                 </li>
+                <li>
+                	<a href="/a1/user/servlet">お知らせ</a>
+                </li>
             </ul>
             <ul class="right">
                 <li>

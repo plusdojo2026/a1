@@ -48,7 +48,13 @@
 	
 		<div>
 			<div>
-				<input type=hidden name="userId">
+				<input type=hidden name="userId" value="${userId}">
+			</div>
+		</div>
+		
+		<div>
+			<div>
+				<input type=hidden name="diary_id" value="${diary.diaryId}">
 			</div>
 		</div>
 		
@@ -119,11 +125,11 @@
   		<p id="stars">満足度</p>
   		<div class="stars"><!-- <input type=hidden name="satisfaction"> -->
 		    <span>
-		      <input id="1" type="radio" name="satisfaction" value="1"><label for="1">★</label>
-		      <input id="2" type="radio" name="satisfaction" value="2"><label for="2">★</label>
-		      <input id="3" type="radio" name="satisfaction" value="3"><label for="3">★</label>
-		      <input id="4" type="radio" name="satisfaction" value="4"><label for="4">★</label>
-		      <input id="5" type="radio" name="satisfaction" value="5"><label for="5">★</label>
+		      <input id="1" type="radio" name="satisfaction" value="${}"><label for="1">★</label>
+		      <input id="2" type="radio" name="satisfaction" value="${}"><label for="2">★</label>
+		      <input id="3" type="radio" name="satisfaction" value="${}"><label for="3">★</label>
+		      <input id="4" type="radio" name="satisfaction" value="${}"><label for="4">★</label>
+		      <input id="5" type="radio" name="satisfaction" value="${}"><label for="5">★</label>
 		    </span>
  		 </div>
 	</div>
@@ -138,11 +144,11 @@
 		</div>
 		
 		<div>
-			本文<br><textarea name="diary" maxlength="300" class="input-textarea" value=""></textarea>
+			本文<br><textarea name="diary" maxlength="300" class="input-textarea" value="${diary.diary}"></textarea>
 		</div>
 		
 		<div>
-			<input type="submit" name="regist" value="登録" class="button"><br>
+			<input type="submit" name="regist" value="更新" class="button"><br>
 		</div>
 		
 	</form>

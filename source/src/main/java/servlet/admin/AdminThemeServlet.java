@@ -60,12 +60,15 @@ public class AdminThemeServlet extends HttpServlet {
 	//	}
 //パラメーター取得
 		request.setCharacterEncoding("UTF-8");
-		
-		int themeId=Integer.parseInt(request.getParameter("themeId"));
+		int themeId=0;
+		//テーマidに何かしら値が入っていたら
+		if(request.getParameter("themeId")!="") {
+			//ちゃんと値を設定する（入ってなかったら0のままにする）
+			 themeId=Integer.parseInt(request.getParameter("themeId"));
+		}		
 		String theme=request.getParameter("theme");
 		int stampId=Integer.parseInt(request.getParameter("stampId"));
-		
-		int diaryFlag=Integer.parseInt(request.getParameter("diaryFlag"));//ラジオボタンで０か１をっとてくるのを文字型に直すこと必要
+		int diaryFlag=Integer.parseInt(request.getParameter("choice"));//ラジオボタンで０か１をっとてくるのを文字型に直すこと必要
 		
 		ThemesDAO ThDAO=new ThemesDAO();
 		//登録処理
@@ -75,21 +78,21 @@ public class AdminThemeServlet extends HttpServlet {
 		
 		if(ThDAO.insert(new Theme(themeId,theme,stampId,diaryFlag))
 				) {//登録成功	
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/AdminThemeServlet.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_theme.jsp");
 	        dispatcher.forward(request, response);
 
 		}else {//登録失敗
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/AdminThemeServlet.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_theme.jsp");
 	        dispatcher.forward(request, response);
 		}
 		}
 		//編集処理
 	if(request.getParameter("submit").equals("保存")){
 		if(ThDAO.update(new Theme(themeId,theme,stampId,diaryFlag))){//編集成功
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/AdminThemeServlet.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_theme.jsp");
 	        dispatcher.forward(request, response);
 		}else {//編集失敗
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/AdminThemeServlet.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_theme.jsp");
 	        dispatcher.forward(request, response);
 			
 		}

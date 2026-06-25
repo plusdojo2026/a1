@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.DiariesDAO;
 import dao.SchedulesDAO;
-import model.Diary;
+import model.DiaryView;
 import model.Schedule;
 import model.User;
 
@@ -40,10 +40,11 @@ public class CalendarServlet extends HttpServlet {
 		request.setAttribute("scheduleList", scheduleList);
 		
 		// ユーザーの日記リストを作る
-		List<Diary> diaryList = new ArrayList<>();
+		List<DiaryView> diaryViewList = new ArrayList<>();
 		DiariesDAO diariesDAO = new DiariesDAO();
-		Diary diary = new Diary(-1, user.getUserId(), null, -1, 0, 0, -1, -1, null, -1, null);
-		// diaryList = diariesDAO.selectByUserId(diary);
+		diaryViewList = diariesDAO.selectAllByUserId(user.getUserId());
+		
+		request.setAttribute("diaryViewList", diaryViewList);
 		
 		// フォワード処理
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/calendar.jsp");

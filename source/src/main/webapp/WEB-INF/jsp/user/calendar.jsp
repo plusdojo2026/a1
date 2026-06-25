@@ -77,6 +77,16 @@
             const key = y + '-' + m + '-' + d;
 
             window.location.href = '/a1/user/date-details?date=' + key;
+        },
+        
+        // 月が変更されたときに呼ばれる
+        onMonthChange: function(selectedDates, dateStr, instance) {
+        	renderCalendar();
+    	},
+    	
+        // 年が変更されたときに呼ばれる
+        onYearChange: function(selectedDates, dateStr, instance) {
+        	renderCalendar();
         }
     });
 
@@ -86,15 +96,17 @@
     //        リンクではなくspanにすることでflatpickrのクリックと競合しない
     //        飛び先はonChangeで制御する
     // ==============================
-    window.addEventListener("pageshow", function() {
+    
+    function renderCalendar() {
     	// ブラウザの復元時にselectedが残らないように
-    	document.querySelectorAll(".flatpickr-day.selected").forEach(day => day.classList.remove("selected"));
+    	document
+    		.querySelectorAll(".flatpickr-day.selected")
+    		.forEach(day => day.classList.remove("selected"));
     	
     	// それぞれの予定を追加
     	<c:forEach var="item" items="${scheduleList}">
         (function() {
             // id="D20260608" のセルを取得する
-            console.log("${item.date}");
             const cell = document.getElementById("D${item.date}");
 
             // 表示中の月以外の日付はDOMにないのでnullチェックする
@@ -105,22 +117,50 @@
             span.className   = "schedule-item"; 	// CSSのスタイルを適用
             span.textContent = "${item.schedule}";	// 予定本文
             cell.appendChild(span);
-            // cell.style.background-color
+            // cell.style.backgroundColor
         })();
         </c:forEach>
         
-        // spanが３つ以上存在する場合の処理
+        // 日記が存在する日付の背景をスタンプ画像に変換
+        <c:forEach var="diaryView" items="${diaryViewList}">
+        (function() {
+            // id="D20260608" のセルを取得する
+            const cell = document.getElementById("D${diaryView.date}");
+
+            // 表示中の月以外の日付はDOMにないのでnullチェックする
+            if (!cell) return;
+
+            // spanで予定ラベルを作ってセルに追加する
+            cell.style.backgroundImage = "linear-gradient(rgba(253,246,238,0.3), rgba(253,246,238,0.3)),url(${pageContext.request.contextPath}/img/${diaryView.stampPath})"
+            
+        })();
+        </c:forEach>
+        
+        // 予定が4つ以上存在する場合の処理
         // 予定がある日付をループしてそれぞれ確認する
         for (const date of scheduleDates) {
         	// 予定のある日付の要素を取得する
-        	// const cell = document.getElementById(date);
+        	 const cell = document.getElementById(date);
 
+            // 表示中の月以外の日付はDOMにないのでnullチェックする
+            if (!cell) return;
+
+        	// 予定のリストを取得する
+        	 const schedules = cell.querySelectorAll(".schedule-item");
         	// 予定の数を数える
-            // const count = cell.querySelectorAll(".schedule-item").length;
+            const count = schedules.length;
+        	if (count > 4) {
+        		schedules[3].textContent = "+" + (count - 3) + " more";
+        		for (let i = 4; i < count; i++) {
+        			schedules[i].style.display = "none";
+        		}
+        	}
         }
-        
-        
-	});
+    }
+    
+    window.addEventListener("pageshow", function() {
+    	renderCalendar();
+    });
     
 </script>
 </body>

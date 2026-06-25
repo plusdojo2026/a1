@@ -17,11 +17,16 @@
 <main>
 
 <h1>テーマ</h1>
-<button class="modalOpen" data-title="テーマの追加" data-content1="" data-content2="" data-content3="登録" data-img="" data-radio="">追加</button>
+<button class="modalOpen" data-title="テーマの追加" data-content1="" data-content2="" data-content3="登録" data-stamp-id="" data-img="" data-radio="">追加</button>
 
 <c:forEach var="tm" items="${themeList}">
 	<p>${tm.theme}</p>
-	<button class="modalOpen" data-title="テーマの編集" data-content1="${tm.theme}" data-content2="${tm.themeId}" data-content3="保存" data-stamp-id=${tm.stampId} data-img="" data-radio=${tm.diaryFlag}>編集</button>
+	<c:forEach var ="stamp" items="${stampList}">
+	            			
+	            				<img src="${pageContext.request.contextPath}/img/${stamp.stampPath}" alt="">
+	            		
+	            		</c:forEach>
+	<button class="modalOpen" data-title="テーマの編集" data-content1="${tm.theme}" data-content2="${tm.themeId}" data-content3="保存" data-stamp-id="${tm.stampId}" data-img="" data-radio="${tm.diaryFlag}">編集</button>
 </c:forEach>
 
 <!-- モーダルウィンドウ部分 -->
@@ -68,7 +73,7 @@
 	            	</div>
            		</div>
   				<p>
-                <input type="submit" id="modal-content3"><br>
+                <input type="submit" id="modal-content3" name="submit"><br>
             	</p>          
            	</form>
            
