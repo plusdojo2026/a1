@@ -15,7 +15,7 @@
 </header>
 <main>
 <p>お知らせ</p>
- <c:if test="${is_display==0}">
+
 <c:forEach var="news" items="${newsList}">
 
 	<button class="modalOpen" data-title="お知らせ詳細" data-content1="${news.subject}" data-content2="${news.text}" data-content3="＜＜お知らせ一覧に戻る"  >
@@ -23,7 +23,7 @@
 	<p>${news.submittedAt}</p>
 	
 	</c:forEach>
-	</c:if>
+	
 	
 	
 	
@@ -60,7 +60,11 @@
     </div>
 </div>
 	</main>
+	<footer>
+	<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+</footer>
 	<script src="${pageContext.request.contextPath}/js/common.js"></script>
 <script src="${pageContext.request.contextPath}/js/modal.js"></script>
+
 </body>
 </html>

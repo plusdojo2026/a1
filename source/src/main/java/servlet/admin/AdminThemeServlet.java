@@ -78,9 +78,8 @@ public class AdminThemeServlet extends HttpServlet {
 		
 		if(ThDAO.insert(new Theme(themeId,theme,stampId,diaryFlag))
 				) {//登録成功	
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_theme.jsp");
-	        dispatcher.forward(request, response);
-
+			response.sendRedirect("/a1/admin/theme");
+			
 		}else {//登録失敗
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_theme.jsp");
 	        dispatcher.forward(request, response);
@@ -89,8 +88,7 @@ public class AdminThemeServlet extends HttpServlet {
 		//編集処理
 	if(request.getParameter("submit").equals("保存")){
 		if(ThDAO.update(new Theme(themeId,theme,stampId,diaryFlag))){//編集成功
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_theme.jsp");
-	        dispatcher.forward(request, response);
+			response.sendRedirect("/a1/admin/theme");
 		}else {//編集失敗
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_theme.jsp");
 	        dispatcher.forward(request, response);

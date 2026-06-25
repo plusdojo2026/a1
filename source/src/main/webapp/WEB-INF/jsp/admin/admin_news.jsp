@@ -37,6 +37,7 @@
     .close-btn {
       margin-top: 10px;
     }
+    
   </style>
 </head>
 <body>
@@ -61,12 +62,12 @@
 <form action="" method="post" >
  <input type="hidden"   name="subject"  value="${news.subject}">
 <input type="hidden"  id="modal-content4 " name="newsId"  value="${news.newsId}">
-<c:if test="${news.isDisplay==0}">
+<%-- <c:if test="${news.isDisplay==0}">
 	<input type=button name="message1" class="" value="送信">
 </c:if>
 <c:if test="${news.isDisplay==1}">
 	<input type=button name="message1"class="" value="送信取り消し">
-</c:if>
+</c:if> --%>
 </form>
 	</c:forEach>
 	
@@ -90,7 +91,7 @@
             <form action="" method="post" id="modal-form">
             	<p>
                 	<label for="subject">お知らせ<span></span><span id="subject-alt"></span></label><br>
-               		<input type="text" name="newsId" value="" id="newsId">
+               		<input type="hidden" name="newsId" value="" id="newsId">
                  	<input type="text" name="subject" id="subject" autofocus value="">
             	</p>
              	
@@ -106,13 +107,17 @@
            		</div>
      <!--    </div> -->
       <!--  </div> -->
+      
 </main>
+<footer>
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+</footer>
 <script src="${pageContext.request.contextPath}/js/common.js"></script>
 <%-- <script src="${pageContext.request.contextPath}/js/modal.js"></script> --%>
  <script>
     // モーダル表示
     function openModal(tx,subject,id) {
-    	alert(tx);
+    	
     	document.getElementById("newsId").value=id;
     	document.getElementById("subject").value=subject;
     	document.getElementById("text").value=tx; 
@@ -131,6 +136,11 @@
     function closeModal() {
       document.getElementById("modal").style.display = "none";
     }
+    //モーダルを閉じる
+    document.querySelector('.close-btn.close').addEventListener('click', function() {
+        document.getElementById('modal').style.display = 'none';
+    });
   </script>
+  
 </body>
 </html>
