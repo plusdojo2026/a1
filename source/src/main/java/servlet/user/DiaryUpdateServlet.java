@@ -27,7 +27,7 @@ import model.Theme;
 import model.User;
 
 @MultipartConfig
-@WebServlet("/user/diary-regist")
+@WebServlet("/user/diary-update")
 public class DiaryUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -138,8 +138,7 @@ public class DiaryUpdateServlet extends HttpServlet {
 	        boolean dId = dDAO.update(d);
 	        if (dId ==true){
 	        	//↓これはいらない
-	        	request.setAttribute("diary",diary );
-	        	request.setAttribute("satisfaction",satisfaction );
+	        	request.setAttribute("massage", "更新できました！");
 	        	System.out.println("登録完了！！");
 	        }else {
 	        	request.setAttribute("massage", "更新できませんでした！");
