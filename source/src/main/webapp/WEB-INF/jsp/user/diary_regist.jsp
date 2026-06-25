@@ -53,7 +53,7 @@
 		</div>
 		
 		<div class="tenki">
-			
+				<input type="text" name="diary_id" value="${diary.diaryId }">
 				<div class="date">
 					<p>日付 ${date}</p>
 				</div>
@@ -78,7 +78,8 @@
 				テーマ
 				<select name="theme">
 					<c:forEach var="tm" items="${themesList}"><!-- サーブレットで付けた名前が入る -->
-						<option value="${tm.themeId}">${tm.theme}</option><!-- 選ばれたvalueの中身が(番号付けて)情報として送られる -->
+						<option value="${tm.themeId}"  <c:if test="${tm.theme == diary.theme}">selected</c:if>   >${tm.theme}</option><!-- 選ばれたvalueの中身が(番号付けて)情報として送られる -->
+						
 					</c:forEach>
 				</select>
 			</div>

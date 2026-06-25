@@ -138,7 +138,7 @@
 		</div>
 		
 		<div>
-			本文<br><textarea name="diary" maxlength="300" class="input-textarea" ></textarea>
+			本文<br><textarea name="diary" maxlength="300" class="input-textarea" value=""></textarea>
 		</div>
 		
 		<div>

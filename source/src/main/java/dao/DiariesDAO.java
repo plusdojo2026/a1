@@ -131,6 +131,73 @@ public class DiariesDAO {
 			return newId;
 	}
 	
+	//日記をアップデートする
+	public boolean update(Diary diary) {
+		Connection conn = null;
+		//↑一旦空っぽにする
+		int ans=0;
+		boolean result=false;
+		
+		try {
+				// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql:"
+						+ "//localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
+						"root", "password");
+				
+				String sql = "UPDATE diaries SET user_id=?, date=?, weather_code=?, temp_min=?,"
+						+ "temp_max=?, theme_id=?, stamp_id=?, diary=?, satisfaction=?, image=? WHERE diary_id=?";
+				System.out.println(sql);
+				//JavaからsqlにDate変換
+				java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+		
+				//↓どこに繋ぐか
+				PreparedStatement pStmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				
+				//↓全部入ってる　？を設定するための文、何を検索するのか
+				
+				pStmt.setInt(1,diary.getUserId());//？の左から１つめ
+				pStmt.setDate(2,sqlDate);//２つめ
+				pStmt.setInt(3,diary.getWeatherCode());
+				pStmt.setFloat(4,diary.getTempMin());
+				pStmt.setFloat(5,diary.getTempMax());
+				pStmt.setInt(6,diary.getThemeId());
+				pStmt.setInt(7, diary.getStampId());
+				pStmt.setString(8,diary.getDiary());
+				pStmt.setInt(9,diary.getSatisfaction());
+				pStmt.setString(10,diary.getImage());
+				pStmt.setInt(11,diary.getDiaryId());
+		
+				//検索結果取得、db専用 sqlへ
+				ans = pStmt.executeUpdate();
+				System.out.println(ans+"：結果");
+				
+				if(ans==1) {
+					result=true;
+				}
+			
+				
+				}catch (Exception d) {
+					// ↓例外処理がコンソールに出る driverいなかったらと
+					d.printStackTrace();
+					
+				}finally {
+				// データベースを切断する
+				if (conn != null) {
+					try {
+						conn.close();
+				}
+				catch (Exception d) {
+					d.printStackTrace();
+				}
+			}
+		}
+	// 検索結果が格納されたコレクションを返す
+		return result;
+	}
+	
 	//日記が存在するかしないか検索するメソッド
 	public boolean diaryExist(int userId,LocalDate date) {
 		// 結果を受け取る用のlistをつくる
@@ -455,9 +522,9 @@ public class DiariesDAO {
 				
 				//検索結果を格納
 				while (rs.next()) {
-					dry = new DiaryView(rs.getInt("user_id"),
-									0,
-									null,
+					dry = new DiaryView(rs.getInt("diary_id"),
+									rs.getInt("user_id"),
+									rs.getDate("date").toLocalDate(),
 									rs.getInt("weather_code"),
 									rs.getFloat("temp_min"),
 									rs.getFloat("temp_max"),
