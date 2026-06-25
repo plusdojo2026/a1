@@ -141,7 +141,7 @@
 	            	${d.tempMax}℃/${d.tempMin}℃
 	            </p>
 	        	<span class="star" id="satisfaction" data-satisfaction="${d.satisfaction}"><span></span></span>
-		        <p><img src="${d.image}"></p>
+		        <p><c:if test="${not empty d.image}"><img src="${pageContext.request.contextPath}/img/${d.image}"></c:if></p>
 		        <p>${d.diary}</p>
 	        <p>
 	        	<!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記編集ボタンを表示 -->
@@ -216,7 +216,6 @@ if (${not empty diary}) {
 	sat.style.setProperty('--starWidth', satisfaction + "%");
 	console.log(${satisfaction} + "%");
 }
-
 
 </script>
 </body>

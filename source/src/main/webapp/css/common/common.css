@@ -70,7 +70,7 @@ a:active {
 }
 
 /* imgタグを親要素の幅に合わせて伸縮させるための設定 */
-img {
+img, canvas{
 	max-width: 100%;
 }
 

@@ -49,8 +49,6 @@ public class DiaryUpdateServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		//信憑性がないから(User)でユーザーって教えてあげる
 		User user = (User)session.getAttribute("user");
-		int userId = user.getUserId();
-		
 		
 		//一回全てnewして使うものだけ選ぶ
 		DiariesDAO dDAO = new DiariesDAO();
@@ -74,11 +72,11 @@ public class DiaryUpdateServlet extends HttpServlet {
 		//画像のパスをsessionに保存しておく
 		
 		/* HttpSession session = request.getSession(); */
-		  session.setAttribute("pathDir",getServletContext().getRealPath("/img"));
+		session.setAttribute("pathDir",getServletContext().getRealPath("/img"));
 		
 		
 		//次、どのページに飛ぶかの記述をする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/diary_regist.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/diary_update.jsp");
 		dispatcher.forward(request, response);
 	}
 	
@@ -91,15 +89,16 @@ public class DiaryUpdateServlet extends HttpServlet {
 			User user = (User)session.getAttribute("user");
 			LocalDateTime now = LocalDateTime.now();
 			LocalDateTime today = now.minusHours(4);
-			LocalDate date = today.toLocalDate(); 
+			LocalDate date = today.toLocalDate();
+			String strDate = date.toString();
 			
 			int userId =user.getUserId();
 			int weatherCode = Integer.parseInt(request.getParameter("weatherCode"));
 			int diaryId = Integer.parseInt(request.getParameter("diary_id"));
 			float tempMin = Float.parseFloat(request.getParameter("tempMin"));
 			float tempMax = Float.parseFloat(request.getParameter("tempMax"));
-			String theme = request.getParameter("theme");
-			String stamp = request.getParameter("stamp");
+			int themeId = Integer.parseInt(request.getParameter("theme"));
+			int stampId = Integer.parseInt(request.getParameter("stamp"));
 			String diary = request.getParameter("diary");
 			int satisfaction = Integer.parseInt(request.getParameter("satisfaction"));
 			/* int review = Integer.parseInt(request.getParameter("review")); */
@@ -125,8 +124,8 @@ public class DiaryUpdateServlet extends HttpServlet {
 	        }
 	        
 	        // データベースに画像の置き場所（パス）を保存する（Diaryインスタンスに入れる）
-	        Diary d = new Diary(diaryId,userId, date, weatherCode, tempMin, tempMax, 1,
-	    				1, diary, satisfaction, fileName );
+	        Diary d = new Diary(diaryId,userId, date, weatherCode, tempMin, tempMax, themeId,
+	    				stampId, diary, satisfaction, fileName );
 			/*DTOから引用
 			 * int diaryId, int userId, LocalDate date, int weatherCode, float tempMin,
 			 * float tempMax, int theme, int stamp, String diary, int satisfaction, String
@@ -147,8 +146,7 @@ public class DiaryUpdateServlet extends HttpServlet {
 	        }
 		
 		//次、どのページに飛ぶかの記述をする
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/top.jsp");
-			dispatcher.forward(request, response);
+	    response.sendRedirect("/a1/user/date-details?date=" + strDate);
 	}
 
 }
