@@ -30,13 +30,11 @@
 			<div><span id="temp_max"></span>/<span id="temp_min"></span>℃</div>
 		</h3>
 	</div>
-	<div><h3>連続記録</h3></div>
 	<div>
 		<h3>一年前の今日の日記</h3>
 		<!--該当する日記データがない場合-->
         <c:if test="${empty pastDiary}">
             <div>日記は登録されていません。</div>
-            <a href="diary-regist">今日の日記を登録する>></a>
             <p><!-- 今日の日付とカレンダーページから送られた日付が一致する場合日記登録ページを表示 --></p>
         </c:if>    
  		<!--該当する日記データがある場合-->
