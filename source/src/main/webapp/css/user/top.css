@@ -1,1 +1,18 @@
 @charset "UTF-8";
+
+/*タイトル*/
+h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;       /* 中央寄せで見栄え良く */
+    margin-bottom: 30px;      /* 下の要素との間隔をあける */
+    white-space: nowrap;      /* 途中で改行されるのを防ぐ */
+}
+
+.weather-image {
+	display: block;
+    width: 80px;              /* アイコンが大きすぎないようにサイズを固定 */
+    height: auto;
+    margin: 12px auto;        /* アイコン単体で中央寄せ */
+}
+
