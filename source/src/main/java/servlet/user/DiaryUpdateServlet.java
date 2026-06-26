@@ -115,17 +115,32 @@ public class DiaryUpdateServlet extends HttpServlet {
 
 	        // ファイル取得
 	        Part part = request.getPart("image");
-	        String fileName = part.getSubmittedFileName();
-	        if(!fileName.equals("")) {
-		        System.out.println(uploadDir + File.separator + fileName+":ここだよ！");
-		        // 保存
-		        part.write(uploadDir + File.separator + fileName);
-		        // macでは\、windowsでは/
+	        
+	        
+	        // 既存の画像が変更されていない場合の処理
+	        String imageName = null;
+	        String oldImage = request.getParameter("oldImage");
+	        
+	        if (part.getSize() >0) {
+	        	// 新しい画像が追加された場合の処理
+	        	imageName = part.getSubmittedFileName();
+		        if(!imageName.equals("")) {
+			        System.out.println(uploadDir + File.separator + imageName +":ここだよ！");
+			        // 保存
+			        part.write(uploadDir + File.separator + imageName);
+			        // macでは\、windowsでは/
+		        }
+	        } else if (oldImage != null && !oldImage.equals("")) {
+	        	// 新しい画像が追加されていない場合の処理
+	        	imageName = oldImage;
+	        } else {
+	        	// 画像なし
+	        	imageName = null;
 	        }
 	        
 	        // データベースに画像の置き場所（パス）を保存する（Diaryインスタンスに入れる）
 	        Diary d = new Diary(diaryId,userId, date, weatherCode, tempMin, tempMax, themeId,
-	    				stampId, diary, satisfaction, fileName );
+	    				stampId, diary, satisfaction, imageName );
 			/*DTOから引用
 			 * int diaryId, int userId, LocalDate date, int weatherCode, float tempMin,
 			 * float tempMax, int theme, int stamp, String diary, int satisfaction, String

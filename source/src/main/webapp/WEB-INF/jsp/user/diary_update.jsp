@@ -94,18 +94,24 @@
 			</div>
 
 			<div class="tmsl">
-				<div class="theme-area">
+				<p>
 					テーマ <select name="theme">
 						<c:forEach var="tm" items="${themesList}">
 							<!-- サーブレットで付けた名前が入る -->
-							<option value="${tm.themeId}">${tm.theme}</option>
+							<option value="${tm.themeId}"
+								<c:if test="${tm.theme == diary.theme}">selected</c:if>>${tm.theme}</option>
 							<!-- 選ばれたvalueの中身が(番号付けて)情報として送られる -->
+
 						</c:forEach>
 					</select>
-				</div>
+				</p>
 				<!-- スタンプ -->
 				<div class="stamp-area">
-					<input type="hidden" id="modal-stamp-id" name="stamp" value="1">
+					<c:forEach var="stamp" items="${stampList}">
+						<c:if test="${stamp.stampPath == diary.stampPath}">
+							<input type="hidden" id="modal-stamp-id" name="stamp" value="${stamp.stampId}">
+						</c:if>
+					</c:forEach>
 					<div id="stamp-button">
 						<p>
 							スタンプ選択<img
@@ -115,7 +121,7 @@
 					</div>
 					<div class="stamps hidden">
 						<c:forEach var="stamp" items="${stampList}">
-							<div class="stamp" data-id="${stamp.stampId}">
+							<div class="stamp" data-id="${stamp.stampId}" data-path="${stamp.stampPath}">
 								<img
 									src="${pageContext.request.contextPath}/img/${stamp.stampPath}"
 									alt="">
@@ -162,6 +168,7 @@
 
 			<div>
 				<div class="img-section">
+					<input type="hidden" name="oldImage" value="${diary.image}">
 					<p>画像<input type="file" name="image" accept="image/*"
 						onchange="previewImage(this);"></p>
 					<canvas id="preview"></canvas>
@@ -170,7 +177,7 @@
 			</div>
 
 			<div>
-				<label for="diary">本文<span class="required">*</span><span class="alt" id="diary-alt"></span></label>
+				<label for="diary">本文<span class="e-msg">*</span><span class="e-msg" id="diary-alt"></span></label>
 				<textarea name="diary" maxlength="300" class="input-textarea" id="diary">${diary.diary}</textarea>
 			</div>
 
@@ -251,18 +258,25 @@
 			var canvas = document.getElementById('preview');
 			var ctx = canvas.getContext('2d');
 			var image = new Image();
+			
+			const imageName= '${diary.image}';
 
-			image.onload = (function() {
-				canvas.width = image.width;
-				canvas.height = image.height;
-				ctx.drawImage(image, 0, 0);
-			});
+			// ${diary.image}の中が空でない場合はcanvasにロードする
+			if (imageName) {
+				image.onload = (function() {
+					canvas.width = image.width;
+					canvas.height = image.height;
+					canvas.style.display = "block";
+					
+					ctx.drawImage(image, 0, 0);
+				});
+				
+				image.src = '${pageContext.request.contextPath}/img/' + imageName;
+			} else {
+				// 空の場合はcanvasを非表示にする
+				canvas.style.display = "none";
+			}
 
-			const imgPath = '${pageContext.request.contextPath}/img/${diary.image}';
-			if (imgPath !== '') {
-				canvas.style.display = "block";
-				image.src = imgPath;
-			} 
 		});
 		
 		//jQueryのDOM

@@ -56,7 +56,7 @@
 			</div>
 
 			<div class="tenki">
-				<input type="hidden" name="diary_id" value="${diary.diaryId }">
+				<input type="hidden" name="diary_id" value="${diary.diaryId}">
 				<div class="date">
 					<p>日付 ${date}</p>
 				</div><div class="wetherondo">
@@ -86,7 +86,7 @@
 
 			<div class="tmsl">
 				<p>
-					テーマ <select name="theme">
+					テーマ <select name="theme" id="themeSelect">
 						<c:forEach var="tm" items="${themesList}">
 							<!-- サーブレットで付けた名前が入る -->
 							<option value="${tm.themeId}"
@@ -98,7 +98,11 @@
 				</p>
 				<!-- スタンプ -->
 				<div class="stamp-area">
-					<input type="hidden" id="modal-stamp-id" name="stamp" value="1">
+					<c:forEach var="stamp" items="${stampList}">
+						<c:if test="${stamp.stampPath == diary.stampPath}">
+							<input type="hidden" id="modal-stamp-id" name="stamp" value="${stamp.stampId}">
+						</c:if>
+					</c:forEach>
 					<div id="stamp-button">
 						<p>
 							スタンプ選択<img
@@ -108,7 +112,7 @@
 					</div>
 					<div class="stamps hidden">
 						<c:forEach var="stamp" items="${stampList}">
-							<div class="stamp" data-id="${stamp.stampId}">
+							<div class="stamp" data-id="${stamp.stampId}" data-path="${stamp.stampPath}">
 								<img
 									src="${pageContext.request.contextPath}/img/${stamp.stampPath}"
 									alt="">
@@ -180,6 +184,10 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
 
 	<script>
+	// テーマが変更されたときにスタンプ画像も変更する処理
+	// document.getElementById("themeSelect").addEventListener("change", function () {
+	// javascript上でmapを用意しておく必要があるかも    
+	// });
 
 	// 日記本文が空のときの処理
 	document.getElementById('update-form').onsubmit = function(event) {
@@ -237,8 +245,8 @@
 		});
 
 		
-		// 最初のスタンプを初期値とする
-		$(".stamp").first().addClass('selected');
+		// 選択されていたスタンプを初期値とする
+		$(".stamp[data-path='${diary.stampPath}']").addClass('selected');
 		
 		// スタンプをクリックしたときの処理を追加する
 		$('.stamp').on('click', function(){
