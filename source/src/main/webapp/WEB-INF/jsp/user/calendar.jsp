@@ -97,6 +97,7 @@
     //        飛び先はonChangeで制御する
     // ==============================
     
+    // 読み込み時の処理
     function renderCalendar() {
     	// ブラウザの復元時にselectedが残らないように
     	document
