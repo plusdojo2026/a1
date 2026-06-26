@@ -24,7 +24,7 @@
 
 	<p>${tm.theme}</p>
 		<c:forEach var ="stamp" items="${stampList}">
-		<c:if test="${tm.stampId}==${stamp.stampId}">
+		<c:if test="${tm.stampId==stamp.stampId}">
 	            			<img src="${pageContext.request.contextPath}/img/${stamp.stampPath}"alt="">
 	            		</c:if>
 	            		</c:forEach>

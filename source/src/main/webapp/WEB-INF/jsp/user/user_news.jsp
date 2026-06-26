@@ -43,18 +43,18 @@
             </div>
             <form action="" method="post" id="modal-form">
             <p>
-                <label for="subject">件名<span>*</span><span id="subject-alt"></span></label><br>
+                <label for="subject">件名<span></span><span id="subject-alt"></span></label><br>
                 <input type="text" name="subject" id="modal-content1" readonly>
             </p>
             <p>
-                <label for="message">本文<span>*</span><span id="message-alt"></span></label><br>
+                <label for="message">本文<span></span><span id="message-alt"></span></label><br>
                 <textarea name="message" id="modal-content2" readonly></textarea>
             </p>
            
             
         	</form>
         	<!-- .closeのものがクリックされると、モーダルが閉じます。 -->
-        	<a class="modalClose close">モーダルを閉じる</a>
+
         	<!-- modal-contentここまで -->
         </div>
     </div>
