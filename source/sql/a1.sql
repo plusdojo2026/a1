@@ -63,17 +63,41 @@ CREATE TABLE news(news_id INT AUTO_INCREMENT PRIMARY KEY,
 --ここからINSERT文
 
 --サトシの管理者情報登録文
-INSERT INTO users(mail,name,pass,is_admin) VALUES('satoshi@sample.com','真田サトシ','satoshi','1')
+INSERT INTO users(mail,name,pass,is_admin) VALUES('satoshi@sample.com','真田サトシ','satoshi','1');
 --ヒカリののユーザー情報登録文
-INSERT INTO users(mail,name,pass) VALUES('hikari@sample.com','相澤ヒカリ','hikari')
+INSERT INTO users(mail,name,pass) VALUES('hikari@sample.com','相澤ヒカリ','hikari');
 
+--スタンプ
+INSERT INTO stamps(stamp_path) VALUES('お花のスタンプ');
+INSERT INTO stamps(stamp_path) VALUES('雲のスタンプ');
+INSERT INTO stamps(stamp_path) VALUES('鳥のスタンプ');
+INSERT INTO stamps(stamp_path) VALUES('音のスタンプ');
+INSERT INTO stamps(stamp_path) VALUES('影のスタンプ');
+INSERT INTO stamps(stamp_path) VALUES('ポスターのスタンプ');
+--テーマ
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('お花',1,0);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('雲',2,0);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('鳥',3,0);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('音',4,0);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('影',5,0);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('ポスター',6,0);
 --ここから日記
 
 --発表日一年前のヒカリの日記
-INSERT INTO 
-
---スタンプ
---テーマ
+INSERT INTO diaries(user_id, date, weather_code, temp_min, temp_max, theme_id, stamp_id, diary, satisfaction, image)
+	     VALUES(2, '2025-06-30',0, 18.1, 27.4, 1, 1,'今日はコスモスを見ました。新しい発見がありました。',4,'コスモスの画像');
+	     
+--ヒカリの日記
+INSERT INTO diaries(user_id, date, weather_code, temp_min, temp_max, theme_id, stamp_id, diary, satisfaction, image)
+	     VALUES(2, '2026-06-26',0, 18.1, 26.4, 2, 2,'今日は羊雲を見ました。アプリを通して新しいものを調べるきっかけになりました。',5,'雲の画像');
 --スケジュール
+INSERT INTO schedules(user_id,date,schedule) VALUES(2,'2026-06-12','外食');
+INSERT INTO schedules(user_id,date,schedule) VALUES(2,'2026-06-24','日帰り旅');
+INSERT INTO schedules(user_id,date,schedule) VALUES(2,'2026-06-30','美術館');
+INSERT INTO schedules(user_id,date,schedule) VALUES(2,'2026-06-30','図書館');
+INSERT INTO schedules(user_id,date,schedule) VALUES(2,'2026-06-30','博物館');
+INSERT INTO schedules(user_id,date,schedule) VALUES(2,'2026-06-30','サイクリング');
 --ご意見
+INSERT INTO surveys(subject,text,filled_date) VALUES('テーマについて','テーマの種類を増やしてほしいです','2026-06-22');
 --お知らせ
+INSERT INTO news(subject,text,is_display,submitted_at) VALUES('テーマについて','テーマの種類を増やしました。',0,'2026-06-24');
