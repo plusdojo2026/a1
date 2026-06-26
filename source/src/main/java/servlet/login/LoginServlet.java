@@ -94,6 +94,11 @@ public class LoginServlet extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login/login.jsp");
 				dispatcher.forward(request, response);
 				
+			} else {
+				request.setAttribute("msg", "メールアドレスまたはパスワードが間違っています");
+				// 結果ページにフォワードする
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login/login.jsp");
+				dispatcher.forward(request, response);
 			}
 			
 		}
