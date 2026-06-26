@@ -219,6 +219,10 @@ header {
 	border-color: #eeeeee;
 	box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.2);	
 }
+
+.required, .alt {
+	color: red;
+}
 /* mainタグ共通の設定 */
 main {
 	margin: 0 auto;

@@ -47,7 +47,7 @@
 		<h2 class="home">日記を登録する</h2>
 		<!-- ↓調べる -->
 		<form action="/a1/user/diary-regist" method="post"
-			enctype="multipart/form-data">
+			enctype="multipart/form-data" id="update-form">
 
 			<div>
 				<div>
@@ -83,7 +83,7 @@
 			</div>
 
 			<div class="tmsl">
-				<div>
+				<p>
 					テーマ <select name="theme">
 						<c:forEach var="tm" items="${themesList}">
 							<!-- サーブレットで付けた名前が入る -->
@@ -93,32 +93,28 @@
 
 						</c:forEach>
 					</select>
-				</div>
-				<div class="stamp-area">
+				</p>
 				<!-- スタンプ -->
-				<div>
-					<div>
-						<input type="hidden" id="modal-stamp-id" name="stamp" value="1">
-						<div id="stamp-button">
-							<p>
-								スタンプ選択<img
-									src="${pageContext.request.contextPath}/img/arrow_down.svg"
+				<div class="stamp-area">
+					<input type="hidden" id="modal-stamp-id" name="stamp" value="1">
+					<div id="stamp-button">
+						<p>
+							スタンプ選択<img
+								src="${pageContext.request.contextPath}/img/arrow_down.svg"
+								alt="" id="stamp-nav">
+						</p>
+					</div>
+					<div class="stamps hidden">
+						<c:forEach var="stamp" items="${stampList}">
+							<div class="stamp" data-id="${stamp.stampId}">
+								<img
+									src="${pageContext.request.contextPath}/img/${stamp.stampPath}"
 									alt="">
-							</p>
-						</div>
-						<div class="stamps hidden">
-							<c:forEach var="stamp" items="${stampList}">
-								<div class="stamp" data-id="${stamp.stampId}">
-									<img
-										src="${pageContext.request.contextPath}/img/${stamp.stampPath}"
-										alt="">
-								</div>
-							</c:forEach>
-						</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
-			</div>
-			<!-- スタンプ -->
+				<!-- スタンプ -->
 			
 				<%--  <div class="stamp">スタンプ
 					<c:forEach var="sl" items="${stampList}">
@@ -155,16 +151,16 @@
 
 			<div>
 				<div class="img-section">
-					画像<input type="file" name="image" accept="image/*"
-						onchange="previewImage(this);"><br>
+					<p>画像<input type="file" name="image" accept="image/*"
+						onchange="previewImage(this);"></p>
 					<canvas id="preview"></canvas>
 					<br>
 				</div>
 			</div>
 
 			<div>
-				本文<br>
-				<textarea name="diary" maxlength="300" class="input-textarea"></textarea>
+				<label for="diary">本文<span class="required">*</span><span class="alt" id="diary-alt"></span></label>
+				<textarea name="diary" id="diary" maxlength="300" class="input-textarea"></textarea>
 			</div>
 
 			<div>
@@ -183,10 +179,16 @@
 
 	<script>
 
-	/* const star1 = document.getElementById('star1');
-	function b1() {
-		star1.style.color='#F8C601';
-	} */
+	// 日記本文が空のときの処理
+	document.getElementById('update-form').onsubmit = function(event) {
+		let diary = document.getElementById('diary').value;
+		
+		if (diary === '') {
+			event.preventDefault();
+            // エラーメッセージの表示
+			document.getElementById('diary-alt').textContent = ' 日記本文を入力してください。';
+		}
+	};
 	
 	function previewImage(obj){
 
@@ -194,11 +196,12 @@
 
 		// 読み込み後に実行する処理
 		fileReader.onload = (function() {
-
+	
 			// canvas にプレビュー画像を表示
 			var canvas = document.getElementById('preview');
 			var ctx = canvas.getContext('2d');
 			var image = new Image();
+			canvas.style.display = "block";
 			image.src = fileReader.result;
 			console.log(fileReader.result) // ← (確認用)
 
@@ -216,10 +219,21 @@
 	//jQueryのDOM
 	$(document).ready(function(){
 		
+		const arrowDown = "${pageContext.request.contextPath}/img/arrow_down.svg";
+		const arrowUp = "${pageContext.request.contextPath}/img/arrow_up.svg";
+		const stampNav = document.getElementById('stamp-nav');
+
+		let isOpen = false;
+
 		// ステッカー選択画面表示のtoggle
-		$("#stamp-button").on('click', function(){
+		$("#stamp-button").on('click', function () {
 			$('.stamps').toggleClass('hidden');
+
+			isOpen = !isOpen;
+
+			stampNav.src = isOpen ? arrowUp : arrowDown;
 		});
+
 		
 		// 最初のスタンプを初期値とする
 		$(".stamp").first().addClass('selected');

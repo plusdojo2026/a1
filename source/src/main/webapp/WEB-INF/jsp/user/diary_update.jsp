@@ -47,7 +47,7 @@
 		<h2 class="home">日記を編集する</h2>
 		<!-- ↓調べる -->
 		<form action="/a1/user/diary-update" method="post"
-			enctype="multipart/form-data">
+			enctype="multipart/form-data" id="update-form">
 
 			<div>
 				<div>
@@ -64,7 +64,7 @@
 			<div class="tenki">
 
 				<div class="date">
-					<p>日付 ${date}</p>
+					<p>日付:${date}</p>
 				</div>
 
 				<div class="wetherondo">
@@ -81,11 +81,11 @@
 					<input type="hidden" name="temperature-max"> -->
 						<!-- はhidden inputタグ（データ送る用の箱、表示はまた別） -->
 						<p>
-							最低気温は<span id="mn">${diary.tempMin}</span>
+							最低気温:<span id="mn">${diary.tempMin}</span>
 							<input type="hidden" name="tempMin" value="${diary.tempMin}" id="temperature-min">
 						</p>
 						<p>
-							最高気温は<span id="mx">${diary.tempMax}</span>
+							最高気温:<span id="mx">${diary.tempMax}</span>
 							<input type="hidden" name="tempMax" value="${diary.tempMax}" id="temperature-max">
 						</p>
 					
@@ -102,29 +102,27 @@
 						</c:forEach>
 					</select>
 				</div>
+				<!-- スタンプ -->
 				<div class="stamp-area">
-					<!-- スタンプ -->
-					<div>
-						<div>
-							<input type="hidden" id="modal-stamp-id" name="stamp">
-							<div id="stamp-button">
-								<p>
-									スタンプ選択<img
-										src="${pageContext.request.contextPath}/img/arrow_down.svg"
-										alt="">
-								</p>
-							</div>
-							<div class="stamps hidden">
-								<c:forEach var="stamp" items="${stampList}">
-									<div class="stamp" data-id="${stamp.stampId}" data-path="${stamp.stampPath}">
-										<img
-											src="${pageContext.request.contextPath}/img/${stamp.stampPath}"
-											alt="">
-									</div>
-								</c:forEach>
-							</div>
-						</div>
+					<input type="hidden" id="modal-stamp-id" name="stamp" value="1">
+					<div id="stamp-button">
+						<p>
+							スタンプ選択<img
+								src="${pageContext.request.contextPath}/img/arrow_down.svg"
+								alt="" id="stamp-nav">
+						</p>
 					</div>
+					<div class="stamps hidden">
+						<c:forEach var="stamp" items="${stampList}">
+							<div class="stamp" data-id="${stamp.stampId}">
+								<img
+									src="${pageContext.request.contextPath}/img/${stamp.stampPath}"
+									alt="">
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+				<!-- スタンプ -->
 					<%--  <div class="stamp">スタンプ
 					<c:forEach var="sl" items="${stampList}">
 					<option value=""></option>
@@ -135,7 +133,6 @@
 					</c:forEach>
 				</div> --%>
 
-				</div>
 			</div>
 
 			<div class="satisfaction">
@@ -164,16 +161,16 @@
 
 			<div>
 				<div class="img-section">
-					画像<input type="file" name="image" accept="image/*"
-						onchange="previewImage(this);"><br>
+					<p>画像<input type="file" name="image" accept="image/*"
+						onchange="previewImage(this);"></p>
 					<canvas id="preview"></canvas>
 					<br>
 				</div>
 			</div>
 
 			<div>
-				本文<br>
-				<textarea name="diary" maxlength="300" class="input-textarea">${diary.diary}</textarea>
+				<label for="diary">本文<span class="required">*</span><span class="alt" id="diary-alt"></span></label>
+				<textarea name="diary" maxlength="300" class="input-textarea" id="diary">${diary.diary}</textarea>
 			</div>
 
 			<div>
@@ -191,10 +188,16 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
 
 	<script>
-		/* const star1 = document.getElementById('star1');
-		function b1() {
-			star1.style.color='#F8C601';
-		} */
+		// 日記本文が空のときの処理
+		document.getElementById('update-form').onsubmit = function(event) {
+			let diary = document.getElementById('diary').value;
+			
+			if (diary === '') {
+				event.preventDefault();
+	            // エラーメッセージの表示
+				document.getElementById('diary-alt').textContent = ' 日記本文を入力してください。';
+			}
+		};
 
 		function previewImage(obj) {
 
@@ -207,6 +210,7 @@
 				var canvas = document.getElementById('preview');
 				var ctx = canvas.getContext('2d');
 				var image = new Image();
+				canvas.style.display = "block";
 				image.src = fileReader.result;
 				console.log(fileReader.result) // ← (確認用)
 
@@ -221,7 +225,7 @@
 			console.log(fileReader.result) // ← (確認用)null
 		};
 
-		// 読み込み後に実行する処理
+		// ページ読み込み後に実行する処理
 		window.onload = (function() {
 
 			// canvas にプレビュー画像を表示
@@ -235,17 +239,29 @@
 				ctx.drawImage(image, 0, 0);
 			});
 
-			console.log("file");
-			image.src = '${pageContext.request.contextPath}/img/${diary.image}';
-
+			const imgPath = '${pageContext.request.contextPath}/img/${diary.image}';
+			if (imgPath !== '') {
+				canvas.style.display = "block";
+				image.src = imgPath;
+			} 
 		});
 		
 		//jQueryのDOM
 		$(document).ready(function(){
 			
+			const arrowDown = "${pageContext.request.contextPath}/img/arrow_down.svg";
+			const arrowUp = "${pageContext.request.contextPath}/img/arrow_up.svg";
+			const stampNav = document.getElementById('stamp-nav');
+
+			let isOpen = false;
+
 			// ステッカー選択画面表示のtoggle
-			$("#stamp-button").on('click', function(){
+			$("#stamp-button").on('click', function () {
 				$('.stamps').toggleClass('hidden');
+
+				isOpen = !isOpen;
+
+				stampNav.src = isOpen ? arrowUp : arrowDown;
 			});
 			
 			// 選択されていたスタンプを初期値とする
