@@ -21,11 +21,13 @@
 
 <c:forEach var="tm" items="${themeList}">
 	<p>${tm.theme}</p>
+	
 	<c:forEach var ="stamp" items="${stampList}">
 	            			
-	            				<img src="${pageContext.request.contextPath}/img/${stamp.stampPath}" alt="">
+	            				<img src="${pageContext.request.contextPath}/img/${stamp.stampPath}"alt="">
 	            		
 	            		</c:forEach>
+	            		
 	<button class="modalOpen" data-title="テーマの編集" data-content1="${tm.theme}" data-content2="${tm.themeId}" data-content3="保存" data-stamp-id="${tm.stampId}" data-img="" data-radio="${tm.diaryFlag}">編集</button>
 </c:forEach>
 
