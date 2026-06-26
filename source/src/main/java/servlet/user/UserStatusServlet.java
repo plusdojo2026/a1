@@ -26,8 +26,15 @@ public class UserStatusServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		 TODO Auto-generated method stub
+		//未ログイン時、ログインサーブレットにリダイレクト
 		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("/a1/login");
+			return;
+		}
+		
+		// HttpSession session = request.getSession();
 		User u = (User)session.getAttribute("user");
 		//ビーンズのユーザーidを指定
         int userId = u.getUserId();

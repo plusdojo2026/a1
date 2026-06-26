@@ -64,8 +64,10 @@
 				
 					<div class="weather">
 						<p>
-							天気:<input type=hidden name="weatherCode" id="weather"><span
-								id="weatherCode"></span>
+							天気:<input type=hidden name="weatherCode" id="weather">
+							<span class="weather-image">
+								<img id = "weather_img" src ="">
+							</span>
 						</p>
 					</div>
 						<!-- <input type="hidden" name="temperature-min">
@@ -159,7 +161,7 @@
 			</div>
 
 			<div>
-				<label for="diary">本文<span class="required">*</span><span class="alt" id="diary-alt"></span></label>
+				<label for="diary">本文<span class="e-msg">*</span><span class="e-msg" id="diary-alt"></span></label>
 				<textarea name="diary" id="diary" maxlength="300" class="input-textarea"></textarea>
 			</div>
 
@@ -317,7 +319,23 @@
 	    		weather = 'その他';
 	    }
 	    
-		document.getElementById("weatherCode").textContent = weather;
+	    // 天気コードに対応する画像を表示させる処理
+	    const weatherImg = document.getElementById("weather_img");
+	    switch (weatherCode) {
+	    	case 0:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/sun.png";
+	    		break;
+	    	case 1:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/cloudy.png";
+	    		break;
+	    	case 2:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/rainy.png";
+	    		break;
+	    	case 3:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/snowy.png";
+	    		break;
+	    }	
+	    
 		document.getElementById("mx").textContent = temperatureMax;
 		document.getElementById("temperature-max").value = temperatureMax;
 		document.getElementById("mn").textContent = temperatureMin;

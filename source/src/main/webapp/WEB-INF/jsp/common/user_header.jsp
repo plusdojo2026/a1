@@ -25,7 +25,7 @@
             </ul>
             <ul class="right">
                 <li>
-                    <a href="/a1/login" id="login">ログアウト</a>
+                    <a href="/a1/logout" id="login">ログアウト</a>
                 </li>
             </ul>
         </div>

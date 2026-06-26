@@ -32,14 +32,16 @@ public class DateDetailsServlet extends HttpServlet {
 		
 		//未ログイン時、ログインサーブレットにリダイレクト
 		HttpSession session = request.getSession();
-		if (session.getAttribute("user") == null) {
-			response.sendRedirect("/a1/user/login");
+		User user = (User)session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("/a1/login");
+			return;
 		}
 		
 	//クリックした日の予定一覧表示
 		
 		//セッションスコープからユーザーIDを取得
-		User user = (User)session.getAttribute("user");
+		// User user = (User)session.getAttribute("user");
 		int userId = user.getUserId();
 		
 		//リクエストスコープから日付データを取得

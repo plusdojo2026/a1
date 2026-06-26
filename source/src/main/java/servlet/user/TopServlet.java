@@ -36,9 +36,12 @@ public class TopServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		//その日最初のログインかどうかを確認する
+		//未ログイン時、ログインサーブレットにリダイレクト
 		HttpSession session = request.getSession();
-		if (session.getAttribute("user") == null) {
-			response.sendRedirect("/a1/user/login");
+		User user = (User)session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("/a1/login");
+			return;
 		}
 		
 		//時間の処理
@@ -80,7 +83,7 @@ public class TopServlet extends HttpServlet {
 			Diary di = new Diary();
 			di.setThemeId(choiceId);
 			di.setStampId(stampIdList.get(randomNum));
-			User user = (User)session.getAttribute("user");
+			// User user = (User)session.getAttribute("user");
 			di.setUserId((int)user.getUserId());
 			di.setDate(localDate);
 			//作成した上記のデータをテーブルにインサート

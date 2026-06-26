@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.NewsDAO;
 import model.News;
+import model.User;
 
 /**
  * Servlet implementation class UserNewsDetailsServlet
@@ -24,7 +26,15 @@ public class UserNewsDetailsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//未ログイン時、ログインサーブレットにリダイレクト
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("/a1/login");
+			return;
+		}
+		
+		
 		NewsDAO nDAO=new NewsDAO();
 		List<News> newsList = nDAO.sellectAll();
 		request.setAttribute("newsList",newsList);

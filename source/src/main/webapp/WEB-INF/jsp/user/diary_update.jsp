@@ -70,9 +70,10 @@
 				<div class="wetherondo">
 					<div class="weather">
 						<p>
-							天気:<input type=hidden name="weatherCode" id="weather"
-								value="${diary.weatherCode}">${diary.weatherCode}<span
-								id="weatherCode"></span>
+							天気:<input type=hidden name="weatherCode" id="weather" value="${diary.weatherCode}">
+							<span class="weather-image">
+								<img id = "weather_img" src ="">
+							</span>
 						</p>
 					</div>
 
@@ -198,6 +199,24 @@
 				document.getElementById('diary-alt').textContent = ' 日記本文を入力してください。';
 			}
 		};
+		
+		// 天気コードに対応する画像を表示させる処理
+		const weatherCode = ${diary.weatherCode};
+	    const weatherImg = document.getElementById("weather_img");
+	    switch (weatherCode) {
+	    	case 0:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/sun.png";
+	    		break;
+	    	case 1:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/cloudy.png";
+	    		break;
+	    	case 2:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/rainy.png";
+	    		break;
+	    	case 3:
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/snowy.png";
+	    		break;
+	    }
 
 		function previewImage(obj) {
 

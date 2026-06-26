@@ -19,13 +19,10 @@
                 <li>
                     <a href="/a1/admin/news">お知らせ</a>
                 </li>
-                <li>
-                    <a href="/a1/admin/status">ステータス</a>
-                </li>
             </ul>
             <ul class="right">
                 <li>
-                    <a href="/a1/login" id="login">ログアウト</a>
+                    <a href="/a1/logout" id="login">ログアウト</a>
                 </li>
             </ul>
         </div>

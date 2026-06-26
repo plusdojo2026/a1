@@ -8,15 +8,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.SurveysDAO;
 import model.Survey;
+import model.User;
 
 @WebServlet("/user/survey")
 public class UserSurveyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//未ログイン時、ログインサーブレットにリダイレクト
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("/a1/login");
+			return;
+		}
 		// フォワード処理
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/user_survey.jsp");
 		dispatcher.forward(request, response);
