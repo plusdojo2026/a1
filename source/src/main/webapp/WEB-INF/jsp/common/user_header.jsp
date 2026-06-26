@@ -11,9 +11,6 @@
                     <a href="/a1/user/top">トップ</a>
                 </li>
                 <li>
-                    <a href="/a1/user/diary-regist">日記登録</a>
-                </li>
-                <li>
                     <a href="/a1/user/calendar">カレンダー</a>
                 </li>
                 <li>
@@ -32,4 +29,5 @@
                 </li>
             </ul>
         </div>
-    </nav>
+</nav>
+	<a href="/a1/user/regist-or-update" class="btn-diary-regist">日記</a>

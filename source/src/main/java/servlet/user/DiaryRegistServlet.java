@@ -92,14 +92,15 @@ public class DiaryRegistServlet extends HttpServlet {
 			LocalDateTime now = LocalDateTime.now();
 			LocalDateTime today = now.minusHours(4);
 			LocalDate date = today.toLocalDate(); 
+			String strDate = date.toString();
 			
 			int userId =user.getUserId();
 			int weatherCode = Integer.parseInt(request.getParameter("weatherCode"));
 			int diaryId = Integer.parseInt(request.getParameter("diary_id"));
 			float tempMin = Float.parseFloat(request.getParameter("tempMin"));
 			float tempMax = Float.parseFloat(request.getParameter("tempMax"));
-			String theme = request.getParameter("theme");
-			String stamp = request.getParameter("stamp");
+			int themeId = Integer.parseInt(request.getParameter("theme"));
+			int stampId = Integer.parseInt(request.getParameter("stamp"));
 			String diary = request.getParameter("diary");
 			int satisfaction = Integer.parseInt(request.getParameter("satisfaction"));
 			/* int review = Integer.parseInt(request.getParameter("review")); */
@@ -125,8 +126,8 @@ public class DiaryRegistServlet extends HttpServlet {
 	        }
 	        
 	        // データベースに画像の置き場所（パス）を保存する（Diaryインスタンスに入れる）
-	        Diary d = new Diary(diaryId,userId, date, weatherCode, tempMin, tempMax, 1,
-	    				1, diary, satisfaction, fileName );
+	        Diary d = new Diary(diaryId,userId, date, weatherCode, tempMin, tempMax, themeId,
+	    				stampId, diary, satisfaction, fileName );
 			/*DTOから引用
 			 * int diaryId, int userId, LocalDate date, int weatherCode, float tempMin,
 			 * float tempMax, int theme, int stamp, String diary, int satisfaction, String
@@ -147,8 +148,7 @@ public class DiaryRegistServlet extends HttpServlet {
 	        }
 		
 		//次、どのページに飛ぶかの記述をする
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user/top.jsp");
-			dispatcher.forward(request, response);
+	    response.sendRedirect("/a1/user/date-details?date=" + strDate);
 	}
 
 }
