@@ -4,7 +4,7 @@
         <div class="navbar">
         	<div class="logo">
             	<a href="/a1/admin/survey"></a>
-            	<p><a href="/a1/admin/survey">紫陽花ダイアリー（仮）</a></p>
+            	<p><a href="/a1/admin/survey">紫陽花ダイアリー</a></p>
         	</div>
             <ul class="center">
                 <li>
