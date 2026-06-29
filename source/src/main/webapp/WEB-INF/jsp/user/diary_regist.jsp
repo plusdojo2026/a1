@@ -148,7 +148,7 @@
 								value="3"><label for="3">★</label> <input id="4"
 								type="radio" name="satisfaction" value="2"><label
 								for="4">★</label> <input id="5" type="radio" name="satisfaction"
-								value="1"><label for="5">★</label>
+								value="1" checked><label for="5">★</label>
 							</span>
 						</div>
 					</div>
@@ -337,7 +337,7 @@
 	    		weatherImg.src = "${pageContext.request.contextPath}/img/cloudy.png";
 	    		break;
 	    	case 2:
-	    		weatherImg.src = "${pageContext.request.contextPath}/img/rainy.png";
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/rain.png";
 	    		break;
 	    	case 3:
 	    		weatherImg.src = "${pageContext.request.contextPath}/img/snowy.png";

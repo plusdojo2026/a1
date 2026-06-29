@@ -132,7 +132,7 @@
             if (!cell) return;
 
             // spanで予定ラベルを作ってセルに追加する
-            cell.style.backgroundImage = "linear-gradient(rgba(253,246,238,0.3), rgba(253,246,238,0.3)),url(${pageContext.request.contextPath}/img/${diaryView.stampPath})"
+            cell.style.backgroundImage = "url(${pageContext.request.contextPath}/img/${diaryView.stampPath})"
             
         })();
         </c:forEach>
