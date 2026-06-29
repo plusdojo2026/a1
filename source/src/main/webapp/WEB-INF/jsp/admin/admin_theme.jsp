@@ -55,8 +55,8 @@
             	</p>
              	<p>
               
-                	<input class="modal-radio" type="radio" name="choice" value="0">日替わり指定<br>
-					<input class="modal-radio" type="radio" name="choice" value="1">通常指定<br>
+                	<input class="modal-radio" type="radio" id="choice"name="choice" value="0">日替わり指定<br>
+					<input class="modal-radio" type="radio"id="choice" name="choice" value="1">通常指定<br>
             	</p>
          		<p>
          			<input type="hidden" id="modal-content2" name="themeId"  value="${themeId}">
@@ -118,6 +118,10 @@ $(document).ready(function(){
 		$('#modal-stamp-id').val($(this).data('id'));
 	});
 });
+
+
+</script>
+<script >
 
 </script>
 </body>
