@@ -91,7 +91,7 @@ INSERT INTO diaries(user_id, date, weather_code, temp_min, temp_max, theme_id, s
 	     
 --ヒカリの日記
 INSERT INTO diaries(user_id, date, weather_code, temp_min, temp_max, theme_id, stamp_id, diary, satisfaction, image)
-	     VALUES(2, '2026-06-26',0, 18.1, 26.4, 3, 3,'今日は羊雲を見ました。アプリを通して新しいものを調べるきっかけになりました。',5,'雲の画像');
+	     VALUES(2, '2026-06-26',0, 18.1, 26.4, 3, 3,'今日は羊雲を見ました。アプリを通して新しいものを調べるきっかけになりました。',5,'cloudy.png');
 --スケジュール
 INSERT INTO schedules(user_id,date,schedule) VALUES(2,'2026-06-12','外食');
 INSERT INTO schedules(user_id,date,schedule) VALUES(2,'2026-06-24','日帰り旅');
