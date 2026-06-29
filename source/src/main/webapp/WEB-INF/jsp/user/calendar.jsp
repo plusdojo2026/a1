@@ -56,11 +56,18 @@
         onDayCreate: function(dObj, dStr, fp, dayElem) {
 
             // UTC基準で年月日を取得してidを生成する
-            const date = dayElem.dateObj;
-            const y = date.getUTCFullYear();
-            const m = String(date.getUTCMonth() + 1).padStart(2, '0');
-            const d = String(date.getUTCDate() + 1).padStart(2, '0');
+            // const date = dayElem.dateObj;
+            // const y = date.getUTCFullYear();
+            // const m = String(date.getUTCMonth() + 1).padStart(2, '0');
+            // const d = String(date.getUTCDate()).padStart(2, '0');
+            
+            // ローカル時間で取得してidを生成する
+			const date = dayElem.dateObj;
 
+			const y = date.getFullYear();
+			const m = String(date.getMonth() + 1).padStart(2, '0');
+			const d = String(date.getDate()).padStart(2, '0');
+            
             // セルのidに "D20260608" 形式でセットする
             // 数字始まりのidはCSSで扱えないので先頭に "D" をつけている
             dayElem.id = "D" + y + "-" + m + "-" + d;
@@ -71,9 +78,15 @@
             const date = selectedDates[0];
 
             // UTC基準で "2026-06-08" 形式のキーを生成する
-            const y = date.getUTCFullYear();
-            const m = String(date.getUTCMonth() + 1).padStart(2, '0');
-            const d = String(date.getUTCDate() + 1).padStart(2, '0');
+            // const y = date.getUTCFullYear();
+            // const m = String(date.getUTCMonth() + 1).padStart(2, '0');
+            // const d = String(date.getUTCDate()).padStart(2, '0');
+            // const key = y + '-' + m + '-' + d;
+            
+            // ローカル時間でキーを生成する
+            const y = date.getFullYear();
+			const m = String(date.getMonth() + 1).padStart(2, '0');
+			const d = String(date.getDate()).padStart(2, '0');
             const key = y + '-' + m + '-' + d;
 
             window.location.href = '/a1/user/date-details?date=' + key;
