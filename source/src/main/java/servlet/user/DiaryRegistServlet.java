@@ -49,7 +49,7 @@ public class DiaryRegistServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		//信憑性がないから(User)でユーザーって教えてあげる
 		User user = (User)session.getAttribute("user");
-		int userId = user.getUserId();
+		// int userId = user.getUserId();
 		
 		
 		//一回全てnewして使うものだけ選ぶ
@@ -74,7 +74,7 @@ public class DiaryRegistServlet extends HttpServlet {
 		//画像のパスをsessionに保存しておく
 		
 		/* HttpSession session = request.getSession(); */
-		  session.setAttribute("pathDir",getServletContext().getRealPath("/img"));
+		session.setAttribute("pathDir",getServletContext().getRealPath("/img"));
 		
 		
 		//次、どのページに飛ぶかの記述をする

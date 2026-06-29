@@ -11,10 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import dao.StampsDAO;
 import model.Stamp;
+import model.User;
 
 /**
  * Servlet implementation class AdminStampServlet
@@ -40,6 +42,13 @@ public class AdminStampServlet extends HttpServlet {
 //		} else {
 //			//スタンプをとってくる　DAO
 		request.setCharacterEncoding("UTF-8");
+		//未ログイン時、ログインサーブレットにリダイレクト
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("/a1/login");
+			return;
+		}
 		//一覧表示処理
 		StampsDAO sDao = new StampsDAO();
 		List<Stamp> stampList = sDao.selectAll();

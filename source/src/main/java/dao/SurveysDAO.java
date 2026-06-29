@@ -23,7 +23,7 @@ public class SurveysDAO {
 
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 			
 			String sql = "INSERT INTO surveys(subject, text) VALUES(?, ?);";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -63,7 +63,7 @@ public class SurveysDAO {
 
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 			
 			String sql = "SELECT * FROM surveys;";
 			PreparedStatement pStmt = conn.prepareStatement(sql);

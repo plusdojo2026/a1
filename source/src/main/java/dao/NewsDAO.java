@@ -22,7 +22,7 @@ public ArrayList<News>sellectAll(){
 		// データベースに接続する
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
 				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-				"root", "password");
+				"a1", "UA7T7B9jN2n7HnBT");
 
 		// SQL文を準備する
 		String sql = "SELECT*FROM news";
@@ -78,7 +78,7 @@ public boolean insert(News news) {
 
 		// データベースに接続する
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000"
-				,"root", "password");
+				,"a1", "UA7T7B9jN2n7HnBT");
 
 		// SQL文を準備する
 		String sql =" INSERT INTO news(subject,text,is_display) VALUES (?,?,?)";
@@ -137,7 +137,7 @@ public boolean update(News news) {
 
 		// データベースに接続する
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000"
-				,"root", "password");
+				,"a1", "UA7T7B9jN2n7HnBT");
 
 		// SQL文を準備する 
 		String sql =" UPDATE News SET subject=?,text=?,is_display=? WHERE news_id=?";
@@ -193,7 +193,7 @@ public boolean delete(News news) {
 
 		// データベースに接続する
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000"
-				,"root", "password");
+				,"a1", "UA7T7B9jN2n7HnBT");
 
 		// SQL文を準備する
 		String sql =" Delete FROM News WHERE  news_id=?";
@@ -242,7 +242,7 @@ public boolean changes(News news) {
 
 		// データベースに接続する
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000"
-				,"root", "password");
+				,"a1", "UA7T7B9jN2n7HnBT");
 
 		// SQL文を準備する
 		String sql =" update News  SET is_display=? WHERE  news_id=?";

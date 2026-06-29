@@ -25,7 +25,7 @@ public List<Stamp> selectAll(){ //引数　stampImg
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= "
 					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 			
 			// SQL文を準備する  変わる情報が入る時は、？で置き換えるよ
 			String sql = "SELECT * FROM stamps ORDER BY stamp_id";
@@ -78,7 +78,7 @@ public List<Stamp> selectAll(){ //引数　stampImg
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= "
 					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 			
 			// SQL文を準備する
 				String sql = "INSERT INTO stamps VALUES (0, ?)";

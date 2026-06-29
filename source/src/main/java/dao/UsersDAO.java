@@ -21,7 +21,7 @@ public class UsersDAO {
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
 						+ "useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
-						"root", "password");
+						"a1", "UA7T7B9jN2n7HnBT");
 				
 				// SELECT文を準備する
 				String sql = "SELECT user_id,mail,name,pass,place,is_admin FROM users WHERE mail=? AND pass=?";
@@ -69,7 +69,7 @@ public class UsersDAO {
 			//地図を完成させ、通行所を同封させる
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
 					+ "useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 			
 			//sql文を準備する
 			String sql = "INSERT INTO users VALUES (0, ?, ?, ?,default,default)";
@@ -132,7 +132,7 @@ public class UsersDAO {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
 					+ "useSSL= false&allowPublicKeyRetrieval=true&serverTimezone="
 					+ "Asia/Tokyo&connectTimeout=30000",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 			
 			//sql文を準備する
 			String sql = "UPDATE users set pass=? WHERE mail=? and name=?";

@@ -33,7 +33,7 @@ public class DiariesDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql:"
 					+ "//localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 
 			// 日記テーブルではスタンプIDを保存する必要があるため、
 			// スタンプのパスをスタンプIDに変換する
@@ -129,7 +129,7 @@ public class DiariesDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql:"
 					+ "//localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 
 			String sql = "UPDATE diaries SET user_id=?, date=?, weather_code=?, temp_min=?,"
 					+ "temp_max=?, theme_id=?, stamp_id=?, diary=?, satisfaction=?, image=? WHERE diary_id=?";
@@ -196,7 +196,7 @@ public class DiariesDAO {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/a1?useSSL= "
 							+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 
 			// SQL文を準備する
 			String sql = "SELECT diary FROM diaries WHERE user_id = ? AND date = ?";
@@ -252,8 +252,8 @@ public class DiariesDAO {
 
 			// データベースに接続
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "root",
-					"password");
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "a1",
+					"UA7T7B9jN2n7HnBT");
 
 			// SQL文作成 ユーザーIDと日付を基に日記を検索する
 			String sql = "SELECT diary_id, date, weather_code, temp_min, temp_max, themes.theme, "
@@ -314,8 +314,8 @@ public class DiariesDAO {
 
 			// データベースに接続
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "root",
-					"password");
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "a1",
+					"UA7T7B9jN2n7HnBT");
 
 			// SQL文作成 ユーザーIDと日付を基に日記を検索する
 			String sql = "SELECT diary_id, date, weather_code, temp_min, temp_max, themes.theme, "
@@ -372,8 +372,8 @@ public class DiariesDAO {
 
 			// データベースに接続
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "root",
-					"password");
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "a1",
+					"UA7T7B9jN2n7HnBT");
 
 			// SQL文作成 ユーザーIDと日付を基に日記を検索する
 			String sql = "SELECT diary_id, date, weather_code, temp_min, temp_max, themes.theme, "
@@ -430,8 +430,8 @@ public class DiariesDAO {
 
 			// データベースに接続
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "root",
-					"password");
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "a1",
+					"UA7T7B9jN2n7HnBT");
 
 			// SQL文作成 ユーザーIDと日付を基に日記を検索する
 			String sql = "SELECT user_id,diary_id, date, weather_code, temp_min, temp_max, themes.theme, "
@@ -488,8 +488,8 @@ public class DiariesDAO {
 
 			// データベースに接続
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "root",
-					"password");
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "a1",
+					"UA7T7B9jN2n7HnBT");
 
 			// SQL文作成 ユーザーIDを基に日記を検索する
 			String sql = "SELECT user_id, diary_id, date, weather_code, temp_min, temp_max, themes.theme, "

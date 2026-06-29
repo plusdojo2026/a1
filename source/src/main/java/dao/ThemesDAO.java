@@ -25,7 +25,7 @@ public class ThemesDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 
 			// SQL文を準備する
 			String sql = "SELECT * FROM themes JOIN stamps ON themes.stamp_id=stamps.stamp_id ";
@@ -79,7 +79,7 @@ public class ThemesDAO {
 
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000"
-					,"root", "password");
+					,"a1", "UA7T7B9jN2n7HnBT");
 
 			// SQL文を準備する
 			String sql =" INSERT INTO themes(theme,stamp_id,diary_flag) VALUES (?,?,?)";
@@ -139,7 +139,7 @@ public class ThemesDAO {
 
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo&connectTimeout=30000"
-					,"root", "password");
+					,"a1", "UA7T7B9jN2n7HnBT");
 
 			// SQL文を準備する
 			String sql =" UPDATE Themes SET theme=?,stamp_id=?,diary_flag=? WHERE theme_id=?";

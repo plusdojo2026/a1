@@ -27,8 +27,8 @@ public class SchedulesDAO {
 
 			// データベースに接続
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "root",
-					"password");
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "a1",
+					"UA7T7B9jN2n7HnBT");
 
 			// SQL文作成 ユーザーIDと日付を基に予定を検索する
 			String sql = "SELECT schedule_id, schedule FROM schedules WHERE user_id = ? AND date = ? ORDER BY schedule_id";
@@ -88,8 +88,8 @@ public class SchedulesDAO {
 
 			// データベースに接続
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "root",
-					"password");
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "a1",
+					"UA7T7B9jN2n7HnBT");
 
 			// SQL文作成 ユーザーIDを基に予定を検索する
 			String sql = "SELECT schedule_id, schedule, date FROM schedules WHERE user_id = ?;";
@@ -145,8 +145,8 @@ public class SchedulesDAO {
 
 			// データベースに接続
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "root",
-					"password");
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "a1",
+					"UA7T7B9jN2n7HnBT");
 
 			// SQL文作成
 			String sql = "INSERT INTO schedules (user_id, date, schedule) VALUES (?, ?, ?)";
@@ -194,8 +194,8 @@ public class SchedulesDAO {
 
 			// データベースに接続
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "root",
-					"password");
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "a1",
+					"UA7T7B9jN2n7HnBT");
 
 			// SQL文作成
 			String sql = "UPDATE schedules SET schedule = ? WHERE schedule_id = ?";
@@ -239,8 +239,8 @@ public class SchedulesDAO {
 
 			// データベースに接続
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?useSSL="
-					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "root",
-					"password");
+					+ "false&allowPublicKeyRetrieval=true&serverTimezone=Asia/" + "Tokyo&connectTimeout =30000", "a1",
+					"UA7T7B9jN2n7HnBT");
 
 			// SQL文作成
 			String sql = "DELETE FROM schedules WHERE schedule_id = ?";
