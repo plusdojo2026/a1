@@ -13,6 +13,6 @@ h1 {
 	display: block;
     width: 80px;              /* アイコンが大きすぎないようにサイズを固定 */
     height: auto;
-    margin: 12px auto;        /* アイコン単体で中央寄せ */
+    /*margin: 12px auto;*/        /* アイコン単体で中央寄せ */
 }
 
