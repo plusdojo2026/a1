@@ -51,7 +51,7 @@
 <c:forEach var="news" items="${newsList}">
 	<p>${news.subject}</p>
 	
-	<button class="modalOpen" data-title="お知らせのの編集" data-content1="${news.subject}" data-content2="${news.text}" data-content3="保存"  onclick="openModal('${news.text}','${news.subject}','${news.newsId }')">編集</button>
+	<button class="modalOpen" data-title="お知らせのの編集" data-content1="${news.subject}" data-content2="${news.text}" data-content3="保存"  onclick="openModal1('${news.text}','${news.subject}','${news.newsId }')">編集</button>
 
  <form action="" method="post" >
  <input type="hidden"   name="subject"  value="${news.subject}">
@@ -116,7 +116,7 @@
 <%-- <script src="${pageContext.request.contextPath}/js/modal.js"></script> --%>
  <script>
     // モーダル表示
-    function openModal(tx,subject,id) {
+    function openModal1(tx,subject,id) {
     	
     	document.getElementById("newsId").value=id;
     	document.getElementById("subject").value=subject;
@@ -126,7 +126,9 @@
         document.getElementById("modal").style.display = "block";
     }
     function openModal2() {
-    	
+    	document.getElementById("newsId").value="";
+    	document.getElementById("subject").value="";
+    	document.getElementById("text").value=""; 
     	document.getElementById("bt").value="登録";    	
     	
         document.getElementById("modal").style.display = "block";
