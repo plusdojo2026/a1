@@ -70,19 +70,19 @@ INSERT INTO users(mail,name,pass) VALUES('hikari@sample.com','相澤ヒカリ','
 --スタンプ
 INSERT INTO stamps(stamp_path) VALUES('flower.png');
 INSERT INTO stamps(stamp_path) VALUES('cycling.png');
-INSERT INTO stamps(stamp_path) VALUES('雲のスタンプ');
-INSERT INTO stamps(stamp_path) VALUES('鳥のスタンプ');
-INSERT INTO stamps(stamp_path) VALUES('音のスタンプ');
-INSERT INTO stamps(stamp_path) VALUES('影のスタンプ');
-INSERT INTO stamps(stamp_path) VALUES('ポスターのスタンプ');
+INSERT INTO stamps(stamp_path) VALUES('weather.png');
+INSERT INTO stamps(stamp_path) VALUES('meal.png');
+INSERT INTO stamps(stamp_path) VALUES('live.png');
+INSERT INTO stamps(stamp_path) VALUES('book.png');
+INSERT INTO stamps(stamp_path) VALUES('friend.png');
 --テーマ
 INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('お花',1,0);
-INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('自転車',２,１);
-INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('雲',2,0);
-INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('鳥',3,0);
-INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('音',4,0);
-INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('影',5,0);
-INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('ポスター',6,0);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('自転車',2,1);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('天気・空',3,0);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('食事',4,0);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('ライブ',5,1);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('本',6,0);
+INSERT INTO themes(theme,stamp_id,diary_flag) VALUES('身近な人',7,0);
 --ここから日記
 
 --発表日一年前のヒカリの日記
@@ -91,7 +91,7 @@ INSERT INTO diaries(user_id, date, weather_code, temp_min, temp_max, theme_id, s
 	     
 --ヒカリの日記
 INSERT INTO diaries(user_id, date, weather_code, temp_min, temp_max, theme_id, stamp_id, diary, satisfaction, image)
-	     VALUES(2, '2026-06-26',0, 18.1, 26.4, 2, 2,'今日は羊雲を見ました。アプリを通して新しいものを調べるきっかけになりました。',5,'雲の画像');
+	     VALUES(2, '2026-06-26',0, 18.1, 26.4, 3, 3,'今日は羊雲を見ました。アプリを通して新しいものを調べるきっかけになりました。',5,'雲の画像');
 --スケジュール
 INSERT INTO schedules(user_id,date,schedule) VALUES(2,'2026-06-12','外食');
 INSERT INTO schedules(user_id,date,schedule) VALUES(2,'2026-06-24','日帰り旅');
