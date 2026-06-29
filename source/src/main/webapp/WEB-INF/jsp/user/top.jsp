@@ -109,7 +109,7 @@
 	    		weatherImg.src = "${pageContext.request.contextPath}/img/cloudy.png";
 	    		break;
 	    	case 2:
-	    		weatherImg.src = "${pageContext.request.contextPath}/img/rainy.png";
+	    		weatherImg.src = "${pageContext.request.contextPath}/img/rain.png";
 	    		break;
 	    	case 3:
 	    		weatherImg.src = "${pageContext.request.contextPath}/img/snowy.png";
