@@ -26,7 +26,7 @@ public class UsersInfDAO {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
 					+ "useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/"
 					+ "Tokyo&connectTimeout=30000",
-					"root", "password");
+					"a1", "UA7T7B9jN2n7HnBT");
 			
 
 			String weathersql = "SELECT "
@@ -94,7 +94,7 @@ public class UsersInfDAO {
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a1?"
 						+ "useSSL= false&allowPublicKeyRetrieval=true&serverTimezone=Asia/"
 						+ "Tokyo&connectTimeout=30000",
-						"root", "password");
+						"a1", "UA7T7B9jN2n7HnBT");
 			
 		
 				String tempsql = "SELECT "
