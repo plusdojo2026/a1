@@ -9,11 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.StampsDAO;
 import dao.ThemesDAO;
 import model.Stamp;
 import model.Theme;
+import model.User;
 
 /**
  * Servlet implementation class AdminThemeServlet
@@ -32,6 +34,13 @@ public class AdminThemeServlet extends HttpServlet {
 			//response.sendRedirect("/a1/LoginServlet");
 			//return;
 	//	}
+		//未ログイン時、ログインサーブレットにリダイレクト
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("/a1/login");
+			return;
+		}
 		StampsDAO sDAO=new StampsDAO();
 	    List<Stamp> stampList = sDAO.selectAll();
 		request.setAttribute("stampList",stampList);
